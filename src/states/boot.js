@@ -1,9 +1,5 @@
 class Boot extends Phaser.State {
 
-    preload() {
-        this.load.image('preloader', 'assets/preloader.gif');
-    }
-
     create() {
         this.game.input.maxPointers = 1;
         this.game.scale.pageAlignHorizontally = true;
@@ -21,6 +17,7 @@ class Boot extends Phaser.State {
 
         this.initGlobalVariables();
 
+        console.log("Moving from boot");
         this.game.state.start('preloader');
     }
 
