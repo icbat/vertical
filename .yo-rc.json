@@ -1,0 +1,7 @@
+{
+  "generator-phaser": {
+    "projectName": "vertical",
+    "esVersion": 6,
+    "gameFolder": "game"
+  }
+}
