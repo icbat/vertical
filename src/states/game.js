@@ -18,19 +18,26 @@ class Game extends Phaser.State {
         this.game.time.events.loop(Phaser.Timer.SECOND * 2, this.spawnEnemy, this);
     }
 
-    movePlayer(click) {
-        if (click.worldX < this.game.world.centerX) {
-            this.player.targetX = 0 + this.player.width / 2;
-        } else {
-            this.player.targetX = this.world.width - this.player.width / 2;
-        }
-    }
-
     update() {
         if (this.obstacles.length > 0) {
             if (this.game.physics.arcade.overlap(this.player, this.obstacles[0])) {
                 this.endGame();
             }
+        }
+    }
+
+    render() {
+        // this.game.debug.body(this.player);
+        // for (let obstacle of this.obstacles) {
+        //     this.game.debug.body(obstacle);
+        // }
+    }
+
+    movePlayer(click) {
+        if (click.worldX < this.game.world.centerX) {
+            this.player.targetX = 0 + this.player.width / 2;
+        } else {
+            this.player.targetX = this.world.width - this.player.width / 2;
         }
     }
 
