@@ -1,13 +1,12 @@
-import Crosshairs from '../prefabs/crosshairs';
-import Target from '../prefabs/target';
+import Player from '../prefabs/player';
 
 class Game extends Phaser.State {
 
-    create() {
-        this.music = this.game.add.audio('music');
+    create(game) {
+        this.music = game.add.audio('music');
 
         //setup UI
-        this.scoreText = this.add.text(this.game.world.centerX, 0, '', {
+        this.scoreText = this.add.text(game.world.centerX, 0, '', {
             font: '40px Arial',
             fill: '#ffffff',
             align: 'center'
@@ -15,10 +14,9 @@ class Game extends Phaser.State {
         this.scoreText.anchor.set(0.5, 0);
 
         // //setup prefabs
-        // this.crosshairs = new Crosshairs(this.game);
-        // this.target = new Target(this.game, this.game.world.centerX, this.game.world.centerY);
-        // this.game.add.existing(this.crosshairs);
-        // this.game.add.existing(this.target);
+        this.player = new Player(game, game.world.centerX, game.world.centerY);
+        // this.target = new Target(game, game.world.centerX, game.world.centerY);
+        game.add.existing(this.player);
     }
 }
 
