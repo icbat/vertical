@@ -2,8 +2,8 @@
 class Player extends Phaser.Sprite {
 
     //initialization code in the constructor
-    constructor(game, x, y, frame) {
-        super(game, x, y, 'pixel', frame);
+    constructor(game, x, y) {
+        super(game, x, y, 'pixel');
         this.scale.setTo(64, 64);
         this.anchor.setTo(0.5, 0.5);
         this.targetX = game.world.centerX;

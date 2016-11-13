@@ -1,4 +1,5 @@
 import Player from '../prefabs/player';
+import Obstacle from '../prefabs/obstacle';
 
 class Game extends Phaser.State {
 
@@ -11,7 +12,7 @@ class Game extends Phaser.State {
         this.game.add.existing(this.player);
 
         this.game.input.onDown.add(this.movePlayer, this);
-        // this.game.time.events.loop(Phaser.Timer.SECOND * 1, this.spawnEnemy);
+        this.game.time.events.loop(Phaser.Timer.SECOND * 2, this.spawnEnemy, this);
     }
 
     movePlayer(click) {
@@ -20,6 +21,17 @@ class Game extends Phaser.State {
         } else {
             this.player.targetX = this.world.width - this.player.width / 2;
         }
+    }
+
+    spawnEnemy() {
+
+        this.game.add.existing(new Obstacle(this.game, this.pickColumn()));
+    }
+
+    pickColumn() {
+        let columnXvals = [0 + 32, this.game.world.centerX, this.game.world.width - 32];
+        return this.game.rnd.pick(columnXvals);
+
     }
 }
 
