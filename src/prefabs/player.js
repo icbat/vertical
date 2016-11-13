@@ -7,6 +7,7 @@ class Player extends Phaser.Sprite {
         this.scale.setTo(64, 64);
         this.anchor.setTo(0.5, 0.5);
         this.targetX = game.world.centerX;
+        game.physics.enable(this, Phaser.Physics.ARCADE);
     }
 
     //Load operations (uses Loader), method called first
