@@ -2,21 +2,24 @@ import Player from '../prefabs/player';
 
 class Game extends Phaser.State {
 
-    create(game) {
-        this.music = game.add.audio('music');
-
-        //setup UI
-        this.scoreText = this.add.text(game.world.centerX, 0, '', {
-            font: '40px Arial',
-            fill: '#ffffff',
-            align: 'center'
-        });
-        this.scoreText.anchor.set(0.5, 0);
+    create() {
+        this.music = this.game.add.audio('music');
+        // this.music.play();
 
         // //setup prefabs
-        this.player = new Player(game, game.world.centerX, game.world.centerY);
-        // this.target = new Target(game, game.world.centerX, game.world.centerY);
-        game.add.existing(this.player);
+        this.player = new Player(this.game, this.game.world.centerX, this.game.world.height - 300);
+        this.game.add.existing(this.player);
+
+        this.game.input.onDown.add(this.movePlayer, this);
+        // this.game.time.events.loop(Phaser.Timer.SECOND * 1, this.spawnEnemy);
+    }
+
+    movePlayer(click) {
+        if (click.worldX < this.game.world.centerX) {
+            this.player.targetX = 0 + this.player.width / 2;
+        } else {
+            this.player.targetX = this.world.width - this.player.width / 2;
+        }
     }
 }
 

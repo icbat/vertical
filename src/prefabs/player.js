@@ -6,6 +6,7 @@ class Player extends Phaser.Sprite {
         super(game, x, y, 'pixel', frame);
         this.scale.setTo(64, 64);
         this.anchor.setTo(0.5, 0.5);
+        this.targetX = game.world.centerX;
     }
 
     //Load operations (uses Loader), method called first
@@ -20,7 +21,7 @@ class Player extends Phaser.Sprite {
 
     //Code ran on each frame of game
     update() {
-
+        this.x += (this.targetX - this.x) * 0.1;
     }
 
     //Called when game is paused
