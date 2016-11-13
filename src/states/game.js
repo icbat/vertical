@@ -42,7 +42,8 @@ class Game extends Phaser.State {
     }
 
     spawnEnemy() {
-        let obstacle = new Obstacle(this.game, this.pickColumn());
+        let columnXvals = [0 + 32, this.game.world.centerX, this.game.world.width - 32];
+        let obstacle = new Obstacle(this.game, this.game.rnd.pick(columnXvals));
 
         this.obstacles.push(obstacle);
         obstacle.destroyed.addOnce(() => {
@@ -50,11 +51,6 @@ class Game extends Phaser.State {
         });
 
         this.game.add.existing(obstacle);
-    }
-
-    pickColumn() {
-        let columnXvals = [0 + 32, this.game.world.centerX, this.game.world.width - 32];
-        return this.game.rnd.pick(columnXvals);
     }
 
     endGame() {
