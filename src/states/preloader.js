@@ -6,7 +6,6 @@ class Preloader extends Phaser.State {
     }
 
     preload() {
-
         //Setup loading and its events
         this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
         this.loadResources();
