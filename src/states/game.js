@@ -19,15 +19,15 @@ class Game extends Phaser.State {
 
         this.player = new Player(this.game, this.game.world.centerX, this.game.world.height * 0.85);
         this.playerGhosts = [];
-        for (let i=0; i<5; ++i) {
+        for (let i = 0; i < 5; ++i) {
             this.game.add.existing(new Ghost(this.player, i));
         }
         this.game.add.existing(this.player);
 
-        this.obstacles = [];
-
         this.game.input.onDown.add(this.movePlayer, this);
-        this.game.time.events.loop(Phaser.Timer.SECOND * 2, this.spawnEnemy, this);
+
+        this.obstacles = [];
+        this.setupSpawnTimer(0);
     }
 
     update() {
@@ -49,6 +49,17 @@ class Game extends Phaser.State {
         this.music.stop();
     }
 
+    setupSpawnTimer(level) {
+        let timeToSpawn = Phaser.Timer.SECOND * 2 * Math.pow(1/2, Math.floor(level / 5));
+
+        let timer = this.game.time.create();
+        let event = timer.repeat(timeToSpawn, 10, this.spawnEnemy, this, level);
+        timer.onComplete.addOnce(() => {
+            this.setupSpawnTimer(++level);
+        });
+        timer.start();
+    }
+
     movePlayer(click) {
         if (click.worldX < this.game.world.centerX) {
             this.player.targetX = 0 + this.player.width / 2;
@@ -57,10 +68,10 @@ class Game extends Phaser.State {
         }
     }
 
-    spawnEnemy() {
+    spawnEnemy(level) {
         this.game.camera.shake(0.005, 100);
         let columnXvals = [0 + 32, this.game.world.centerX, this.game.world.width - 32];
-        let obstacle = new Obstacle(this.game, this.game.rnd.pick(columnXvals));
+        let obstacle = new Obstacle(this.game, this.game.rnd.pick(columnXvals), level);
 
         this.obstacles.push(obstacle);
         obstacle.destroyed.addOnce(() => {
