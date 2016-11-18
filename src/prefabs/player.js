@@ -22,6 +22,14 @@ class Player extends Phaser.Sprite {
         this.oldPositions.shift();
     }
 
+    move(click) {
+        if (click.worldX < this.columnXVals[this.col]) {
+            this.moveLeft();
+        } else {
+            this.moveRight();
+        }
+    }
+
     moveLeft() {
         this.guardedMoveCol(-1);
     }
@@ -40,7 +48,6 @@ class Player extends Phaser.Sprite {
         } else {
             this.col = result;
         }
-        console.log(this.col);
     }
 
 }

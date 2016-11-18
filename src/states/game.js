@@ -35,7 +35,7 @@ class Game extends Phaser.State {
         }
         this.game.add.existing(this.player);
 
-        this.game.input.onDown.add(this.movePlayer, this);
+        this.game.input.onDown.add(this.player.move, this.player);
 
         this.obstacles = [];
         this.setupSpawnTimer(0);
@@ -69,14 +69,6 @@ class Game extends Phaser.State {
             this.setupSpawnTimer(++level);
         });
         timer.start();
-    }
-
-    movePlayer(click) {
-        if (click.worldX < this.game.world.centerX) {
-            this.player.moveLeft();
-        } else {
-            this.player.moveRight();
-        }
     }
 
     spawnEnemy(level) {
