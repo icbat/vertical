@@ -7,7 +7,7 @@ class Game extends Phaser.State {
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
         this.music = this.game.add.audio('music');
-        // this.music.play();
+        this.music.play();
 
         this.player = new Player(this.game, this.game.world.centerX, this.game.world.height * 0.85);
         this.game.add.existing(this.player);
@@ -33,6 +33,9 @@ class Game extends Phaser.State {
         // }
     }
 
+    shutdown() {
+        this.music.stop();
+    }
     movePlayer(click) {
         if (click.worldX < this.game.world.centerX) {
             this.player.targetX = 0 + this.player.width / 2;
