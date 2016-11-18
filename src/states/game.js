@@ -18,6 +18,7 @@ class Game extends Phaser.State {
         this.game.add.existing(this.scoreText);
 
         this.columnXVals = [0 + 32, this.game.world.centerX, this.game.world.width - 32];
+        this.player = new Player(this.game, this.game.world.centerX, this.game.world.height * 0.85, this.columnXVals);
         this.playerGhosts = [];
         for (let i = 0; i < 5; ++i) {
             this.game.add.existing(new Ghost(this.player, i));

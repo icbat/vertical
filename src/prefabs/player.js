@@ -2,7 +2,7 @@
 class Player extends Phaser.Sprite {
 
     //initialization code in the constructor
-    constructor(game, x, y) {
+    constructor(game, x, y, columnXVals) {
         super(game, x, y, 'pixel');
         this.scale.setTo(64, 64);
         this.anchor.setTo(0.5, 0.5);
@@ -10,6 +10,8 @@ class Player extends Phaser.Sprite {
         this.targetX = game.world.centerX;
         game.physics.enable(this, Phaser.Physics.ARCADE);
         this.oldPositions = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+        this.columnXVals = columnXVals;
     }
 
     //Code ran on each frame of game
@@ -20,11 +22,11 @@ class Player extends Phaser.Sprite {
     }
 
     moveLeft() {
-        this.targetX = 0 + this.width / 2;
+        this.targetX = this.columnXVals[0];
     }
 
     moveRight() {
-        this.targetX = this.game.world.width - this.width / 2;
+        this.targetX = this.columnXVals[2];
     }
 
 }
