@@ -1,6 +1,7 @@
 import Player from '../prefabs/player';
 import Obstacle from '../prefabs/obstacle';
 import ScoreText from '../prefabs/scoreText';
+import Ghost from '../prefabs/ghost';
 
 class Game extends Phaser.State {
 
@@ -17,6 +18,10 @@ class Game extends Phaser.State {
         this.game.add.existing(this.player);
 
         this.player = new Player(this.game, this.game.world.centerX, this.game.world.height * 0.85);
+        this.playerGhosts = [];
+        for (let i=0; i<5; ++i) {
+            this.game.add.existing(new Ghost(this.player, i));
+        }
         this.game.add.existing(this.player);
 
         this.obstacles = [];

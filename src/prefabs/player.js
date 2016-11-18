@@ -8,36 +8,14 @@ class Player extends Phaser.Sprite {
         this.anchor.setTo(0.5, 0.5);
         this.targetX = game.world.centerX;
         game.physics.enable(this, Phaser.Physics.ARCADE);
-    }
-
-    //Load operations (uses Loader), method called first
-    preload() {
-
-    }
-
-    //Setup code, method called after preload
-    create() {
-
+        this.oldPositions = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     }
 
     //Code ran on each frame of game
     update() {
         this.x += (this.targetX - this.x) * 0.1;
-    }
-
-    //Called when game is paused
-    paused() {
-
-    }
-
-    //You're able to do any final post-processing style effects here.
-    render() {
-
-    }
-
-    //Called when switching to a new state
-    shutdown() {
-
+        this.oldPositions.push(this.x);
+        this.oldPositions.shift();
     }
 
 }
