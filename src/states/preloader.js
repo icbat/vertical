@@ -13,6 +13,7 @@ class Preloader extends Phaser.State {
 
     loadResources() {
         this.game.load.image('pixel', 'assets/pixel.png');
+        this.game.load.image('col-shadow', 'assets/col-shadow.png');
 
         this.game.load.audio('music', 'assets/EtherDisco.mp3');
         // this.game.load.audio('music2', 'assets/NowhereLand.mp3');
