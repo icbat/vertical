@@ -6,6 +6,7 @@ class Player extends Phaser.Sprite {
         super(game, x, y, 'pixel');
         this.scale.setTo(64, 64);
         this.anchor.setTo(0.5, 0.5);
+        this.tint = Phaser.Color.hexToRGB("#9b59b6");
         this.targetX = game.world.centerX;
         game.physics.enable(this, Phaser.Physics.ARCADE);
         this.oldPositions = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];

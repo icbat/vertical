@@ -6,6 +6,7 @@ class Obstacle extends Phaser.Sprite {
         super(game, x, -64, 'pixel');
         this.anchor.setTo(0.5, 0.5);
         this.scale.setTo(64, 64);
+        this.tint = Phaser.Color.hexToRGB("#c0392b");
         this.destroyed = new Phaser.Signal();
         game.physics.enable(this, Phaser.Physics.ARCADE);
     }
