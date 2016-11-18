@@ -36,6 +36,7 @@ class Game extends Phaser.State {
     shutdown() {
         this.music.stop();
     }
+
     movePlayer(click) {
         if (click.worldX < this.game.world.centerX) {
             this.player.targetX = 0 + this.player.width / 2;
@@ -45,6 +46,7 @@ class Game extends Phaser.State {
     }
 
     spawnEnemy() {
+        this.game.camera.shake(0.005, 100);
         let columnXvals = [0 + 32, this.game.world.centerX, this.game.world.width - 32];
         let obstacle = new Obstacle(this.game, this.game.rnd.pick(columnXvals));
 
