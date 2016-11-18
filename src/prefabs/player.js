@@ -24,18 +24,10 @@ class Player extends Phaser.Sprite {
 
     move(click) {
         if (click.worldX < this.columnXVals[this.col]) {
-            this.moveLeft();
+            this.guardedMoveCol(-1);
         } else {
-            this.moveRight();
+            this.guardedMoveCol(1);
         }
-    }
-
-    moveLeft() {
-        this.guardedMoveCol(-1);
-    }
-
-    moveRight() {
-        this.guardedMoveCol(1);
     }
 
     guardedMoveCol(movement) {
