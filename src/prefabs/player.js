@@ -11,7 +11,7 @@ class Player extends Phaser.Sprite {
         this.oldPositions = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
         this.columnXVals = columnXVals;
-        this.col = 1;
+        this.col = 2;
     }
 
     //Code ran on each frame of game
