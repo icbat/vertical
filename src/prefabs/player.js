@@ -7,26 +7,40 @@ class Player extends Phaser.Sprite {
         this.scale.setTo(playerSize, playerSize);
         this.anchor.setTo(0.5, 0.5);
         this.tint = Phaser.Color.hexToRGB("#9b59b6");
-        this.targetX = game.world.centerX;
         game.physics.enable(this, Phaser.Physics.ARCADE);
         this.oldPositions = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
         this.columnXVals = columnXVals;
+        this.col = 1;
     }
 
     //Code ran on each frame of game
     update() {
-        this.x += (this.targetX - this.x) * 0.1;
+        let targetX = this.columnXVals[this.col];
+        this.x += (targetX - this.x) * 0.1;
         this.oldPositions.push(this.x);
         this.oldPositions.shift();
     }
 
     moveLeft() {
-        this.targetX = this.columnXVals[0];
+        this.guardedMoveCol(-1);
     }
 
     moveRight() {
-        this.targetX = this.columnXVals[2];
+        this.guardedMoveCol(1);
+    }
+
+    guardedMoveCol(movement) {
+        let result = this.col += movement;
+
+        if (result < 0) {
+            this.col = 0;
+        } else if (result >= this.columnXVals.length) {
+            this.col = this.columnXVals.length - 1;
+        } else {
+            this.col = result;
+        }
+        console.log(this.col);
     }
 
 }
