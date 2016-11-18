@@ -2,9 +2,9 @@
 class Player extends Phaser.Sprite {
 
     //initialization code in the constructor
-    constructor(game, x, y, columnXVals) {
+    constructor(game, x, y, columnXVals, playerSize) {
         super(game, x, y, 'pixel');
-        this.scale.setTo(64, 64);
+        this.scale.setTo(playerSize, playerSize);
         this.anchor.setTo(0.5, 0.5);
         this.tint = Phaser.Color.hexToRGB("#9b59b6");
         this.targetX = game.world.centerX;
