@@ -1,5 +1,6 @@
 import Player from '../prefabs/player';
 import Obstacle from '../prefabs/obstacle';
+import ScoreText from '../prefabs/scoreText';
 
 class Game extends Phaser.State {
 
@@ -8,6 +9,12 @@ class Game extends Phaser.State {
 
         this.music = this.game.add.audio('music');
         this.music.play();
+
+        this.game.global = {
+            score: 0
+        };
+        this.player = new ScoreText(this.game, this.game.world.centerX, this.game.world.height * 0.15);
+        this.game.add.existing(this.player);
 
         this.player = new Player(this.game, this.game.world.centerX, this.game.world.height * 0.85);
         this.game.add.existing(this.player);
@@ -53,6 +60,7 @@ class Game extends Phaser.State {
         this.obstacles.push(obstacle);
         obstacle.destroyed.addOnce(() => {
             this.obstacles.shift();
+            this.game.global.score += 1;
         });
 
         this.game.add.existing(obstacle);

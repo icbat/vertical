@@ -14,16 +14,7 @@ class Boot extends Phaser.State {
             this.game.scale.forceOrientation(true);
         }
 
-        this.initGlobalVariables();
-
-        console.log("Moving from boot");
         this.game.state.start('preloader');
-    }
-
-    initGlobalVariables() {
-        this.game.global = {
-            score: 0
-        };
     }
 
 }

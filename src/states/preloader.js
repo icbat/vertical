@@ -15,11 +15,10 @@ class Preloader extends Phaser.State {
         this.game.load.image('pixel', 'assets/pixel.png');
 
         this.game.load.audio('music', 'assets/EtherDisco.mp3');
-        // this.game.load.audio('ding', 'assets/NowhereLand.mp3');
+        // this.game.load.audio('music2', 'assets/NowhereLand.mp3');
     }
 
     onLoadComplete() {
-        console.log("Moving from preloader");
         this.game.state.start('menu');
     }
 }
