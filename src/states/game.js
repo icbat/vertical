@@ -9,7 +9,7 @@ class Game extends Phaser.State {
         this.music = this.game.add.audio('music');
         // this.music.play();
 
-        this.player = new Player(this.game, this.game.world.centerX, this.game.world.height - 300);
+        this.player = new Player(this.game, this.game.world.centerX, this.game.world.height * 0.85);
         this.game.add.existing(this.player);
 
         this.obstacles = [];
