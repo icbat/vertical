@@ -14,17 +14,28 @@ class Game extends Phaser.State {
         this.game.global = {
             score: 0
         };
-        this.player = new ScoreText(this.game, this.game.world.centerX, this.game.world.height * 0.15);
-        this.game.add.existing(this.player);
+        this.scoreText = new ScoreText(this.game, this.game.world.centerX, this.game.world.height * 0.15);
+        this.game.add.existing(this.scoreText);
 
-        this.player = new Player(this.game, this.game.world.centerX, this.game.world.height * 0.85);
+        let playerSize = 64;
+        let playerY = this.game.world.height * 0.85;
+        this.columnXVals = [0 + playerSize / 2, this.game.world.centerX / 2 + playerSize / 4, this.game.world.centerX, this.game.world.centerX * 3 / 2 - playerSize / 4, this.game.world.width - playerSize / 2];
+
+        for (let colX of this.columnXVals) {
+            let colSprite = this.game.add.sprite(colX, playerY + playerSize, 'col-shadow');
+            colSprite.anchor.setTo(0.5, 0.5);
+            colSprite.scale.setTo(playerSize, 1);
+            colSprite.alpha = 0.5;
+        }
+
+        this.player = new Player(this.game, this.game.world.centerX, playerY, this.columnXVals, playerSize);
         this.playerGhosts = [];
         for (let i = 0; i < 5; ++i) {
             this.game.add.existing(new Ghost(this.player, i));
         }
         this.game.add.existing(this.player);
 
-        this.game.input.onDown.add(this.movePlayer, this);
+        this.game.input.onDown.add(this.player.move, this.player);
 
         this.obstacles = [];
         this.setupSpawnTimer(0);
@@ -60,18 +71,9 @@ class Game extends Phaser.State {
         timer.start();
     }
 
-    movePlayer(click) {
-        if (click.worldX < this.game.world.centerX) {
-            this.player.targetX = 0 + this.player.width / 2;
-        } else {
-            this.player.targetX = this.world.width - this.player.width / 2;
-        }
-    }
-
     spawnEnemy(level) {
         this.game.camera.shake(0.005, 100);
-        let columnXvals = [0 + 32, this.game.world.centerX, this.game.world.width - 32];
-        let obstacle = new Obstacle(this.game, this.game.rnd.pick(columnXvals), level);
+        let obstacle = new Obstacle(this.game, this.game.rnd.pick(this.columnXVals), level);
 
         this.obstacles.push(obstacle);
         obstacle.destroyed.addOnce(() => {
