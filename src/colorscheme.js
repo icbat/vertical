@@ -3,6 +3,7 @@ let colorscheme = {
     player: "#9b59b6",
     obstacleStopAndGo: "#e67e22",
     obstacleSpeeder: "#16a085",
+    obstacleSwapper: "#e74c3c",
     obstacleStandard: "#c0392b"
 };
 
