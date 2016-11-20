@@ -3,7 +3,7 @@ import colorscheme from '../colorscheme';
 class ObstacleStopAndGo extends Phaser.Sprite {
 
     constructor(game, x, level) {
-        super(game, x, -64, 'pixel');
+        super(game, x, -32, 'pixel');
         this.anchor.setTo(0.5, 0.5);
         this.scale.setTo(64, 64);
         this.tint = Phaser.Color.hexToRGB(colorscheme.obstacleStopAndGo);
