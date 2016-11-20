@@ -1,7 +1,7 @@
 import Player from '../prefabs/player';
-import Obstacle from '../prefabs/obstacle';
 import ScoreText from '../prefabs/scoreText';
 import Ghost from '../prefabs/ghost';
+import Spawner from '../spawner';
 
 class Game extends Phaser.State {
 
@@ -38,6 +38,7 @@ class Game extends Phaser.State {
         this.game.input.onDown.add(this.player.move, this.player);
 
         this.obstacles = [];
+        this.spawner = new Spawner();
         this.setupSpawnTimer(0);
     }
 
@@ -64,24 +65,11 @@ class Game extends Phaser.State {
         let timeToSpawn = Phaser.Timer.SECOND * 2 * Math.pow(1 / 2, Math.floor(level / 5));
 
         this.spawnTimer = this.game.time.create();
-        let event = this.spawnTimer.repeat(timeToSpawn, 10, this.spawnEnemy, this, level);
+        let event = this.spawnTimer.repeat(timeToSpawn, 10, this.spawner.spawn, this, level);
         this.spawnTimer.onComplete.addOnce(() => {
             this.setupSpawnTimer(++level);
         });
         this.spawnTimer.start();
-    }
-
-    spawnEnemy(level) {
-        this.game.camera.shake(0.005, 100);
-        let obstacle = new Obstacle(this.game, this.game.rnd.pick(this.columnXVals), level);
-
-        this.obstacles.push(obstacle);
-        obstacle.destroyed.addOnce(() => {
-            this.obstacles.shift();
-            this.game.global.score += 1;
-        });
-
-        this.game.add.existing(obstacle);
     }
 
     endGame() {
