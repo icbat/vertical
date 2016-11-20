@@ -20,8 +20,7 @@ class Spawner {
                 obstacle = new ObstacleStopAndGo(this.game, column, level);
             } else if (spawnSeed < 0.2) {
                 obstacle = new ObstacleSpeeder(this.game, column, level);
-            // } else if (spawnSeed < 0.3) {
-            } else if (spawnSeed < 0.9) {
+            } else if (spawnSeed < 0.3) {
                 obstacle = new ObstacleSwapper(this.game, column, level, this.columnXVals, columns);
             } else {
                 obstacle = new Obstacle(this.game, column, level);

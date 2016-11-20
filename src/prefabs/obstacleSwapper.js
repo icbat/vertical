@@ -1,6 +1,6 @@
 import colorscheme from '../colorscheme';
 
-class Obstacle extends Phaser.Sprite {
+class ObstacleSwapper extends Phaser.Sprite {
 
     constructor(game, x, level, possibleColumns, myWaveColumns) {
         super(game, x, -64, 'pixel');
@@ -60,4 +60,4 @@ class Obstacle extends Phaser.Sprite {
     }
 }
 
-export default Obstacle;
+export default ObstacleSwapper;
