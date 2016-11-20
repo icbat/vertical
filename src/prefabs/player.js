@@ -19,6 +19,14 @@ class Player extends Phaser.Sprite {
         this.oldPositions.shift();
     }
 
+    moveLeft() {
+        this.targetX = 0 + this.width / 2;
+    }
+
+    moveRight() {
+        this.targetX = this.game.world.width - this.width / 2;
+    }
+
 }
 
 export default Player;

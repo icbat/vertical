@@ -64,10 +64,8 @@ class Game extends Phaser.State {
     movePlayer(click) {
         if (click.worldX < this.game.world.centerX) {
             this.player.moveLeft();
-            this.player.targetX = 0 + this.player.width / 2;
         } else {
             this.player.moveRight();
-            this.player.targetX = this.world.width - this.player.width / 2;
         }
     }
 
