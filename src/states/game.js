@@ -14,6 +14,7 @@ class Game extends Phaser.State {
         this.game.global = {
             score: 0
         };
+        this.columnXvals = [0 + 32, this.game.world.centerX, this.game.world.width - 32];
         this.player = new ScoreText(this.game, this.game.world.centerX, this.game.world.height * 0.15);
         this.game.add.existing(this.player);
 
@@ -62,16 +63,17 @@ class Game extends Phaser.State {
 
     movePlayer(click) {
         if (click.worldX < this.game.world.centerX) {
+            this.player.moveLeft();
             this.player.targetX = 0 + this.player.width / 2;
         } else {
+            this.player.moveRight();
             this.player.targetX = this.world.width - this.player.width / 2;
         }
     }
 
     spawnEnemy(level) {
         this.game.camera.shake(0.005, 100);
-        let columnXvals = [0 + 32, this.game.world.centerX, this.game.world.width - 32];
-        let obstacle = new Obstacle(this.game, this.game.rnd.pick(columnXvals), level);
+        let obstacle = new Obstacle(this.game, this.game.rnd.pick(this.columnXvals), level);
 
         this.obstacles.push(obstacle);
         obstacle.destroyed.addOnce(() => {
