@@ -2,7 +2,7 @@ import Obstacle from './prefabs/obstacle';
 
 class Spawner {
 
-    // this will be states.game, because that's the context passed to the callback
+    // 'this' will be states.game, because that's the context passed to the callback
     spawn(level) {
         this.game.camera.shake(0.005, 100);
         let numberToSpawn = this.game.rnd.integerInRange(1, this.columnXVals.length - 2);
