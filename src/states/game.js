@@ -61,14 +61,14 @@ class Game extends Phaser.State {
     }
 
     setupSpawnTimer(level) {
-        let timeToSpawn = Phaser.Timer.SECOND * 2 * Math.pow(1/2, Math.floor(level / 5));
+        let timeToSpawn = Phaser.Timer.SECOND * 2 * Math.pow(1 / 2, Math.floor(level / 5));
 
-        let timer = this.game.time.create();
-        let event = timer.repeat(timeToSpawn, 10, this.spawnEnemy, this, level);
-        timer.onComplete.addOnce(() => {
+        this.spawnTimer = this.game.time.create();
+        let event = this.spawnTimer.repeat(timeToSpawn, 10, this.spawnEnemy, this, level);
+        this.spawnTimer.onComplete.addOnce(() => {
             this.setupSpawnTimer(++level);
         });
-        timer.start();
+        this.spawnTimer.start();
     }
 
     spawnEnemy(level) {
@@ -85,7 +85,17 @@ class Game extends Phaser.State {
     }
 
     endGame() {
-        this.game.state.start("menu");
+        this.spawnTimer.stop();
+        this.game.input.onDown.removeAll();
+
+        this.game.time.slowMotion = 5;
+        let timer = this.game.time.create();
+        let event = timer.add(Phaser.Timer.SECOND * 2, () => {
+            console.log("finsihed");
+            this.game.time.slowMotion = 1;
+            this.game.state.start("menu");
+        }, this);
+        timer.start();
     }
 }
 
