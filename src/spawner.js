@@ -4,10 +4,15 @@ class Spawner {
 
     // 'this' will be states.game, because that's the context passed to the callback
     spawn(level) {
+
         this.game.camera.shake(0.005, 100);
-        let numberToSpawn = this.game.rnd.integerInRange(1, this.columnXVals.length - 2);
-        for (let i = 0; i < numberToSpawn; ++i) {
-            let obstacle = new Obstacle(this.game, this.game.rnd.pick(this.columnXVals), level);
+        let numberToSpawn = this.game.rnd.integerInRange(1, this.columnXVals.length - 1);
+        let columnVals = Phaser.ArrayUtils.shuffle(this.columnXVals.slice());
+        let columns = columnVals.slice(0, numberToSpawn);
+
+        console.log(columns);
+        for (let column of columns) {
+            let obstacle = new Obstacle(this.game, column, level);
 
             this.obstacles.push(obstacle);
             obstacle.destroyed.addOnce(() => {
