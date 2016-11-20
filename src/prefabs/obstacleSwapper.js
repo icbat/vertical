@@ -41,18 +41,15 @@ class Obstacle extends Phaser.Sprite {
         }
 
         let left = possibleColumns[Math.max(myIndex - 1, 0)];
-        let right = possibleColumns[Math.min(myIndex + 1, possibleColumns.length -1)];
+        let right = possibleColumns[Math.min(myIndex + 1, possibleColumns.length - 1)];
         let possibleSwaps = Phaser.ArrayUtils.shuffle([left, right]);
 
         for (let possiblePosition of possibleSwaps) {
             let viable = true;
-            if (possiblePosition === myX) {
-                viable = false;
-            } else {
-                for (let neighbors of myWaveColumns) {
-                    if (neighbors === possiblePosition) {
-                        viable = false;
-                    }
+
+            for (let neighbors of myWaveColumns) {
+                if (neighbors === possiblePosition) {
+                    viable = false;
                 }
             }
             if (viable) {
