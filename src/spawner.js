@@ -1,5 +1,6 @@
 import Obstacle from './prefabs/obstacle';
 import ObstacleStopAndGo from './prefabs/obstacleStopAndGo';
+import ObstacleSpeeder from './prefabs/obstacleSpeeder';
 
 class Spawner {
 
@@ -14,8 +15,11 @@ class Spawner {
         console.log(columns);
         for (let column of columns) {
             let obstacle;
-            if (Math.random() < 0.1) {
+            let spawnSeed = Math.random();
+            if (spawnSeed < 0.1) {
                 obstacle = new ObstacleStopAndGo(this.game, column, level);
+            } else if (spawnSeed < 0.2) {
+                obstacle = new ObstacleSpeeder(this.game, column, level);
             } else {
                 obstacle = new Obstacle(this.game, column, level);
             }
