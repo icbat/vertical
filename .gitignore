@@ -3,8 +3,6 @@
 build/
 node_modules/
 
-assets/
-
 cordova/hooks
 cordova/platforms
 cordova/plugins
