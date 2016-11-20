@@ -8,7 +8,7 @@ class Player extends Phaser.Sprite {
         this.anchor.setTo(0.5, 0.5);
         this.tint = Phaser.Color.hexToRGB("#9b59b6");
         game.physics.enable(this, Phaser.Physics.ARCADE);
-        this.oldPositions = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        this.oldPositions = Array(10).fill(this.x);
 
         this.columnXVals = columnXVals;
         this.col = 2;
