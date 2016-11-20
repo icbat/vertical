@@ -10,10 +10,15 @@ class ObstacleStopAndGo extends Phaser.Sprite {
         this.destroyed = new Phaser.Signal();
         game.physics.enable(this, Phaser.Physics.ARCADE);
         this.speed = 5 + level;
+        this.timeSpent = 0;
     }
 
     update() {
-        this.y += this.speed;
+        this.timeSpent += this.game.time.physicsElapsed;
+
+        if (this.timeSpent < 1 || this.timeSpent > 2) {
+            this.y += this.speed;
+        }
         if (this.y - this.height > this.game.world.height) {
             this.destroyed.dispatch();
             this.destroy();
