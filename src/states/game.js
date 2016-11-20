@@ -43,8 +43,8 @@ class Game extends Phaser.State {
     }
 
     update() {
-        if (this.obstacles.length > 0) {
-            if (this.game.physics.arcade.overlap(this.player, this.obstacles[0])) {
+        for (let obstacle of this.obstacles) {
+            if (this.game.physics.arcade.overlap(this.player, obstacle)) {
                 this.endGame();
             }
         }
@@ -79,7 +79,6 @@ class Game extends Phaser.State {
         this.game.time.slowMotion = 5;
         let timer = this.game.time.create();
         let event = timer.add(Phaser.Timer.SECOND * 2, () => {
-            console.log("finsihed");
             this.game.time.slowMotion = 1;
             this.game.state.start("menu");
         }, this);
