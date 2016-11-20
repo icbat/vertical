@@ -1,6 +1,5 @@
 import Player from '../prefabs/player';
 import ScoreText from '../prefabs/scoreText';
-import Ghost from '../prefabs/ghost';
 import Spawner from '../spawner';
 
 class Game extends Phaser.State {
@@ -29,10 +28,6 @@ class Game extends Phaser.State {
         }
 
         this.player = new Player(this.game, this.game.world.centerX, playerY, this.columnXVals, playerSize);
-        this.playerGhosts = [];
-        for (let i = 0; i < 5; ++i) {
-            this.game.add.existing(new Ghost(this.player, i));
-        }
         this.game.add.existing(this.player);
 
         this.game.input.onDown.add(this.player.move, this.player);

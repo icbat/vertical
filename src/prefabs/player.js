@@ -1,3 +1,5 @@
+import Ghost from './ghost';
+
 //Documentation for Phaser's (2.5.0) states:: phaser.io/docs/2.5.0/Phaser.State.html
 class Player extends Phaser.Sprite {
 
@@ -12,6 +14,10 @@ class Player extends Phaser.Sprite {
 
         this.columnXVals = columnXVals;
         this.col = 2;
+
+        for (let i = 0; i < 5; ++i) {
+            this.game.add.existing(new Ghost(this, i));
+        }
     }
 
     //Code ran on each frame of game
