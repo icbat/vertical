@@ -86,6 +86,8 @@ class Game extends Phaser.State {
 
     endGame() {
         this.spawnTimer.stop();
+        this.game.input.onDown.removeAll();
+
         this.game.time.slowMotion = 5;
         let timer = this.game.time.create();
         let event = timer.add(Phaser.Timer.SECOND * 2, () => {
