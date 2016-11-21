@@ -43,6 +43,7 @@ class Game extends Phaser.State {
         for (let obstacle of this.obstacles) {
             if (this.game.physics.arcade.overlap(this.player, obstacle)) {
                 this.endGame();
+                break;
             }
         }
     }
