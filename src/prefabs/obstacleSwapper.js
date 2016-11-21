@@ -1,15 +1,11 @@
 import colorscheme from '../colorscheme';
+import Obstacle from './obstacle';
 
-class ObstacleSwapper extends Phaser.Sprite {
+class ObstacleSwapper extends Obstacle {
 
     constructor(game, x, level, possibleColumns, myWaveColumns) {
-        super(game, x, -32, 'pixel');
-        this.anchor.setTo(0.5, 0.5);
-        this.scale.setTo(64, 64);
+        super(game, x, level);
         this.tint = Phaser.Color.hexToRGB(colorscheme.obstacleSwapper);
-        this.destroyed = new Phaser.Signal();
-        game.physics.enable(this, Phaser.Physics.ARCADE);
-        this.speed = 5 + level;
 
         let targetX = this.findOpenNeighborLane(possibleColumns, myWaveColumns, x);
         if (!!targetX) {
@@ -22,14 +18,10 @@ class ObstacleSwapper extends Phaser.Sprite {
     }
 
     update() {
-        this.y += this.speed;
         if (!!this.targetX) {
             this.x += (this.targetX - this.x) * 0.1;
         }
-        if (this.y - this.height > this.game.world.height) {
-            this.destroyed.dispatch();
-            this.destroy();
-        }
+        super.update();
     }
 
     findOpenNeighborLane(possibleColumns, myWaveColumns, myX) {
