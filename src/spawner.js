@@ -6,12 +6,16 @@ import ObstacleSwapper from './prefabs/obstacleSwapper';
 class Spawner {
 
     // 'this' will be states.game, because that's the context passed to the callback
-    spawn(level) {
-
+    spawn(level, player) {
         this.game.camera.shake(0.005, 100);
         let numberToSpawn = this.game.rnd.integerInRange(1, this.columnXVals.length - 1);
-        let columnVals = Phaser.ArrayUtils.shuffle(this.columnXVals.slice());
-        let columns = columnVals.slice(0, numberToSpawn);
+        let columnVals = new Phaser.ArraySet();
+        columnVals.add(this.columnXVals[player.col]);
+        let shuffledOriginals = Phaser.ArrayUtils.shuffle(this.columnXVals.slice());
+        for (let column of shuffledOriginals) {
+            columnVals.add(column);
+        }
+        let columns = columnVals.list.slice(0, numberToSpawn);
 
         for (let column of columns) {
             let obstacle;
