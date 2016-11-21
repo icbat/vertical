@@ -35,6 +35,7 @@
 class Analytics {
     constructor() {
         this.uuid = this.getUUID();
+        this.url = "https://vertical-game-stats.herokuapp.com/";
     }
 
     getUUID() {
@@ -47,7 +48,10 @@ class Analytics {
     }
 
     reportLaunch() {
-      console.log("reporting a launch, probably");
+        console.log("reporting a launch, probably", this.uuid);
+        $.post(this.url + "launch", JSON.stringify({
+            "uuid": this.uuid
+        }), null, "json");
     }
 
 };
