@@ -9,6 +9,10 @@ class Menu extends Phaser.State {
         text.events.onInputDown.add(() => {
             this.game.state.start('game');
         });
+
+        let baseDhsText = "Global High Score Today: ";
+        let dailyHighScore = this.game.add.text(32, this.game.world.centerY + 32, baseDhsText + "???");
+        this.game.analytics.populateWithDailyHighScore(dailyHighScore, baseDhsText);
     }
 }
 
