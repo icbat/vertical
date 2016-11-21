@@ -5,10 +5,10 @@ class ObstacleSwapper extends Obstacle {
 
     constructor(game, x, level, possibleColumns, myWaveColumns) {
         super(game, x, level);
-        this.tint = Phaser.Color.hexToRGB(colorscheme.obstacleSwapper);
 
         let targetX = this.findOpenNeighborLane(possibleColumns, myWaveColumns, x);
         if (!!targetX) {
+            this.tint = Phaser.Color.hexToRGB(colorscheme.obstacleSwapper);
             this.specialMove = () => {
                 this.targetX = targetX;
             };
