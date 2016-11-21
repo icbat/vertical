@@ -54,6 +54,15 @@ class Analytics {
         }), null, "json");
     }
 
+    reportGameStart() {
+        console.log("reporting a started game, probably", this.uuid);
+        $.post(this.url + "gameStart", JSON.stringify({
+            "uuid": this.uuid
+        }), null, "json");
+    }
+
+
+
 };
 
 
