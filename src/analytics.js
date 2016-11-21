@@ -14,7 +14,7 @@ class Analytics {
     }
 
     reportLaunch() {
-        this.report("launch")
+        this.report("launch");
     }
 
     reportGameStart() {
@@ -29,10 +29,9 @@ class Analytics {
       let payload = object || {};
       payload.uuid = this.uuid;
       console.log("reporting to ", endpoint, payload);
-      $.post(this.url + "endpoint", JSON.stringify(payload), null, "json");
+      $.post(this.url + endpoint, JSON.stringify(payload), null, "json");
     }
 
-};
-
+}
 
 export default Analytics;
