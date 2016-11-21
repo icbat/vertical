@@ -1,25 +1,32 @@
-//Documentation for Phaser's (2.5.0) states:: phaser.io/docs/2.5.0/Phaser.State.html
+import colorscheme from '../colorscheme';
+
 class Obstacle extends Phaser.Sprite {
 
-    //initialization code in the constructor
     constructor(game, x, level) {
-        super(game, x, -64, 'pixel');
+        super(game, x, -32, 'pixel');
         this.anchor.setTo(0.5, 0.5);
         this.scale.setTo(64, 64);
-        this.tint = Phaser.Color.hexToRGB("#c0392b");
         this.destroyed = new Phaser.Signal();
         game.physics.enable(this, Phaser.Physics.ARCADE);
         this.speed = 5 + level;
+        this.specialMoveTrigger = this.game.world.height * 0.3;
+
+        this.tint = Phaser.Color.hexToRGB(colorscheme.obstacleStandard);
     }
 
-    //Code ran on each frame of game
     update() {
         this.y += this.speed;
+        if (this.specialMoveTrigger <= this.y && this.specialMoveTrigger > this.y - this.speed) {
+            this.specialMove();
+        }
         if (this.y - this.height > this.game.world.height) {
             this.destroyed.dispatch();
             this.destroy();
         }
     }
+
+    // None here, override this in children
+    specialMove() {}
 }
 
 export default Obstacle;
