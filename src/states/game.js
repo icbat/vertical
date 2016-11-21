@@ -80,6 +80,8 @@ class Game extends Phaser.State {
             this.game.time.slowMotion = 1;
             this.game.state.start("menu");
             this.game.analytics.reportScore(this.game.global.score);
+            let highScore = localStorage.getItem('vertical-highScore') || 0;
+            localStorage.setItem('vertical-highScore', Math.max(this.game.global.score, highScore));
         }, this);
         timer.start();
     }
