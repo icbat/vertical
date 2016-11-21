@@ -1,37 +1,3 @@
-//
-// var api = {
-//     url: "https://square-squared-stats.herokuapp.com/",
-//     uuid: getUUID()
-// };
-//
-// api.postToApi = function(endpoint, payload) {
-//     console.log("Sending packet to " + endpoint);
-//     $.post(api.url + endpoint, payload, null, "json");
-// };
-//
-// api.report = {
-//     launch: function() {
-//         api.postToApi("launch", JSON.stringify({
-//             "uuid": api.uuid
-//         }));
-//     },
-//     gameStart: function() {
-//         api.postToApi("gameStart", JSON.stringify({
-//             "uuid": api.uuid
-//         }));
-//     },
-//     score: function(score) {
-//         api.postToApi("score", JSON.stringify({
-//             "uuid": api.uuid,
-//             "score": score
-//         }));
-//     }
-// };
-//
-// $( document ).ajaxError(function(event, request, settings) {
-//   console.error("Ajax thingy FAILED", event, request, settings);
-// });
-
 class Analytics {
     constructor() {
         this.uuid = this.getUUID();
@@ -48,20 +14,23 @@ class Analytics {
     }
 
     reportLaunch() {
-        console.log("reporting a launch, probably", this.uuid);
-        $.post(this.url + "launch", JSON.stringify({
-            "uuid": this.uuid
-        }), null, "json");
+        this.report("launch")
     }
 
     reportGameStart() {
-        console.log("reporting a started game, probably", this.uuid);
-        $.post(this.url + "gameStart", JSON.stringify({
-            "uuid": this.uuid
-        }), null, "json");
+        this.report("gameStart");
     }
 
+    reportScore(score) {
+      this.report("score", {"score": score});
+    }
 
+    report(endpoint, object) {
+      let payload = object || {};
+      payload.uuid = this.uuid;
+      console.log("reporting to ", endpoint, payload);
+      $.post(this.url + "endpoint", JSON.stringify(payload), null, "json");
+    }
 
 };
 
