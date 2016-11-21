@@ -35,6 +35,8 @@ class Game extends Phaser.State {
         this.obstacles = [];
         this.spawner = new Spawner();
         this.setupSpawnTimer(0);
+
+        this.game.analytics.reportGameStart();
     }
 
     update() {
@@ -76,6 +78,7 @@ class Game extends Phaser.State {
         let event = timer.add(Phaser.Timer.SECOND * 2, () => {
             this.game.time.slowMotion = 1;
             this.game.state.start("menu");
+            this.game.analytics.reportScore(this.game.global.score);
         }, this);
         timer.start();
     }

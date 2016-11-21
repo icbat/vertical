@@ -39,7 +39,7 @@
         <splash src="assets/android/splash/xxxhdpi.png" density="port-xxhdpi"/>
         <splash src="assets/android/splash/xxxhdpi.png" density="port-xxxhdpi"/> -->
     </platform>
-    <!-- <allow-navigation href="https://square-squared-stats.herokuapp.com/launch"/>
-    <allow-navigation href="https://square-squared-stats.herokuapp.com/gameStart"/>
-    <allow-navigation href="https://square-squared-stats.herokuapp.com/score"/> -->
+    <allow-navigation href="https://vertical-game-stats.herokuapp.com/launch"/>
+    <allow-navigation href="https://vertical-game-stats.herokuapp.com/gameStart"/>
+    <allow-navigation href="https://vertical-game-stats.herokuapp.com/score"/>
 </widget>
