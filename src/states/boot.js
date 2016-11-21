@@ -1,4 +1,11 @@
+import Analytics from '../analytics'
+
 class Boot extends Phaser.State {
+
+    init() {
+        this.game.analytics = new Analytics();
+        this.game.analytics.reportLaunch();
+    }
 
     create() {
         this.game.input.maxPointers = 1;
