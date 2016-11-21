@@ -9,11 +9,9 @@ class ObstacleSwapper extends Obstacle {
 
         let targetX = this.findOpenNeighborLane(possibleColumns, myWaveColumns, x);
         if (!!targetX) {
-            let timer = this.game.time.create();
-            let event = timer.add(Phaser.Timer.SECOND * 0.5, (targetX) => {
+            this.specialMove = () => {
                 this.targetX = targetX;
-            }, this, targetX);
-            timer.start();
+            };
         }
     }
 
