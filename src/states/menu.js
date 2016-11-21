@@ -11,7 +11,7 @@ class Menu extends Phaser.State {
         });
 
         let baseDhsText = "Global High Score Today: ";
-        let dailyHighScore = this.game.add.text(32, this.game.world.centerY + 32, baseDhsText + "???");
+        let dailyHighScore = this.game.add.text(32, 32, baseDhsText + "???");
         this.game.analytics.populateWithDailyHighScore(dailyHighScore, baseDhsText);
     }
 }
