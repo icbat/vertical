@@ -5,10 +5,10 @@ class Analytics {
     }
 
     getUUID() {
-        var uuid = localStorage.getItem('squareSquared-uuid');
+        var uuid = localStorage.getItem('vertical-uuid');
         if (!uuid) {
             uuid = new Phaser.RandomDataGenerator([Date.now()]).uuid();
-            localStorage.setItem('squareSquared-uuid', uuid);
+            localStorage.setItem('vertical-uuid', uuid);
         }
         return uuid;
     }
@@ -22,14 +22,26 @@ class Analytics {
     }
 
     reportScore(score) {
-      this.report("score", {"score": score});
+        this.report("score", {
+            "score": score
+        });
+    }
+
+    populateWithDailyHighScore(textObject, baseText) {
+        $.getJSON(this.url + "score/today", (data) => {
+            let dailyHighScore = 0;
+            for (let scoreObject of data.data) {
+                dailyHighScore = Math.max(dailyHighScore, scoreObject.score);
+            }
+            textObject.text = baseText + dailyHighScore;
+        });
     }
 
     report(endpoint, object) {
-      let payload = object || {};
-      payload.uuid = this.uuid;
-      console.log("reporting to ", endpoint, payload);
-      $.post(this.url + endpoint, JSON.stringify(payload), null, "json");
+        let payload = object || {};
+        payload.uuid = this.uuid;
+        console.log("reporting to ", endpoint, payload);
+        $.post(this.url + endpoint, JSON.stringify(payload), null, "json");
     }
 
 }
