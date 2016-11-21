@@ -5,10 +5,10 @@ class Analytics {
     }
 
     getUUID() {
-        var uuid = localStorage.getItem('squareSquared-uuid');
+        var uuid = localStorage.getItem('vertical-uuid');
         if (!uuid) {
             uuid = new Phaser.RandomDataGenerator([Date.now()]).uuid();
-            localStorage.setItem('squareSquared-uuid', uuid);
+            localStorage.setItem('vertical-uuid', uuid);
         }
         return uuid;
     }
