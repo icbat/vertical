@@ -27,7 +27,7 @@ class Player extends Phaser.Sprite {
     }
 
     move(click) {
-        if (click.worldX < this.columnXVals[this.col]) {
+        if (click.worldX < this.game.world.centerX) {
             this.guardedMoveCol(-1);
         } else {
             this.guardedMoveCol(1);
