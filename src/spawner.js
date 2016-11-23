@@ -5,9 +5,8 @@ import ObstacleSwapper from './prefabs/obstacleSwapper';
 
 class Spawner {
 
-    constructor(game, player, columns) {
+    constructor(game, columns) {
         this.game = game;
-        this.player = player;
         this.columns = columns;
         this.obstacles = [];
         this.spawnPool = [];
@@ -18,22 +17,20 @@ class Spawner {
         this.spawnPool.push(this.poolByType(ObstacleSwapper, columns, game));
     }
 
-    poolByType(type, columns, game) {
+    poolByType(Type, columns, game) {
         let pool = [];
         for (let column of columns) {
-            let obstacle = new type(game, column, 0);
+            let obstacle = new Type(game, column, 0);
             pool.push(obstacle);
             game.add.existing(obstacle);
         }
         return pool;
     }
 
-    spawn(level) {
-        this.game.camera.shake(0.005, 100);
-        let numberToSpawn = this.game.rnd.integerInRange(1, this.columns.length - 1);
-        let columnVals = new Phaser.ArraySet();
-        columnVals.add(this.columns[this.player.col]);
+    spawn(level, numberToSpawn, player) {
         let shuffledOriginals = Phaser.ArrayUtils.shuffle(this.columns.slice());
+        let columnVals = new Phaser.ArraySet();
+        columnVals.add(this.columns[player.col]);
         for (let column of shuffledOriginals) {
             columnVals.add(column);
         }
