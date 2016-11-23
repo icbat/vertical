@@ -9,9 +9,8 @@ class Obstacle extends Phaser.Sprite {
         this.destroyed = new Phaser.Signal();
         game.physics.enable(this, Phaser.Physics.ARCADE);
         this.specialMoveTrigger = this.game.world.height * 0.3;
-
+        this.baseSpeed = 300;
         this.player = player;
-        this.initialSpeed = 300;
         this.initialY = this.y;
         this.alive = false;
 
@@ -21,7 +20,8 @@ class Obstacle extends Phaser.Sprite {
 
     // unused params are only used by children, they're here for documentation
     activate(level, index, indices, columns) {
-        this.body.velocity.y = this.initialSpeed + level * 25;
+        this.body.velocity.y = this.baseSpeed + level * 25;
+        this.initialSpeed = this.body.velocity.y;
         this.update = this.onUpdate;
         this.alive = true;
     }
