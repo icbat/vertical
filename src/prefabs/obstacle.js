@@ -18,8 +18,8 @@ class Obstacle extends Phaser.Sprite {
         this.tint = Phaser.Color.hexToRGB(tint);
     }
 
-    shouldUpdate() {
-        this.body.velocity.y = this.initialSpeed;
+    activate(level) {
+        this.body.velocity.y = this.initialSpeed + level * 25;
         this.update = this.onUpdate;
     }
 
