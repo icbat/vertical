@@ -15,7 +15,7 @@ class Obstacle extends Phaser.Sprite {
     }
 
     update() {
-        this.y += this.speed;
+        this.y += this.speed * this.game.time.physicsElapsed * this.game.time.desiredFps;
         if (this.specialMoveTrigger <= this.y && this.specialMoveTrigger > this.y - this.speed) {
             this.specialMove();
         }

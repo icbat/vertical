@@ -21,7 +21,7 @@ class Player extends Phaser.Sprite {
 
     update() {
         let targetX = this.columnXVals[this.col];
-        this.x += (targetX - this.x) * 0.1;
+        this.x += (targetX - this.x) * 0.1 * this.game.time.physicsElapsed * this.game.time.desiredFps;
         this.oldPositions.push(this.x);
         this.oldPositions.shift();
     }

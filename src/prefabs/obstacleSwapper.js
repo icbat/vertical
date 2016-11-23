@@ -17,7 +17,7 @@ class ObstacleSwapper extends Obstacle {
 
     update() {
         if (!!this.targetX) {
-            this.x += (this.targetX - this.x) * 0.1;
+            this.x += (this.targetX - this.x) * 0.1 * this.game.time.physicsElapsed * this.game.time.desiredFps;
         }
         super.update();
     }
