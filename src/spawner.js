@@ -8,7 +8,6 @@ class Spawner {
     constructor(game, columns, player) {
         this.game = game;
         this.columns = columns;
-        this.obstacles = [];
         this.spawnPool = [];
 
         this.genericObstacleProbability = 0.7;
@@ -26,7 +25,6 @@ class Spawner {
             pool.push(obstacle);
             game.add.existing(obstacle);
             obstacle.destroyed.add(() => {
-                this.obstacles.shift();
                 this.game.global.score += 1;
             });
         }
@@ -54,8 +52,6 @@ class Spawner {
             let obstacle = obstaclePool[index];
 
             obstacle.shouldUpdate(true);
-
-            this.obstacles.push(obstacle);
         }
     }
 

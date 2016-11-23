@@ -27,25 +27,18 @@ class Game extends Phaser.State {
             colSprite.alpha = 0.5;
         }
 
-        this.player = new Player(this.game, this.game.world.centerX, playerY, this.columnXVals, playerSize);
+        this.player = new Player(this.game, this.game.world.centerX, playerY, this.columnXVals, playerSize, this.endGame, this);
         this.game.add.existing(this.player);
 
         this.game.input.onDown.add(this.player.move, this.player);
 
-        this.spawner = new Spawner(this.game, this.columnXVals);
+        this.spawner = new Spawner(this.game, this.columnXVals, this.player);
         this.setupSpawnTimer(0);
 
         this.game.analytics.reportGameStart();
     }
 
-    update() {
-        for (let obstacle of this.spawner.obstacles) {
-            if (this.game.physics.arcade.overlap(this.player, obstacle)) {
-                this.endGame();
-                break;
-            }
-        }
-    }
+    update() {}
 
     render() {
         this.game.debug.text(this.game.time.fps, 0, 16, "#000000");
