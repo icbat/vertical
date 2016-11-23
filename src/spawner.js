@@ -11,7 +11,9 @@ class Spawner {
         this.obstacles = [];
         this.spawnPool = [];
 
-        this.spawnPool.push(this.poolByType(Obstacle, columns, game));
+        this.genericObstacleProbability = 0.7;
+        this.genericSpawnPool = this.poolByType(Obstacle, columns, game);
+
         this.spawnPool.push(this.poolByType(ObstacleStopAndGo, columns, game));
         this.spawnPool.push(this.poolByType(ObstacleSpeeder, columns, game));
         this.spawnPool.push(this.poolByType(ObstacleSwapper, columns, game));
@@ -23,41 +25,37 @@ class Spawner {
             let obstacle = new Type(game, column, 0);
             pool.push(obstacle);
             game.add.existing(obstacle);
+            obstacle.destroyed.add(() => {
+                this.obstacles.shift();
+                this.game.global.score += 1;
+            });
         }
         return pool;
     }
 
     spawn(level, numberToSpawn, player) {
-        let shuffledOriginals = Phaser.ArrayUtils.shuffle(this.columns.slice());
+        let shuffledOriginals = Phaser.ArrayUtils.shuffle(Phaser.ArrayUtils.numberArray(0, this.columns.length - 1));
         let columnVals = new Phaser.ArraySet();
-        columnVals.add(this.columns[player.col]);
+
+        columnVals.add(player.col);
+
         for (let column of shuffledOriginals) {
             columnVals.add(column);
         }
-        let columns = columnVals.list.slice(0, numberToSpawn);
+        let indices = columnVals.list.slice(0, numberToSpawn);
 
-        for (let column of columns) {
-            let obstacle;
-            let spawnSeed = Math.random();
-            if (spawnSeed < 0.1) {
-                obstacle = new ObstacleStopAndGo(this.game, column, level);
-            } else if (spawnSeed < 0.2) {
-                obstacle = new ObstacleSpeeder(this.game, column, level);
-            } else if (spawnSeed < 0.3) {
-                obstacle = new ObstacleSwapper(this.game, column, level, this.columns, columns);
+        for (let index of indices) {
+            let obstaclePool;
+            if (Math.random() < this.genericObstacleProbability) {
+                obstaclePool = this.genericSpawnPool;
             } else {
-                obstacle = new Obstacle(this.game, column, level);
+                obstaclePool = this.game.rnd.pick(this.spawnPool);
             }
+            let obstacle = obstaclePool[index];
 
             obstacle.shouldUpdate(true);
 
             this.obstacles.push(obstacle);
-            obstacle.destroyed.addOnce(() => {
-                this.obstacles.shift();
-                this.game.global.score += 1;
-            });
-
-            this.game.add.existing(obstacle);
         }
     }
 

@@ -3,7 +3,7 @@ import colorscheme from '../colorscheme';
 class Obstacle extends Phaser.Sprite {
 
     constructor(game, x, level) {
-        super(game, x, -32, 'pixel');
+        super(game, x, -36, 'pixel');
         this.anchor.setTo(0.5, 0.5);
         this.scale.setTo(64, 64);
         this.destroyed = new Phaser.Signal();
@@ -28,9 +28,14 @@ class Obstacle extends Phaser.Sprite {
             this.specialMove();
         }
         if (this.y - this.height > this.game.world.height) {
-            this.destroyed.dispatch();
-            this.destroy();
+            this.reset();
         }
+    }
+
+    reset() {
+        this.destroyed.dispatch();
+        this.y = -36;
+        this.shouldUpdate(false);
     }
 
     // None here, override this in children

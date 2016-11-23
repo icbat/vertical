@@ -12,6 +12,11 @@ class ObstacleSpeeder extends Obstacle {
     specialMove() {
         this.speed = this.initialSpeed / 2;
     }
+
+    reset () {
+        super.reset();
+        this.speed = this.initialSpeed;
+    }
 }
 
 export default ObstacleSpeeder;
