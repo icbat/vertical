@@ -5,14 +5,13 @@ class ObstacleStopAndGo extends Obstacle {
 
     constructor(game, x, player) {
         super(game, x, player, colorscheme.obstacleStopAndGo);
-        this.initialSpeed = this.speed;
     }
 
     specialMove() {
-        this.speed = 0;
+        this.body.velocity.y = 0;
         let timer = this.game.time.create();
         let event = timer.add(Phaser.Timer.SECOND, () => {
-            this.speed = this.initialSpeed;
+            this.body.velocity.y = this.initialSpeed;
         }, this);
         timer.start();
     }

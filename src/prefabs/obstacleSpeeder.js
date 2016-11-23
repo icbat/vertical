@@ -5,16 +5,10 @@ class ObstacleSpeeder extends Obstacle {
 
     constructor(game, x, player) {
         super(game, x, player, colorscheme.obstacleSpeeder);
-        this.initialSpeed = this.speed;
     }
 
     specialMove() {
-        this.speed = this.initialSpeed / 2;
-    }
-
-    reset () {
-        super.reset();
-        this.speed = this.initialSpeed;
+        this.body.velocity.y = this.initialSpeed / 2;
     }
 }
 

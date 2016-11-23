@@ -8,16 +8,18 @@ class Obstacle extends Phaser.Sprite {
         this.scale.setTo(64, 64);
         this.destroyed = new Phaser.Signal();
         game.physics.enable(this, Phaser.Physics.ARCADE);
-        this.speed = 5 + level;
         this.specialMoveTrigger = this.game.world.height * 0.3;
 
         this.player = player;
+        this.initialSpeed = 300;
+        this.lastY = -36;
 
         let tint = color || colorscheme.obstacleStandard;
         this.tint = Phaser.Color.hexToRGB(tint);
     }
 
     shouldUpdate() {
+        this.body.velocity.y = this.initialSpeed;
         this.update = this.onUpdate;
     }
 
@@ -26,16 +28,18 @@ class Obstacle extends Phaser.Sprite {
             this.reset();
             return;
         }
-        this.y += this.speed * this.game.time.physicsElapsed * this.game.time.desiredFps;
-        if (this.specialMoveTrigger <= this.y && this.specialMoveTrigger > this.y - this.speed) {
+        if (this.specialMoveTrigger <= this.y && this.specialMoveTrigger > this.y - this.lastY) {
             this.specialMove();
         }
+        this.lastY = this.y;
         this.game.physics.arcade.overlap(this.player, this);
     }
 
     reset() {
         this.destroyed.dispatch();
+        this.body.velocity.y = 0;
         this.y = -36;
+        this.lastY = -36;
         this.update = () => {};
     }
 
