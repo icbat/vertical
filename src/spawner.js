@@ -13,8 +13,8 @@ class Spawner {
         this.genericObstacleProbability = 0.7;
         this.genericSpawnPool = this.poolByType(Obstacle, columns, game, player);
 
-        this.spawnPool.push(this.poolByType(ObstacleStopAndGo, columns, game, player));
-        this.spawnPool.push(this.poolByType(ObstacleSpeeder, columns, game, player));
+        // this.spawnPool.push(this.poolByType(ObstacleStopAndGo, columns, game, player));
+        // this.spawnPool.push(this.poolByType(ObstacleSpeeder, columns, game, player));
         this.spawnPool.push(this.poolByType(ObstacleSwapper, columns, game, player));
     }
 
@@ -41,6 +41,7 @@ class Spawner {
             columnVals.add(column);
         }
         let indices = columnVals.list.slice(0, numberToSpawn);
+        console.log(indices);
 
         for (let index of indices) {
             let obstaclePool;
@@ -51,7 +52,7 @@ class Spawner {
             }
             let obstacle = obstaclePool[index];
 
-            obstacle.activate(level);
+            obstacle.activate(level, index, indices, this.columns);
         }
     }
 
