@@ -14,7 +14,15 @@ class Obstacle extends Phaser.Sprite {
         this.tint = Phaser.Color.hexToRGB(colorscheme.obstacleStandard);
     }
 
-    update() {
+    shouldUpdate(shouldUpdate) {
+        if (shouldUpdate) {
+            this.update = this.onUpdate;
+        } else {
+            this.update = () => {};
+        }
+    }
+
+    onUpdate() {
         this.y += this.speed * this.game.time.physicsElapsed * this.game.time.desiredFps;
         if (this.specialMoveTrigger <= this.y && this.specialMoveTrigger > this.y - this.speed) {
             this.specialMove();

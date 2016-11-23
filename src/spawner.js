@@ -30,6 +30,8 @@ class Spawner {
                 obstacle = new Obstacle(this.game, column, level);
             }
 
+            obstacle.shouldUpdate(true);
+
             this.obstacles.push(obstacle);
             obstacle.destroyed.addOnce(() => {
                 this.obstacles.shift();

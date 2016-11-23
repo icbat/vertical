@@ -15,11 +15,11 @@ class ObstacleSwapper extends Obstacle {
         }
     }
 
-    update() {
+    onUpdate() {
         if (!!this.targetX) {
             this.x += (this.targetX - this.x) * 0.1 * this.game.time.physicsElapsed * this.game.time.desiredFps;
         }
-        super.update();
+        super.onUpdate();
     }
 
     findOpenNeighborLane(possibleColumns, myWaveColumns, myX) {
