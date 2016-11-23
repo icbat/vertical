@@ -3,8 +3,8 @@ import Obstacle from './obstacle';
 
 class ObstacleSwapper extends Obstacle {
 
-    constructor(game, x, level) {
-        super(game, x, level);
+    constructor(game, x, level, player) {
+        super(game, x, level, player);
 
         // TODO move this to shouldUpdate(true) and get the args there
         // let targetX = this.findOpenNeighborLane(possibleColumns, myWaveColumns, x);

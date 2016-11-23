@@ -5,24 +5,24 @@ import ObstacleSwapper from './prefabs/obstacleSwapper';
 
 class Spawner {
 
-    constructor(game, columns) {
+    constructor(game, columns, player) {
         this.game = game;
         this.columns = columns;
         this.obstacles = [];
         this.spawnPool = [];
 
         this.genericObstacleProbability = 0.7;
-        this.genericSpawnPool = this.poolByType(Obstacle, columns, game);
+        this.genericSpawnPool = this.poolByType(Obstacle, columns, game, player);
 
-        this.spawnPool.push(this.poolByType(ObstacleStopAndGo, columns, game));
-        this.spawnPool.push(this.poolByType(ObstacleSpeeder, columns, game));
-        this.spawnPool.push(this.poolByType(ObstacleSwapper, columns, game));
+        this.spawnPool.push(this.poolByType(ObstacleStopAndGo, columns, game, player));
+        this.spawnPool.push(this.poolByType(ObstacleSpeeder, columns, game, player));
+        this.spawnPool.push(this.poolByType(ObstacleSwapper, columns, game, player));
     }
 
-    poolByType(Type, columns, game) {
+    poolByType(Type, columns, game, player) {
         let pool = [];
         for (let column of columns) {
-            let obstacle = new Type(game, column, 0);
+            let obstacle = new Type(game, column, 0, player);
             pool.push(obstacle);
             game.add.existing(obstacle);
             obstacle.destroyed.add(() => {

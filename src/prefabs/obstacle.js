@@ -2,7 +2,7 @@ import colorscheme from '../colorscheme';
 
 class Obstacle extends Phaser.Sprite {
 
-    constructor(game, x, level) {
+    constructor(game, x, level, player) {
         super(game, x, -36, 'pixel');
         this.anchor.setTo(0.5, 0.5);
         this.scale.setTo(64, 64);
@@ -10,6 +10,8 @@ class Obstacle extends Phaser.Sprite {
         game.physics.enable(this, Phaser.Physics.ARCADE);
         this.speed = 5 + level;
         this.specialMoveTrigger = this.game.world.height * 0.3;
+
+        this.player = player;
 
         this.tint = Phaser.Color.hexToRGB(colorscheme.obstacleStandard);
     }
@@ -31,6 +33,7 @@ class Obstacle extends Phaser.Sprite {
         if (this.specialMoveTrigger <= this.y && this.specialMoveTrigger > this.y - this.speed) {
             this.specialMove();
         }
+        this.game.physics.arcade.overlap(this.player, this);
     }
 
     reset() {
