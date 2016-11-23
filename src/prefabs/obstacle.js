@@ -13,7 +13,6 @@ class Obstacle extends Phaser.Sprite {
         this.player = player;
         this.initialSpeed = 300;
         this.initialY = this.y;
-        this.lastY = this.initialY;
 
         let tint = color || colorscheme.obstacleStandard;
         this.tint = Phaser.Color.hexToRGB(tint);
@@ -29,10 +28,9 @@ class Obstacle extends Phaser.Sprite {
             this.reset();
             return;
         }
-        if (this.specialMoveTrigger <= this.y && this.specialMoveTrigger > this.y - this.lastY) {
+        if (this.specialMoveTrigger <= this.y && this.specialMoveTrigger > this.y - this.body.deltaY()) {
             this.specialMove();
         }
-        this.lastY = this.y;
         this.game.physics.arcade.overlap(this.player, this);
     }
 
@@ -40,7 +38,6 @@ class Obstacle extends Phaser.Sprite {
         this.destroyed.dispatch();
         this.update = () => {
             this.y = this.initialY;
-            this.lastY = this.initialY;
             this.update = () => {};
         };
         this.body.velocity.y = 0;
