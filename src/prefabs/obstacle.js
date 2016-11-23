@@ -13,6 +13,7 @@ class Obstacle extends Phaser.Sprite {
         this.player = player;
         this.initialSpeed = 300;
         this.initialY = this.y;
+        this.alive = false;
 
         let tint = color || colorscheme.obstacleStandard;
         this.tint = Phaser.Color.hexToRGB(tint);
@@ -22,6 +23,7 @@ class Obstacle extends Phaser.Sprite {
     activate(level, index, indices, columns) {
         this.body.velocity.y = this.initialSpeed + level * 25;
         this.update = this.onUpdate;
+        this.alive = true;
     }
 
     onUpdate() {
@@ -42,7 +44,7 @@ class Obstacle extends Phaser.Sprite {
             this.update = () => {};
         };
         this.body.velocity.y = 0;
-
+        this.alive = false;
     }
 
     // None here, override this in children

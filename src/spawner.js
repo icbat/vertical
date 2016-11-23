@@ -40,19 +40,26 @@ class Spawner {
         for (let column of shuffledOriginals) {
             columnVals.add(column);
         }
+
         let indices = columnVals.list.slice(0, numberToSpawn);
-        console.log(indices);
 
         for (let index of indices) {
-            let obstaclePool;
-            if (Math.random() < this.genericObstacleProbability) {
-                obstaclePool = this.genericSpawnPool;
-            } else {
-                obstaclePool = this.game.rnd.pick(this.spawnPool);
-            }
-            let obstacle = obstaclePool[index];
+            this.pickObject(index, indices, level);
+        }
+    }
 
+    pickObject(index, indices, level) {
+        let obstaclePool;
+        if (Math.random() < this.genericObstacleProbability) {
+            obstaclePool = this.genericSpawnPool;
+        } else {
+            obstaclePool = this.game.rnd.pick(this.spawnPool);
+        }
+        let obstacle = obstaclePool[index];
+        if (!obstacle.alive) {
             obstacle.activate(level, index, indices, this.columns);
+        } else {
+            this.pickObject(index, indices, level);
         }
     }
 
