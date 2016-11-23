@@ -13,8 +13,8 @@ class Spawner {
         this.genericObstacleProbability = 0.7;
         this.genericSpawnPool = this.poolByType(Obstacle, columns, game, player);
 
-        // this.spawnPool.push(this.poolByType(ObstacleStopAndGo, columns, game, player));
-        // this.spawnPool.push(this.poolByType(ObstacleSpeeder, columns, game, player));
+        this.spawnPool.push(this.poolByType(ObstacleStopAndGo, columns, game, player));
+        this.spawnPool.push(this.poolByType(ObstacleSpeeder, columns, game, player));
         this.spawnPool.push(this.poolByType(ObstacleSwapper, columns, game, player));
     }
 
