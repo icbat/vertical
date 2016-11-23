@@ -7,25 +7,14 @@ class ObstacleSwapper extends Obstacle {
         super(game, x, player);
         this.originalTint = this.tint;
         this.originalX = x;
-
-        // TODO move this to shouldUpdate(true) and get the args there
-
-        let targetX;
-
     }
 
     activate(level, index, indices, columns) {
         super.activate(level, index, indices, columns);
-        let targetX = this.findOpenNeighborLane(columns, indices, index);
-
-        // DEBUGGING
-        let targetIndex = columns.findIndex((x) => {
-            return x === targetX;
-        });
-        console.log(index, targetIndex, indices, this.x, targetX);
-        if (!!targetX) {
+        let targetIndex = this.findOpenNeighborLane(columns, indices, index);
+        if (targetIndex !== null) {
             this.specialMove = () => {
-                this.targetX = targetX;
+                this.targetX = columns[targetIndex];
             };
             this.tint = Phaser.Color.hexToRGB(colorscheme.obstacleSwapper);
         }
@@ -46,6 +35,7 @@ class ObstacleSwapper extends Obstacle {
         if (myIndex < columns.length - 1) {
             possibleSwaps.push(myIndex + 1);
         }
+
         possibleSwaps = Phaser.ArrayUtils.shuffle(possibleSwaps);
 
         let possiblePosition;
@@ -54,11 +44,11 @@ class ObstacleSwapper extends Obstacle {
         };
         for (possiblePosition of possibleSwaps) {
             let foundIndex = myWaveIndices.find(existsInWave);
-            if (!foundIndex) {
-                return columns[possiblePosition];
+            if (foundIndex === undefined) {
+                return possiblePosition;
             }
         }
-        return 0;
+        return null;
     }
 
     reset() {
