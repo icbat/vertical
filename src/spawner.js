@@ -21,7 +21,7 @@ class Spawner {
     poolByType(Type, columns, game, player) {
         let pool = [];
         for (let column of columns) {
-            let obstacle = new Type(game, column, 0, player);
+            let obstacle = new Type(game, column, player);
             pool.push(obstacle);
             game.add.existing(obstacle);
             obstacle.destroyed.add(() => {
