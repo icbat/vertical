@@ -12,7 +12,8 @@ class Obstacle extends Phaser.Sprite {
 
         this.player = player;
         this.initialSpeed = 300;
-        this.lastY = -36;
+        this.initialY = this.y;
+        this.lastY = this.initialY;
 
         let tint = color || colorscheme.obstacleStandard;
         this.tint = Phaser.Color.hexToRGB(tint);
@@ -37,10 +38,13 @@ class Obstacle extends Phaser.Sprite {
 
     reset() {
         this.destroyed.dispatch();
+        this.update = () => {
+            this.y = this.initialY;
+            this.lastY = this.initialY;
+            this.update = () => {};
+        };
         this.body.velocity.y = 0;
-        this.y = -36;
-        this.lastY = -36;
-        this.update = () => {};
+
     }
 
     // None here, override this in children
