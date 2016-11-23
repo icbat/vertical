@@ -51,7 +51,7 @@ class Spawner {
             }
             let obstacle = obstaclePool[index];
 
-            obstacle.shouldUpdate(true);
+            obstacle.shouldUpdate();
         }
     }
 

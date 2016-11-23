@@ -17,12 +17,8 @@ class Obstacle extends Phaser.Sprite {
         this.tint = Phaser.Color.hexToRGB(tint);
     }
 
-    shouldUpdate(shouldUpdate) {
-        if (shouldUpdate) {
-            this.update = this.onUpdate;
-        } else {
-            this.update = () => {};
-        }
+    shouldUpdate() {
+        this.update = this.onUpdate;
     }
 
     onUpdate() {
@@ -40,7 +36,7 @@ class Obstacle extends Phaser.Sprite {
     reset() {
         this.destroyed.dispatch();
         this.y = -36;
-        this.shouldUpdate(false);
+        this.update = () => {};
     }
 
     // None here, override this in children
