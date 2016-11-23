@@ -10,6 +10,22 @@ class Spawner {
         this.player = player;
         this.columns = columns;
         this.obstacles = [];
+        this.spawnPool = [];
+
+        this.spawnPool.push(this.poolByType(Obstacle, columns, game));
+        this.spawnPool.push(this.poolByType(ObstacleStopAndGo, columns, game));
+        this.spawnPool.push(this.poolByType(ObstacleSpeeder, columns, game));
+        this.spawnPool.push(this.poolByType(ObstacleSwapper, columns, game));
+    }
+
+    poolByType(type, columns, game) {
+        let pool = [];
+        for (let column of columns) {
+            let obstacle = new type(game, column, 0);
+            pool.push(obstacle);
+            game.add.existing(obstacle);
+        }
+        return pool;
     }
 
     spawn(level) {
