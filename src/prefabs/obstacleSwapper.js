@@ -4,13 +4,12 @@ import Obstacle from './obstacle';
 class ObstacleSwapper extends Obstacle {
 
     constructor(game, x, player) {
-        super(game, x, player);
+        super(game, x, player, colorscheme.obstacleSwapper);
 
         // TODO move this to shouldUpdate(true) and get the args there
         // let targetX = this.findOpenNeighborLane(possibleColumns, myWaveColumns, x);
         let targetX;
         if (!!targetX) {
-            this.tint = Phaser.Color.hexToRGB(colorscheme.obstacleSwapper);
             this.specialMove = () => {
                 this.targetX = targetX;
             };

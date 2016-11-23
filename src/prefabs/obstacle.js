@@ -2,7 +2,7 @@ import colorscheme from '../colorscheme';
 
 class Obstacle extends Phaser.Sprite {
 
-    constructor(game, x, player) {
+    constructor(game, x, player, color) {
         super(game, x, -36, 'pixel');
         this.anchor.setTo(0.5, 0.5);
         this.scale.setTo(64, 64);
@@ -13,7 +13,8 @@ class Obstacle extends Phaser.Sprite {
 
         this.player = player;
 
-        this.tint = Phaser.Color.hexToRGB(colorscheme.obstacleStandard);
+        let tint = color || colorscheme.obstacleStandard;
+        this.tint = Phaser.Color.hexToRGB(tint);
     }
 
     shouldUpdate(shouldUpdate) {

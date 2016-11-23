@@ -4,8 +4,7 @@ import Obstacle from './obstacle';
 class ObstacleStopAndGo extends Obstacle {
 
     constructor(game, x, player) {
-        super(game, x, player);
-        this.tint = Phaser.Color.hexToRGB(colorscheme.obstacleStopAndGo);
+        super(game, x, player, colorscheme.obstacleStopAndGo);
         this.initialSpeed = this.speed;
     }
 

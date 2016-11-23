@@ -4,8 +4,7 @@ import Obstacle from './obstacle';
 class ObstacleSpeeder extends Obstacle {
 
     constructor(game, x, player) {
-        super(game, x, player);
-        this.tint = Phaser.Color.hexToRGB(colorscheme.obstacleSpeeder);
+        super(game, x, player, colorscheme.obstacleSpeeder);
         this.initialSpeed = this.speed;
     }
 
