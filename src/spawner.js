@@ -5,13 +5,19 @@ import ObstacleSwapper from './prefabs/obstacleSwapper';
 
 class Spawner {
 
-    // 'this' will be states.game, because that's the context passed to the callback
-    spawn(level, player) {
+    constructor(game, player, columns) {
+        this.game = game;
+        this.player = player;
+        this.columns = columns;
+        this.obstacles = [];
+    }
+
+    spawn(level) {
         this.game.camera.shake(0.005, 100);
-        let numberToSpawn = this.game.rnd.integerInRange(1, this.columnXVals.length - 1);
+        let numberToSpawn = this.game.rnd.integerInRange(1, this.columns.length - 1);
         let columnVals = new Phaser.ArraySet();
-        columnVals.add(this.columnXVals[player.col]);
-        let shuffledOriginals = Phaser.ArrayUtils.shuffle(this.columnXVals.slice());
+        columnVals.add(this.columns[this.player.col]);
+        let shuffledOriginals = Phaser.ArrayUtils.shuffle(this.columns.slice());
         for (let column of shuffledOriginals) {
             columnVals.add(column);
         }
@@ -25,7 +31,7 @@ class Spawner {
             } else if (spawnSeed < 0.2) {
                 obstacle = new ObstacleSpeeder(this.game, column, level);
             } else if (spawnSeed < 0.3) {
-                obstacle = new ObstacleSwapper(this.game, column, level, this.columnXVals, columns);
+                obstacle = new ObstacleSwapper(this.game, column, level, this.columns, columns);
             } else {
                 obstacle = new Obstacle(this.game, column, level);
             }

@@ -32,15 +32,14 @@ class Game extends Phaser.State {
 
         this.game.input.onDown.add(this.player.move, this.player);
 
-        this.obstacles = [];
-        this.spawner = new Spawner();
+        this.spawner = new Spawner(this.game, this.player, this.columnXVals);
         this.setupSpawnTimer(0);
 
         this.game.analytics.reportGameStart();
     }
 
     update() {
-        for (let obstacle of this.obstacles) {
+        for (let obstacle of this.spawner.obstacles) {
             if (this.game.physics.arcade.overlap(this.player, obstacle)) {
                 this.endGame();
                 break;
@@ -64,7 +63,7 @@ class Game extends Phaser.State {
         let timeToSpawn = Phaser.Timer.SECOND * 2 * Math.pow(1 / 2, Math.floor(level / 10));
 
         this.spawnTimer = this.game.time.create();
-        let event = this.spawnTimer.repeat(timeToSpawn, 10, this.spawner.spawn, this, level, this.player);
+        let event = this.spawnTimer.repeat(timeToSpawn, 10, this.spawner.spawn, this.spawner, level);
         this.spawnTimer.onComplete.addOnce(() => {
             this.setupSpawnTimer(++level);
         });
