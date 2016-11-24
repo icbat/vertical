@@ -4,7 +4,7 @@ class Ghost extends Phaser.Sprite {
     //initialization code in the constructor
     constructor(spriteToCopy, index) {
         super(spriteToCopy.game, spriteToCopy.x, spriteToCopy.y, spriteToCopy.key);
-        this.scale.setTo(64, 64);
+        // this.scale.setTo(64, 64);
         this.anchor.setTo(0.5, 0.5);
 
         this.alpha = 1 - (((6 - index) * 0.2) - 0.1);
