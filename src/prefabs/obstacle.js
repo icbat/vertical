@@ -24,6 +24,7 @@ class Obstacle extends Phaser.Sprite {
         this.speed =  this.initialSpeed;
         this.update = this.onUpdate;
         this.alive = true;
+        this.visible = true;
     }
 
     onUpdate() {
@@ -44,6 +45,7 @@ class Obstacle extends Phaser.Sprite {
         this.speed = 0;
         this.y = this.initialY;
         this.alive = false;
+        this.visible = false;
         this.update = () => {};
     }
 
