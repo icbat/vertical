@@ -3,9 +3,6 @@ import Analytics from '../analytics';
 class Boot extends Phaser.State {
 
     init() {
-        // TODO kill this line before actual public release, is very slow
-        this.game.time.advancedTiming = true;
-
         this.game.analytics = new Analytics();
         this.game.analytics.reportLaunch();
     }

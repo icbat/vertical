@@ -40,7 +40,8 @@ class Game extends Phaser.State {
     update() {}
 
     render() {
-        this.game.debug.text(this.game.time.fps, 0, 16, "#000000");
+        // this.game.debug.text(this.game.time.fps, 0, 16, "#000000");
+
         // this.game.debug.body(this.player);
         // for (let obstacle of this.obstacles) {
         //     this.game.debug.body(obstacle);
