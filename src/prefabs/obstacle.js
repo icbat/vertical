@@ -9,7 +9,7 @@ class Obstacle extends Phaser.Sprite {
         this.destroyed = new Phaser.Signal();
         game.physics.enable(this, Phaser.Physics.ARCADE);
         this.specialMoveTrigger = this.game.world.height * 0.3;
-        this.baseSpeed = 300;
+        this.baseSpeed = 5;
         this.player = player;
         this.initialY = this.y;
         this.alive = false;
@@ -20,8 +20,8 @@ class Obstacle extends Phaser.Sprite {
 
     // unused params are only used by children, they're here for documentation
     activate(level, index, indices, columns) {
-        this.body.velocity.y = this.baseSpeed + level * 25;
-        this.initialSpeed = this.body.velocity.y;
+        this.initialSpeed = this.baseSpeed + level;
+        this.speed =  this.initialSpeed;
         this.update = this.onUpdate;
         this.alive = true;
     }
@@ -31,7 +31,8 @@ class Obstacle extends Phaser.Sprite {
             this.reset();
             return;
         }
-        if (this.specialMoveTrigger <= this.y && this.specialMoveTrigger > this.y - this.body.deltaY()) {
+        this.y += this.speed * this.game.time.physicsElapsed * this.game.time.desiredFps;
+        if (this.specialMoveTrigger <= this.y && this.specialMoveTrigger > this.y - this.speed) {
             this.specialMove();
         }
         // this.game.physics.arcade.overlap(this.player, this);
@@ -39,12 +40,10 @@ class Obstacle extends Phaser.Sprite {
 
     reset() {
         this.destroyed.dispatch();
-        this.update = () => {
-            this.y = this.initialY;
-            this.update = () => {};
-        };
-        this.body.velocity.y = 0;
+        this.speed = 0;
+        this.y = this.initialY;
         this.alive = false;
+        this.update = () => {};
     }
 
     // None here, override this in children
