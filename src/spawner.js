@@ -9,6 +9,7 @@ class Spawner {
         this.game = game;
         this.columns = columns;
         this.spawnPool = [];
+        this.spriteBatch = game.add.spriteBatch();
 
         this.genericObstacleProbability = 0.7;
         this.genericSpawnPool = this.poolByType(Obstacle, columns, game, player);
@@ -23,7 +24,7 @@ class Spawner {
         for (let column of columns) {
             let obstacle = new Type(game, column, player);
             pool.push(obstacle);
-            game.add.existing(obstacle);
+            this.spriteBatch.addChild(obstacle);
             obstacle.destroyed.add(() => {
                 this.game.global.score += 1;
             });
