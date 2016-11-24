@@ -32,7 +32,7 @@ class Obstacle extends Phaser.Sprite {
             return;
         }
         this.y += this.speed * this.game.time.elapsed / 15;
-        if (this.specialMoveTrigger <= this.y && this.specialMoveTrigger > this.y - this.speed) {
+        if (this.specialMoveTrigger <= this.y && this.specialMoveTrigger > this.y - this.speed * this.game.time.elapsed / 15) {
             this.specialMove();
         }
         this.game.physics.arcade.overlap(this.player, this);
