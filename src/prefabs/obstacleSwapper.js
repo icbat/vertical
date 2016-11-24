@@ -3,50 +3,60 @@ import Obstacle from './obstacle';
 
 class ObstacleSwapper extends Obstacle {
 
-    constructor(game, x, level, possibleColumns, myWaveColumns) {
-        super(game, x, level);
+    constructor(game, x, player) {
+        super(game, x, player);
+        this.originalTint = this.tint;
+        this.originalX = x;
+    }
 
-        let targetX = this.findOpenNeighborLane(possibleColumns, myWaveColumns, x);
-        if (!!targetX) {
-            this.tint = Phaser.Color.hexToRGB(colorscheme.obstacleSwapper);
+    activate(level, index, indices, columns) {
+        super.activate(level, index, indices, columns);
+        let targetIndex = this.findOpenNeighborLane(columns, indices, index);
+        if (targetIndex !== null) {
             this.specialMove = () => {
-                this.targetX = targetX;
+                this.targetX = columns[targetIndex];
             };
+            this.tint = Phaser.Color.hexToRGB(colorscheme.obstacleSwapper);
         }
     }
 
-    update() {
-        if (!!this.targetX) {
-            this.x += (this.targetX - this.x) * 0.1;
+    onUpdate() {
+        if (!!this.targetX && this.targetX != this.x) {
+            this.x += (this.targetX - this.x) * 0.1 * this.game.time.physicsElapsed * this.game.time.desiredFps;
         }
-        super.update();
+        super.onUpdate();
     }
 
-    findOpenNeighborLane(possibleColumns, myWaveColumns, myX) {
-        let myIndex = -1;
-        for (let i = 0; i < possibleColumns.length; ++i) {
-            if (possibleColumns[i] === myX) {
-                myIndex = i;
-            }
+    findOpenNeighborLane(columns, myWaveIndices, myIndex) {
+        let possibleSwaps = [];
+        if (myIndex > 0) {
+            possibleSwaps.push(myIndex - 1);
+        }
+        if (myIndex < columns.length - 1) {
+            possibleSwaps.push(myIndex + 1);
         }
 
-        let left = possibleColumns[Math.max(myIndex - 1, 0)];
-        let right = possibleColumns[Math.min(myIndex + 1, possibleColumns.length - 1)];
-        let possibleSwaps = Phaser.ArrayUtils.shuffle([left, right]);
+        possibleSwaps = Phaser.ArrayUtils.shuffle(possibleSwaps);
 
-        for (let possiblePosition of possibleSwaps) {
-            let viable = true;
-
-            for (let neighbors of myWaveColumns) {
-                if (neighbors === possiblePosition) {
-                    viable = false;
-                }
-            }
-            if (viable) {
+        let possiblePosition;
+        let existsInWave = (waveIndex) => {
+            return waveIndex === possiblePosition;
+        };
+        for (possiblePosition of possibleSwaps) {
+            let foundIndex = myWaveIndices.find(existsInWave);
+            if (foundIndex === undefined) {
                 return possiblePosition;
             }
         }
-        return 0;
+        return null;
+    }
+
+    reset() {
+        super.reset();
+        this.tint = this.originalTint;
+        this.specialMove = () => {};
+        this.targetX = null;
+        this.x = this.originalX;
     }
 }
 

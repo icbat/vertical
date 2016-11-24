@@ -5,38 +5,61 @@ import ObstacleSwapper from './prefabs/obstacleSwapper';
 
 class Spawner {
 
-    // 'this' will be states.game, because that's the context passed to the callback
-    spawn(level, player) {
-        this.game.camera.shake(0.005, 100);
-        let numberToSpawn = this.game.rnd.integerInRange(1, this.columnXVals.length - 1);
+    constructor(game, columns, player) {
+        this.game = game;
+        this.columns = columns;
+        this.spawnPool = [];
+
+        this.genericObstacleProbability = 0.7;
+        this.genericSpawnPool = this.poolByType(Obstacle, columns, game, player);
+
+        this.spawnPool.push(this.poolByType(ObstacleStopAndGo, columns, game, player));
+        this.spawnPool.push(this.poolByType(ObstacleSpeeder, columns, game, player));
+        this.spawnPool.push(this.poolByType(ObstacleSwapper, columns, game, player));
+    }
+
+    poolByType(Type, columns, game, player) {
+        let pool = [];
+        for (let column of columns) {
+            let obstacle = new Type(game, column, player);
+            pool.push(obstacle);
+            game.add.existing(obstacle);
+            obstacle.destroyed.add(() => {
+                this.game.global.score += 1;
+            });
+        }
+        return pool;
+    }
+
+    spawn(level, numberToSpawn, player) {
+        let shuffledOriginals = Phaser.ArrayUtils.shuffle(Phaser.ArrayUtils.numberArray(0, this.columns.length - 1));
         let columnVals = new Phaser.ArraySet();
-        columnVals.add(this.columnXVals[player.col]);
-        let shuffledOriginals = Phaser.ArrayUtils.shuffle(this.columnXVals.slice());
+
+        columnVals.add(player.col);
+
         for (let column of shuffledOriginals) {
             columnVals.add(column);
         }
-        let columns = columnVals.list.slice(0, numberToSpawn);
 
-        for (let column of columns) {
-            let obstacle;
-            let spawnSeed = Math.random();
-            if (spawnSeed < 0.1) {
-                obstacle = new ObstacleStopAndGo(this.game, column, level);
-            } else if (spawnSeed < 0.2) {
-                obstacle = new ObstacleSpeeder(this.game, column, level);
-            } else if (spawnSeed < 0.3) {
-                obstacle = new ObstacleSwapper(this.game, column, level, this.columnXVals, columns);
-            } else {
-                obstacle = new Obstacle(this.game, column, level);
-            }
+        let indices = columnVals.list.slice(0, numberToSpawn);
 
-            this.obstacles.push(obstacle);
-            obstacle.destroyed.addOnce(() => {
-                this.obstacles.shift();
-                this.game.global.score += 1;
-            });
+        for (let index of indices) {
+            this.pickObject(index, indices, level);
+        }
+    }
 
-            this.game.add.existing(obstacle);
+    pickObject(index, indices, level) {
+        let obstaclePool;
+        if (Math.random() < this.genericObstacleProbability) {
+            obstaclePool = this.genericSpawnPool;
+        } else {
+            obstaclePool = this.game.rnd.pick(this.spawnPool);
+        }
+        let obstacle = obstaclePool[index];
+        if (!obstacle.alive) {
+            obstacle.activate(level, index, indices, this.columns);
+        } else {
+            this.pickObject(index, indices, level);
         }
     }
 

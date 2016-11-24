@@ -3,7 +3,7 @@ import colorscheme from '../colorscheme';
 
 class Player extends Phaser.Sprite {
 
-    constructor(game, x, y, columnXVals, playerSize) {
+    constructor(game, x, y, columnXVals, playerSize, endGameCallback, endGameContext) {
         super(game, x, y, 'pixel');
         this.scale.setTo(playerSize, playerSize);
         this.anchor.setTo(0.5, 0.5);
@@ -17,11 +17,15 @@ class Player extends Phaser.Sprite {
         for (let i = 0; i < 5; ++i) {
             this.game.add.existing(new Ghost(this, i));
         }
+        this.body.onOverlap = new Phaser.Signal();
+        this.body.onOverlap.addOnce(endGameCallback, endGameContext);
     }
 
     update() {
         let targetX = this.columnXVals[this.col];
-        this.x += (targetX - this.x) * 0.1;
+        if (this.targetX != this.x) {
+            this.x += (targetX - this.x) * 0.1 * this.game.time.physicsElapsed * this.game.time.desiredFps;
+        }
         this.oldPositions.push(this.x);
         this.oldPositions.shift();
     }

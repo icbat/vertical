@@ -24,29 +24,20 @@ class Game extends Phaser.State {
             let colSprite = this.game.add.sprite(colX, playerY + playerSize, 'col-shadow');
             colSprite.anchor.setTo(0.5, 0.5);
             colSprite.scale.setTo(playerSize, 1);
-            colSprite.alpha = 0.5;
         }
 
-        this.player = new Player(this.game, this.game.world.centerX, playerY, this.columnXVals, playerSize);
+        this.player = new Player(this.game, this.game.world.centerX, playerY, this.columnXVals, playerSize, this.endGame, this);
         this.game.add.existing(this.player);
 
         this.game.input.onDown.add(this.player.move, this.player);
 
-        this.obstacles = [];
-        this.spawner = new Spawner();
+        this.spawner = new Spawner(this.game, this.columnXVals, this.player);
         this.setupSpawnTimer(0);
 
         this.game.analytics.reportGameStart();
     }
 
-    update() {
-        for (let obstacle of this.obstacles) {
-            if (this.game.physics.arcade.overlap(this.player, obstacle)) {
-                this.endGame();
-                break;
-            }
-        }
-    }
+    update() {}
 
     render() {
         this.game.debug.text(this.game.time.fps, 0, 16, "#000000");
@@ -64,11 +55,17 @@ class Game extends Phaser.State {
         let timeToSpawn = Phaser.Timer.SECOND * 2 * Math.pow(1 / 2, Math.floor(level / 10));
 
         this.spawnTimer = this.game.time.create();
-        let event = this.spawnTimer.repeat(timeToSpawn, 10, this.spawner.spawn, this, level, this.player);
+        let event = this.spawnTimer.repeat(timeToSpawn, 10, this.spawn, this, level, this.player);
         this.spawnTimer.onComplete.addOnce(() => {
             this.setupSpawnTimer(++level);
         });
         this.spawnTimer.start();
+    }
+
+    spawn(level, player) {
+        this.game.camera.shake(0.005, 100);
+        let numberToSpawn = this.game.rnd.integerInRange(1, this.columnXVals.length - 1);
+        this.spawner.spawn(level, numberToSpawn, player);
     }
 
     endGame() {
