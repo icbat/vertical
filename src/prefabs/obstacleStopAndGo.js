@@ -8,7 +8,6 @@ class ObstacleStopAndGo extends Obstacle {
     }
 
     specialMove() {
-        super.specialMove();
         this.speed = 0;
         let timer = this.game.time.create();
         let event = timer.add(Phaser.Timer.SECOND, () => {
