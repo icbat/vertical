@@ -6,7 +6,7 @@ class Player extends Phaser.Sprite {
     constructor(game, x, y, columnXVals, playerSize, endGameCallback, endGameContext) {
         super(game, x, y, 'pixel');
         this.anchor.setTo(0.5, 0.5);
-        this.tint = Phaser.Color.hexToRGB(colorscheme.player);
+        this.tint = colorscheme.player;
         game.physics.enable(this, Phaser.Physics.ARCADE);
         this.oldPositions = Array(10).fill(this.x);
 

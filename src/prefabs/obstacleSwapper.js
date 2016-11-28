@@ -16,7 +16,7 @@ class ObstacleSwapper extends Obstacle {
             this.specialMove = () => {
                 this.targetX = columns[targetIndex];
             };
-            this.tint = Phaser.Color.hexToRGB(colorscheme.obstacleSwapper);
+            this.tint = colorscheme.obstacleSwapper;
         }
     }
 
