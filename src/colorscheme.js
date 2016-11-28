@@ -1,5 +1,6 @@
 let colorscheme = {
-    background: "#bdc3c7",
+    background: "#000000",
+    fontColor: "#ffffff",
     glowOffset: Phaser.Color.hexToRGB("#0a0a0a"),
     player: "#9b59b6",
     obstacleStopAndGo: "#e67e22",

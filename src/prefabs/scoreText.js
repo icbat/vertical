@@ -1,12 +1,12 @@
-//Documentation for Phaser's (2.6.2) text:: phaser.io/docs/2.6.2/Phaser.Text.html
+import colorscheme from '../colorscheme';
+
 class ScoreText extends Phaser.Text {
 
-  //initialization code in the constructor
   constructor(game, x, y) {
-    super(game, x, y, "text");
+      const style = {"fill": colorscheme.fontColor};
+    super(game, x, y, "text", style);
   }
 
-  //Code ran on each frame of game
   update() {
       this.text = this.game.global.score;
   }
