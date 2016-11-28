@@ -46,8 +46,14 @@ class Obstacle extends Phaser.Sprite {
         this.update = () => {};
     }
 
-    // None here, override this in children
-    specialMove() {}
+    specialMove() {
+        this.tint += colorscheme.glowOffset;
+        const timer = this.game.time.create();
+        timer.add(Phaser.Timer.SECOND / 16, () => {
+            this.tint -= colorscheme.glowOffset;
+        }, this);
+        timer.start();
+    }
 }
 
 export default Obstacle;

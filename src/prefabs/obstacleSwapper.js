@@ -14,9 +14,12 @@ class ObstacleSwapper extends Obstacle {
         let targetIndex = this.findOpenNeighborLane(columns, indices, index);
         if (targetIndex !== null) {
             this.specialMove = () => {
+                super.specialMove();
                 this.targetX = columns[targetIndex];
             };
             this.tint = Phaser.Color.hexToRGB(colorscheme.obstacleSwapper);
+        } else {
+            this.specialMove = () => {};
         }
     }
 
