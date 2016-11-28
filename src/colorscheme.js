@@ -4,7 +4,7 @@ let colorscheme = {
     obstacleStopAndGo: "#e67e22",
     obstacleSpeeder: "#16a085",
     obstacleSwapper: "#e74c3c",
-    obstacleStandard: "#c0392b"
+    obstacleBoring: "#c0392b"
 };
 
 export default colorscheme;

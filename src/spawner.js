@@ -1,4 +1,4 @@
-import Obstacle from './prefabs/obstacle';
+import ObstacleBoring from './prefabs/obstacleBoring';
 import ObstacleStopAndGo from './prefabs/obstacleStopAndGo';
 import ObstacleSpeeder from './prefabs/obstacleSpeeder';
 import ObstacleSwapper from './prefabs/obstacleSwapper';
@@ -12,7 +12,7 @@ class Spawner {
         this.spriteBatch = game.add.spriteBatch();
 
         this.genericObstacleProbability = 0.7;
-        this.genericSpawnPool = this.poolByType(Obstacle, columns, game, player);
+        this.genericSpawnPool = this.poolByType(ObstacleBoring, columns, game, player);
 
         this.spawnPool.push(this.poolByType(ObstacleStopAndGo, columns, game, player));
         this.spawnPool.push(this.poolByType(ObstacleSpeeder, columns, game, player));
