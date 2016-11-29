@@ -4,7 +4,10 @@ import FontStyle from '../fontStyle';
 class ScoreText extends Phaser.Text {
 
     constructor(game, x, y) {
-        super(game, x, y, "0", new FontStyle(game));
+        super(game, game.world.centerX, game.world.height * 0.1, "0", new FontStyle(game));
+
+        this.anchor.setTo(0.5, 0.5);
+
         this.score = 0;
     }
 
