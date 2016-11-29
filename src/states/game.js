@@ -10,11 +10,10 @@ class Game extends Phaser.State {
         this.music = this.game.add.audio('music');
         this.music.play();
 
-        this.game.global = {
-            score: 0
-        };
         this.scoreText = new ScoreText(this.game, this.game.world.centerX, this.game.world.height * 0.15);
         this.game.add.existing(this.scoreText);
+        let scoreSignal = new Phaser.Signal();
+        scoreSignal.add((points) => {this.scoreText.scoreUp(points);});
 
         let playerSize = 64;
         let playerY = this.game.world.height * 0.85;
@@ -31,7 +30,7 @@ class Game extends Phaser.State {
 
         this.game.input.onDown.add(this.player.move, this.player);
 
-        this.spawner = new Spawner(this.game, this.columnXVals, this.player);
+        this.spawner = new Spawner(this.game, this.columnXVals, this.player, scoreSignal);
         this.setupSpawnTimer(0);
 
         this.game.analytics.reportGameStart();
@@ -78,9 +77,9 @@ class Game extends Phaser.State {
         let event = timer.add(Phaser.Timer.SECOND * 2, () => {
             this.game.time.slowMotion = 1;
             this.game.state.start("menu");
-            this.game.analytics.reportScore(this.game.global.score);
+            this.game.analytics.reportScore(this.scoreText.score);
             let highScore = localStorage.getItem('vertical-highScore') || 0;
-            localStorage.setItem('vertical-highScore', Math.max(this.game.global.score, highScore));
+            localStorage.setItem('vertical-highScore', Math.max(this.scoreText.score, highScore));
         }, this);
         timer.start();
     }

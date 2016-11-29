@@ -6,11 +6,13 @@ class ScoreText extends Phaser.Text {
         const style = {
             "fill": colorscheme.fontColor
         };
-        super(game, x, y, "text", style);
+        super(game, x, y, "0", style);
+        this.score = 0;
     }
 
-    update() {
-        this.text = this.game.global.score;
+    scoreUp(points) {
+        this.score += points;
+        this.text = this.score;
     }
 
 }

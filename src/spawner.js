@@ -5,9 +5,10 @@ import ObstacleSwapper from './prefabs/obstacleSwapper';
 
 class Spawner {
 
-    constructor(game, columns, player) {
+    constructor(game, columns, player, scoreSignal) {
         this.game = game;
         this.columns = columns;
+        this.scoreSignal = scoreSignal;
         this.spawnPool = [];
         this.spriteBatch = game.add.spriteBatch();
 
@@ -26,7 +27,7 @@ class Spawner {
             pool.push(obstacle);
             this.spriteBatch.addChild(obstacle);
             obstacle.destroyed.add(() => {
-                this.game.global.score += 1;
+                this.scoreSignal.dispatch(1);
             });
         }
         return pool;
