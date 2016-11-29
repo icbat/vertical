@@ -5,13 +5,16 @@ import Spawner from '../spawner';
 class Game extends Phaser.State {
 
     create() {
+        this.game.global = {
+            score: 0
+        };
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
         this.music = this.game.add.audio('music');
         this.music.play();
 
-        let playerSize = 64;
-        let playerY = this.game.world.height * 0.85;
+        const playerSize = 64;
+        const playerY = this.game.world.height * 0.85;
         this.columnXVals = [0 + playerSize / 2, this.game.world.centerX / 2 + playerSize / 4, this.game.world.centerX, this.game.world.centerX * 3 / 2 - playerSize / 4, this.game.world.width - playerSize / 2];
 
         for (let colX of this.columnXVals) {
@@ -20,44 +23,39 @@ class Game extends Phaser.State {
             colSprite.scale.setTo(playerSize, 1);
         }
 
-        this.player = new Player(this.game, this.game.world.centerX, playerY, this.columnXVals, this.endGame, this);
-        this.game.add.existing(this.player);
+        const player = new Player(this.game, this.game.world.centerX, playerY, this.columnXVals, this.endGame, this);
+        this.game.add.existing(player);
 
-        this.game.input.onDown.add(this.player.move, this.player);
+        this.game.input.onDown.add(player.move, player);
 
-        let scoreSignal = new Phaser.Signal();
-        this.spawner = new Spawner(this.game, this.columnXVals, this.player, scoreSignal);
-        this.setupSpawnTimer(0);
+        const scoreSignal = new Phaser.Signal();
+        this.spawner = new Spawner(this.game, this.columnXVals, player, scoreSignal);
+        this.setupSpawnTimer(0, player);
 
-        this.scoreText = new ScoreText(this.game, this.game.world.centerX, this.game.world.height * 0.15);
-        this.game.add.existing(this.scoreText);
-        scoreSignal.add((points) => {this.scoreText.scoreUp(points);});
+        const scoreText = new ScoreText(this.game, this.game.world.centerX, this.game.world.height * 0.15);
+        this.game.add.existing(scoreText);
+        scoreSignal.add((points) => {
+            scoreText.scoreUp(points);
+        });
 
         this.game.analytics.reportGameStart();
     }
 
     update() {}
 
-    render() {
-        // this.game.debug.text(this.game.time.fps, 0, 16, "#000000");
-
-        // this.game.debug.body(this.player);
-        // for (let obstacle of this.obstacles) {
-        //     this.game.debug.body(obstacle);
-        // }
-    }
+    render() {}
 
     shutdown() {
         this.music.stop();
     }
 
-    setupSpawnTimer(level) {
+    setupSpawnTimer(level, player) {
         let timeToSpawn = Phaser.Timer.SECOND * 2 * Math.pow(1 / 2, Math.floor(level / 10));
 
         this.spawnTimer = this.game.time.create();
-        let event = this.spawnTimer.repeat(timeToSpawn, 10, this.spawn, this, level, this.player);
+        let event = this.spawnTimer.repeat(timeToSpawn, 10, this.spawn, this, level, player);
         this.spawnTimer.onComplete.addOnce(() => {
-            this.setupSpawnTimer(++level);
+            this.setupSpawnTimer(++level, player);
         });
         this.spawnTimer.start();
     }
@@ -77,9 +75,9 @@ class Game extends Phaser.State {
         let event = timer.add(Phaser.Timer.SECOND * 2, () => {
             this.game.time.slowMotion = 1;
             this.game.state.start("menu");
-            this.game.analytics.reportScore(this.scoreText.score);
+            this.game.analytics.reportScore(this.game.global.score);
             let highScore = localStorage.getItem('vertical-highScore') || 0;
-            localStorage.setItem('vertical-highScore', Math.max(this.scoreText.score, highScore));
+            localStorage.setItem('vertical-highScore', Math.max(this.game.global.score, highScore));
         }, this);
         timer.start();
     }

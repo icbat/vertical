@@ -28,6 +28,7 @@ class Spawner {
             this.spriteBatch.addChild(obstacle);
             obstacle.destroyed.add(() => {
                 this.scoreSignal.dispatch(1);
+                this.game.global.score += 1;
             });
         }
         return pool;
