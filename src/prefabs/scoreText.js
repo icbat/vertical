@@ -14,8 +14,8 @@ class ScoreText extends Phaser.Text {
     update() {
         const scalingspeed = 0.01;
         if (this.scale.x !== 1) {
-            this.scale.x = Math.max(1, this.scale.x - scalingspeed *this.game.time.elapsed / 15);
-            this.scale.y = Math.max(1, this.scale.y - scalingspeed *this.game.time.elapsed / 15);
+            this.scale.x = Math.max(1, this.scale.x - scalingspeed * this.game.time.elapsed / 15);
+            this.scale.y = Math.max(1, this.scale.y - scalingspeed * this.game.time.elapsed / 15);
         }
     }
 
