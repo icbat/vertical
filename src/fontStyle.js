@@ -8,6 +8,8 @@ class FontStyle {
         this.wordWrap = true;
         this.wordWrapWidth = game.world.width;
         this.fill = colorscheme.fontColor;
+        this.stroke = colorscheme.backgroundColor;
+        this.strokeThickness = 5;
     }
 }
 

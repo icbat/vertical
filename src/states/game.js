@@ -10,11 +10,6 @@ class Game extends Phaser.State {
         this.music = this.game.add.audio('music');
         this.music.play();
 
-        this.scoreText = new ScoreText(this.game, this.game.world.centerX, this.game.world.height * 0.15);
-        this.game.add.existing(this.scoreText);
-        let scoreSignal = new Phaser.Signal();
-        scoreSignal.add((points) => {this.scoreText.scoreUp(points);});
-
         let playerSize = 64;
         let playerY = this.game.world.height * 0.85;
         this.columnXVals = [0 + playerSize / 2, this.game.world.centerX / 2 + playerSize / 4, this.game.world.centerX, this.game.world.centerX * 3 / 2 - playerSize / 4, this.game.world.width - playerSize / 2];
@@ -30,8 +25,13 @@ class Game extends Phaser.State {
 
         this.game.input.onDown.add(this.player.move, this.player);
 
+        let scoreSignal = new Phaser.Signal();
         this.spawner = new Spawner(this.game, this.columnXVals, this.player, scoreSignal);
         this.setupSpawnTimer(0);
+
+        this.scoreText = new ScoreText(this.game, this.game.world.centerX, this.game.world.height * 0.15);
+        this.game.add.existing(this.scoreText);
+        scoreSignal.add((points) => {this.scoreText.scoreUp(points);});
 
         this.game.analytics.reportGameStart();
     }
