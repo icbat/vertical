@@ -2,9 +2,11 @@ import colorscheme from '../colorscheme';
 
 class Player extends Phaser.Sprite {
 
-    constructor(game, x, y, columnXVals, playerSize, endGameCallback, endGameContext) {
+    constructor(game, x, y, columnXVals, endGameCallback, endGameContext) {
         super(game, x, y, 'pixel');
         this.initialY = y;
+        // assumes it's a square
+        this.playerSize = this.width;
         this.anchor.setTo(0.5, 0.5);
         this.tint = colorscheme.player;
         game.physics.enable(this, Phaser.Physics.ARCADE);
@@ -35,10 +37,9 @@ class Player extends Phaser.Sprite {
         this.oldPositions.shift();
 
         let squishPercent = this.speed;
-        const originalSize = 64;
-        this.height = originalSize * (1 - (squishPercent / 200));
-        this.y = this.initialY + originalSize * (1 + (squishPercent / 200)) - originalSize;
-        this.width = originalSize * (1 + (squishPercent / 100));
+        this.height = this.playerSize * (1 - (squishPercent / 200));
+        this.y = this.initialY + this.playerSize * (1 + (squishPercent / 200)) - this.playerSize;
+        this.width = this.playerSize * (1 + (squishPercent / 100));
     }
 
     move(click) {

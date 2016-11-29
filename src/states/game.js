@@ -26,7 +26,7 @@ class Game extends Phaser.State {
             colSprite.scale.setTo(playerSize, 1);
         }
 
-        this.player = new Player(this.game, this.game.world.centerX, playerY, this.columnXVals, playerSize, this.endGame, this);
+        this.player = new Player(this.game, this.game.world.centerX, playerY, this.columnXVals, this.endGame, this);
         this.game.add.existing(this.player);
 
         this.game.input.onDown.add(this.player.move, this.player);
