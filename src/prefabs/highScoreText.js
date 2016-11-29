@@ -1,17 +1,9 @@
-import colorscheme from '../colorscheme';
+import FontStyle from '../fontStyle';
 
 class HighScoreText extends Phaser.Text {
 
     constructor(game, highScore) {
-        const style = {
-            "boundsAlignH": "center",
-            "boundsAlignV": "middle",
-            "align": "center",
-            "wordWrap": true,
-            "wordWrapWidth": game.world.width,
-            "fill": colorscheme.fontColor
-        };
-        super(game, 0, 0, constructText("???", highScore), style);
+        super(game, 0, 0, constructText("???", highScore), new FontStyle(game));
         this.setTextBounds(0, 32, this.game.world.width, 96);
         this.highScore = highScore;
     }

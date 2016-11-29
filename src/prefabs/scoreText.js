@@ -1,12 +1,10 @@
 import colorscheme from '../colorscheme';
+import FontStyle from '../fontStyle';
 
 class ScoreText extends Phaser.Text {
 
     constructor(game, x, y) {
-        const style = {
-            "fill": colorscheme.fontColor
-        };
-        super(game, x, y, "0", style);
+        super(game, x, y, "0", new FontStyle(game));
         this.score = 0;
     }
 
