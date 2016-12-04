@@ -10,7 +10,7 @@ class Game extends Phaser.State {
         };
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
-        const leftBG = this.game.add.tileSprite(0, 0, this.game.world.centerX, this.game.world.height, 'tile-bg');
+        const leftBG = this.game.add.tileSprite(this.game.world.centerX, 0, -this.game.world.centerX, this.game.world.height, 'tile-bg');
         const rightBG = this.game.add.tileSprite(this.game.world.centerX, 0, this.game.world.centerX, this.game.world.height, 'tile-bg');
         const bgAlpha = 0.2;
         leftBG.alpha = bgAlpha;
