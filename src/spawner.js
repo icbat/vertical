@@ -1,18 +1,19 @@
-import Obstacle from './prefabs/obstacle';
+import ObstacleBoring from './prefabs/obstacleBoring';
 import ObstacleStopAndGo from './prefabs/obstacleStopAndGo';
 import ObstacleSpeeder from './prefabs/obstacleSpeeder';
 import ObstacleSwapper from './prefabs/obstacleSwapper';
 
 class Spawner {
 
-    constructor(game, columns, player) {
+    constructor(game, columns, player, scoreSignal) {
         this.game = game;
         this.columns = columns;
+        this.scoreSignal = scoreSignal;
         this.spawnPool = [];
         this.spriteBatch = game.add.spriteBatch();
 
         this.genericObstacleProbability = 0.7;
-        this.genericSpawnPool = this.poolByType(Obstacle, columns, game, player);
+        this.genericSpawnPool = this.poolByType(ObstacleBoring, columns, game, player);
 
         this.spawnPool.push(this.poolByType(ObstacleStopAndGo, columns, game, player));
         this.spawnPool.push(this.poolByType(ObstacleSpeeder, columns, game, player));
@@ -26,6 +27,7 @@ class Spawner {
             pool.push(obstacle);
             this.spriteBatch.addChild(obstacle);
             obstacle.destroyed.add(() => {
+                this.scoreSignal.dispatch(1);
                 this.game.global.score += 1;
             });
         }

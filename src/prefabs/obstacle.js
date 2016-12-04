@@ -13,14 +13,13 @@ class Obstacle extends Phaser.Sprite {
         this.initialY = this.y;
         this.alive = false;
 
-        let tint = color || colorscheme.obstacleStandard;
-        this.tint = Phaser.Color.hexToRGB(tint);
+        this.tint = color;
     }
 
     // unused params are only used by children, they're here for documentation
     activate(level, index, indices, columns) {
         this.initialSpeed = this.baseSpeed + level;
-        this.speed =  this.initialSpeed;
+        this.speed = this.initialSpeed;
         this.update = this.onUpdate;
         this.alive = true;
         this.visible = true;

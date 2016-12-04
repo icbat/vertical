@@ -27,13 +27,13 @@ class Analytics {
         });
     }
 
-    populateWithDailyHighScore(textObject, baseText) {
+    getDailyHighScore(callback, context) {
         $.getJSON(this.url + "score/today", (data) => {
             let dailyHighScore = 0;
             for (let scoreObject of data.data) {
                 dailyHighScore = Math.max(dailyHighScore, scoreObject.score);
             }
-            textObject.text = baseText + dailyHighScore;
+            callback.apply(context, [dailyHighScore]);
         });
     }
 

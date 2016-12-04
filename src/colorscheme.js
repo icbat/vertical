@@ -1,10 +1,11 @@
 let colorscheme = {
-    background: "#bdc3c7",
-    player: "#9b59b6",
-    obstacleStopAndGo: "#e67e22",
-    obstacleSpeeder: "#16a085",
-    obstacleSwapper: "#e74c3c",
-    obstacleStandard: "#c0392b"
+    background: 0x000000,
+    fontColor: "#ffffff",
+    player: 0xaa00ff,
+    obstacleStopAndGo: 0xFFAA01,
+    obstacleSpeeder: 0xAAFF02,
+    obstacleSwapper: 0xFF00AA,
+    obstacleBoring: 0x00AAFF
 };
 
 export default colorscheme;

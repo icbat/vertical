@@ -4,7 +4,7 @@ import Obstacle from './obstacle';
 class ObstacleSwapper extends Obstacle {
 
     constructor(game, x, player) {
-        super(game, x, player);
+        super(game, x, player, colorscheme.obstacleBoring);
         this.originalTint = this.tint;
         this.originalX = x;
     }
@@ -16,7 +16,7 @@ class ObstacleSwapper extends Obstacle {
             this.specialMove = () => {
                 this.targetX = columns[targetIndex];
             };
-            this.tint = Phaser.Color.hexToRGB(colorscheme.obstacleSwapper);
+            this.tint = colorscheme.obstacleSwapper;
         }
     }
 
