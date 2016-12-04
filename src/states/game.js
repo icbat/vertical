@@ -10,6 +10,10 @@ class Game extends Phaser.State {
         };
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
+        const bg = this.game.add.tileSprite(0, 0, this.game.world.height, this.game.world.height, 'tile-bg');
+        bg.alpha = 0.2;
+
+
         this.music = this.game.add.audio('music');
         this.music.play();
 
