@@ -42,16 +42,8 @@ class Player extends Phaser.Sprite {
         this.width = this.playerSize * (1 + (squishPercent / 100));
     }
 
-    move(click) {
-        if (click.worldX < this.game.world.centerX) {
-            this.guardedMoveCol(-1);
-        } else {
-            this.guardedMoveCol(1);
-        }
-    }
-
-    guardedMoveCol(movement) {
-        let result = this.col += movement;
+    move(direction) {
+        let result = this.col += direction;
 
         if (result < 0) {
             this.col = 0;

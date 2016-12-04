@@ -30,7 +30,13 @@ class Game extends Phaser.State {
         const player = new Player(this.game, this.game.world.centerX, playerY, this.columnXVals, this.endGame, this);
         this.game.add.existing(player);
 
-        this.game.input.onDown.add(player.move, player);
+        this.game.input.onDown.add((click) => {
+            if (click.worldX < this.game.world.centerX) {
+                player.move(-1);
+            } else {
+                player.move(1);
+            }
+        });
 
         const scoreSignal = new Phaser.Signal();
         this.spawner = new Spawner(this.game, this.columnXVals, player, scoreSignal);
