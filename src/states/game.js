@@ -10,9 +10,11 @@ class Game extends Phaser.State {
         };
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
-        const bg = this.game.add.tileSprite(0, 0, this.game.world.height, this.game.world.height, 'tile-bg');
-        bg.alpha = 0.2;
-
+        const leftBG = this.game.add.tileSprite(0, 0, this.game.world.centerX, this.game.world.height, 'tile-bg');
+        const rightBG = this.game.add.tileSprite(this.game.world.centerX, 0, this.game.world.centerX, this.game.world.height, 'tile-bg');
+        const bgAlpha = 0.2;
+        leftBG.alpha = bgAlpha;
+        rightBG.alpha = bgAlpha;
 
         this.music = this.game.add.audio('music');
         this.music.play();
@@ -31,11 +33,25 @@ class Game extends Phaser.State {
         this.game.add.existing(player);
 
         this.game.input.onDown.add((click) => {
+            let direction;
+            let bg;
+
             if (click.worldX < this.game.world.centerX) {
-                player.move(-1);
+                direction = -1;
+                bg = leftBG;
             } else {
-                player.move(1);
+                direction = 1;
+                bg = rightBG;
             }
+
+            player.move(direction);
+            bg.alpha = 1;
+
+            let tween = this.game.add.tween(bg);
+            tween.to({
+                alpha: bgAlpha
+            }, 200);
+            tween.start();
         });
 
         const scoreSignal = new Phaser.Signal();
