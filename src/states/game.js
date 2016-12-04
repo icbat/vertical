@@ -45,12 +45,12 @@ class Game extends Phaser.State {
             }
 
             player.move(direction);
-            bg.alpha = 1;
+            bg.alpha = 0.8;
 
             let tween = this.game.add.tween(bg);
             tween.to({
                 alpha: bgAlpha
-            }, 200);
+            }, 150);
             tween.start();
         });
 
