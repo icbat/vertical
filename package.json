@@ -1,6 +1,6 @@
 {
   "name": "vertical",
-  "version": "14.0.0",
+  "version": "15.0.0",
   "description": "",
   "scripts": {
     "start": "budo src/main.js:bundle.js --live -- -d -e src/main.js -t [babelify --comments false --presets es2015]",
