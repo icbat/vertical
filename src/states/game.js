@@ -29,8 +29,8 @@ class Game extends Phaser.State {
             colSprite.scale.setTo(playerSize, 1);
         }
 
-        const player = new Player(this.game, this.game.world.centerX, playerY, this.columnXVals, this.endGame, this);
-        this.game.add.existing(player);
+        this.player = new Player(this.game, this.game.world.centerX, playerY, this.columnXVals, this.endGame, this);
+        this.game.add.existing(this.player);
 
         this.game.input.onDown.add((click) => {
             let direction;
@@ -44,19 +44,19 @@ class Game extends Phaser.State {
                 bg = rightBG;
             }
 
-            player.move(direction);
+            this.player.move(direction);
             bg.alpha = 0.8;
 
-            let tween = this.game.add.tween(bg);
-            tween.to({
+            let bgFadeTween = this.game.add.tween(bg);
+            bgFadeTween.to({
                 alpha: bgAlpha
             }, 150);
-            tween.start();
+            bgFadeTween.start();
         });
 
         const scoreSignal = new Phaser.Signal();
-        this.spawner = new Spawner(this.game, this.columnXVals, player, scoreSignal);
-        this.setupSpawnTimer(0, player);
+        this.spawner = new Spawner(this.game, this.columnXVals, this.player, scoreSignal);
+        this.setupSpawnTimer(0, this.player);
 
         const scoreText = new ScoreText(this.game, this.game.world.centerX, this.game.world.height * 0.15);
         this.game.add.existing(scoreText);
@@ -93,10 +93,9 @@ class Game extends Phaser.State {
     }
 
     endGame() {
-        this.spawnTimer.stop();
-        this.game.input.onDown.removeAll();
+        this.partialPause();
+        this.game.sound.play('hit-sound', 0.4);
 
-        this.game.time.slowMotion = 5;
         let timer = this.game.time.create();
         let event = timer.add(Phaser.Timer.SECOND * 2, () => {
             this.game.time.slowMotion = 1;
@@ -106,6 +105,13 @@ class Game extends Phaser.State {
             localStorage.setItem('vertical-highScore', Math.max(this.game.global.score, highScore));
         }, this);
         timer.start();
+    }
+
+    partialPause() {
+        this.spawnTimer.stop();
+        this.game.input.onDown.removeAll();
+        this.player.turnOff();
+        this.spawner.turnOff();
     }
 }
 

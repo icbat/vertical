@@ -66,6 +66,17 @@ class Spawner {
         }
     }
 
+    turnOff() {
+        for (let pool of this.spawnPool) {
+            for (let obstacle of pool) {
+                obstacle.turnOff();
+            }
+        }
+        for (let obstacle of this.genericSpawnPool) {
+            obstacle.turnOff();
+        }
+    }
+
 }
 
 export default Spawner;

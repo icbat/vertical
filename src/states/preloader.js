@@ -17,6 +17,7 @@ class Preloader extends Phaser.State {
         this.game.load.image('tile-bg', 'assets/tile-bg.png');
 
         this.game.load.audio('music', 'assets/EtherDisco.ogg');
+        this.game.load.audio('hit-sound', 'assets/hit.ogg');
     }
 
     onLoadComplete() {

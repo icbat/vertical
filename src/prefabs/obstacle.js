@@ -48,6 +48,10 @@ class Obstacle extends Phaser.Sprite {
 
     // None here, override this in children
     specialMove() {}
+
+    turnOff() {
+        this.update = () => {};
+    }
 }
 
 export default Obstacle;
