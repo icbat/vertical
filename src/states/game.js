@@ -93,8 +93,7 @@ class Game extends Phaser.State {
     }
 
     endGame() {
-        this.partialPause();
-        this.game.sound.play('hit-sound', 0.4);
+        let pause = this.partialPause();
 
         let timer = this.game.time.create();
         let event = timer.add(Phaser.Timer.SECOND * 2, () => {
@@ -112,6 +111,11 @@ class Game extends Phaser.State {
         this.game.input.onDown.removeAll();
         this.player.turnOff();
         this.spawner.turnOff();
+        this.game.sound.play('hit-sound', 0.4);
+        let timer = this.game.time.create();
+        timer.add(Phaser.Timer.SECOND / 2, () => {});
+        timer.start();
+        return timer;
     }
 }
 
