@@ -1,4 +1,5 @@
 import colorscheme from '../colorscheme';
+import TitleText from '../prefabs/titleText';
 import TextButton from '../prefabs/textButton';
 import HighScoreText from '../prefabs/highScoreText';
 
@@ -7,6 +8,8 @@ class Menu extends Phaser.State {
         this.lastScore = lastScore;
     }
     create() {
+        const titleText = new TitleText(this.game, "Vertiblocks", 16);
+
         const startButton = new TextButton(this.game, 'Start it!', this.game.world.centerX, -100);
 
         const highScore = localStorage.getItem('vertical-highScore');
