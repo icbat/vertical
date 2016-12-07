@@ -2,7 +2,10 @@ import FontStyle from '../fontStyle';
 
 class HighScoreText extends Phaser.Text {
     constructor(game, descriptor, highScore, y) {
-        const text = !!highScore ? descriptor + "\n" +  highScore : "";
+        let text = "";
+        if (!!highScore || highScore === 0) {
+            text = descriptor + "\n" +  highScore;
+        }
         super(game, 0, y, text, new FontStyle(game));
         this.setTextBounds(0, 32, this.game.world.width, 96);
         this.highScore = highScore;

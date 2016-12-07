@@ -94,7 +94,7 @@ class Game extends Phaser.State {
             crumble.onComplete.add(() => {
                 const timer = this.game.time.create();
                 const event = timer.add(Phaser.Timer.SECOND / 2, () => {
-                    this.game.state.start("menu");
+                    this.game.state.start("menu", true, false, this.game.global.score);
                 }, this);
                 timer.start();
             });
