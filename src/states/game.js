@@ -119,14 +119,16 @@ class Game extends Phaser.State {
 
         this.game.sound.play('hit-sound', 0.4);
 
-        const timer = this.game.time.create();
-        timer.add(Phaser.Timer.SECOND / 2, () => {});
-        timer.start();
-        return timer;
+        const musicFadeTween = this.game.add.tween(this.music._sound.playbackRate);
+        musicFadeTween.to({
+            value: 0.7
+        }, Phaser.Timer.SECOND / 2);
+        musicFadeTween.start();
+        return musicFadeTween;
     }
 
     crumbleAnimation() {
-        this.game.sound.play('crumble-sound', 0.4);
+        this.game.sound.play('crumble-sound', 0.1);
 
         let playerFadeTween = this.game.add.tween(this.player);
         playerFadeTween.to({
