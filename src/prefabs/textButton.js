@@ -10,6 +10,7 @@ class TextButton extends Phaser.Button {
         let textBox = this.game.add.text(0, 0, text, new FontStyle(this.game, true));
         textBox.anchor.setTo(0.5, 0.5);
         this.addChild(textBox);
+        this.colorStep = 0;
         game.add.existing(this);
     }
 
@@ -19,7 +20,9 @@ class TextButton extends Phaser.Button {
 
     update() {
         const scale = 0.02 * Math.sin(new Date() / 200);
-        this.scale.setTo(1 + scale, 1+ scale);
+        this.scale.setTo(1 + scale, 1 + scale);
+        this.tint = Phaser.Color.interpolateColor(0x00ff00, 0x0000ff, 500, this.colorStep, 1);
+        this.colorStep += 1;
     }
 
 }
