@@ -54,13 +54,13 @@ class Game extends Phaser.State {
             bgFadeTween.start();
         });
 
-        const scoreSignal = new Phaser.Signal();
-        this.spawner = new Spawner(this.game, this.columnXVals, this.player, scoreSignal);
+        this.scoreSignal = new Phaser.Signal();
+        this.spawner = new Spawner(this.game, this.columnXVals, this.player, this.scoreSignal);
         this.setupSpawnTimer(0, this.player);
 
         const scoreText = new ScoreText(this.game, this.game.world.centerX, this.game.world.height * 0.15);
         this.game.add.existing(scoreText);
-        scoreSignal.add((points) => {
+        this.scoreSignal.add((points) => {
             scoreText.scoreUp(points);
         });
 
@@ -93,15 +93,15 @@ class Game extends Phaser.State {
     }
 
     endGame() {
+        this.scoreSignal.removeAll();
+        this.game.analytics.reportScore(this.game.global.score);
+        let highScore = localStorage.getItem('vertical-highScore') || 0;
+        localStorage.setItem('vertical-highScore', Math.max(this.game.global.score, highScore));
         let pause = this.partialPause();
 
         let timer = this.game.time.create();
         let event = timer.add(Phaser.Timer.SECOND * 2, () => {
-            this.game.time.slowMotion = 1;
             this.game.state.start("menu");
-            this.game.analytics.reportScore(this.game.global.score);
-            let highScore = localStorage.getItem('vertical-highScore') || 0;
-            localStorage.setItem('vertical-highScore', Math.max(this.game.global.score, highScore));
         }, this);
         timer.start();
     }
