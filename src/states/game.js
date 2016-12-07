@@ -23,8 +23,8 @@ class Game extends Phaser.State {
 
         for (let colX of this.columnXVals) {
             let colSprite = this.game.add.sprite(colX, playerY + playerSize, 'col-shadow');
+            colSprite.alpha = 0.5;
             colSprite.anchor.setTo(0.5, 0.5);
-            colSprite.scale.setTo(playerSize, 1);
         }
 
         this.player = new Player(this.game, this.game.world.centerX, playerY, this.columnXVals, this.endGame, this);
