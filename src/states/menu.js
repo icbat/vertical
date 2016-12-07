@@ -7,16 +7,19 @@ class Menu extends Phaser.State {
         const startButton = new TextButton(this.game, 'Start it!', this.game.world.centerX, -100);
 
         const highScore = localStorage.getItem('vertical-highScore');
-        const scoreText = new HighScoreText(this.game, highScore, -500);
-        this.game.analytics.getDailyHighScore(scoreText.updateDailyHighScore, scoreText);
+        const globalHighText = new HighScoreText(this.game, "Today's Global High:", "???", -100);
+        const highScoreText = new HighScoreText(this.game, "Your Best:", highScore, -100);
+        this.game.analytics.getDailyHighScore(globalHighText.updateScore, globalHighText);
 
         let buttonTween = this.addTween(startButton, this.game.world.centerY);
-        let scoreTween = this.addTween(scoreText, this.game.world.centerY + startButton.height);
+        let globalScoreTween = this.addTween(globalHighText, this.game.world.centerY + startButton.height / 2);
+        let highScoreTween = this.addTween(highScoreText, this.game.world.centerY + startButton.height / 2 + globalHighText.height);
 
         let lagTimer = this.game.time.create();
         lagTimer.add(Phaser.Timer.SECOND / 4, () => {
             buttonTween.start();
-            scoreTween.start();
+            highScoreTween.start();
+            globalScoreTween.start();
         });
         lagTimer.start();
     }
