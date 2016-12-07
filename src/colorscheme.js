@@ -1,4 +1,5 @@
 let colorscheme = {
+    initialBackground: 0xFFFFFF,
     background: 0x000000,
     fontColor: "#ffffff",
     player: 0xaa00ff,

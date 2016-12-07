@@ -9,6 +9,7 @@ class Boot extends Phaser.State {
     }
 
     create() {
+        this.game.stage.backgroundColor = colorscheme.initialBackground;
         this.game.input.maxPointers = 1;
         this.game.scale.pageAlignHorizontally = true;
 
@@ -22,7 +23,6 @@ class Boot extends Phaser.State {
             this.game.scale.forceOrientation(true);
         }
 
-        this.game.stage.backgroundColor = colorscheme.background;
         this.game.state.start('preloader');
     }
 

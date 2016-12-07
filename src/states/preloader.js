@@ -1,13 +1,15 @@
+import colorscheme from '../colorscheme';
+
 class Preloader extends Phaser.State {
 
-    constructor() {
-        super();
-        this.ready = false;
-    }
-
     preload() {
-        //Setup loading and its events
-        this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
+        this.backgroundFadedIn = false;
+        this.fadeStep = 0;
+
+        this.assetsLoaded = false;
+        this.load.onLoadComplete.addOnce(() => {
+            this.assetsLoaded = true;
+        });
         this.loadResources();
     }
 
@@ -21,8 +23,16 @@ class Preloader extends Phaser.State {
         this.game.load.audio('crumble-sound', 'assets/crumble.ogg');
     }
 
-    onLoadComplete() {
-        this.game.state.start('menu');
+    update() {
+        if (this.game.stage.backgroundColor === colorscheme.background) {
+            this.backgroundFadedIn = true;
+        } else {
+            this.game.stage.backgroundColor = Phaser.Color.interpolateColor(colorscheme.initialBackground, colorscheme.background, 100, this.fadeStep, 1);
+            this.fadeStep += 10;
+        }
+        if (this.assetsLoaded && this.backgroundFadedIn) {
+            this.game.state.start('menu');
+        }
     }
 }
 
