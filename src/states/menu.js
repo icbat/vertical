@@ -11,7 +11,7 @@ class Menu extends Phaser.State {
         this.game.analytics.getDailyHighScore(scoreText.updateDailyHighScore, scoreText);
 
         let buttonTween = this.addTween(startButton, this.game.world.centerY);
-        let scoreTween = this.addTween(scoreText, 0);
+        let scoreTween = this.addTween(scoreText, this.game.world.centerY + startButton.height);
 
         let lagTimer = this.game.time.create();
         lagTimer.add(Phaser.Timer.SECOND / 4, () => {
