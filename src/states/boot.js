@@ -1,4 +1,5 @@
 import Analytics from '../analytics';
+import colorscheme from '../colorscheme';
 
 class Boot extends Phaser.State {
 
@@ -21,6 +22,7 @@ class Boot extends Phaser.State {
             this.game.scale.forceOrientation(true);
         }
 
+        this.game.stage.backgroundColor = colorscheme.background;
         this.game.state.start('preloader');
     }
 

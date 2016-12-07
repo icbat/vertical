@@ -4,7 +4,6 @@ import HighScoreText from '../prefabs/highScoreText';
 
 class Menu extends Phaser.State {
     create() {
-        this.game.stage.backgroundColor = colorscheme.background;
         let text = this.game.add.text(0, 0, "Start it!", new FontStyle(this.game));
         text.setTextBounds(0, 0, this.game.world.width, this.game.world.height);
         text.inputEnabled = true;
