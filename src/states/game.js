@@ -1,5 +1,6 @@
 import Player from '../prefabs/player';
 import ScoreText from '../prefabs/scoreText';
+import Background from '../prefabs/background';
 import Spawner from '../spawner';
 
 class Game extends Phaser.State {
@@ -10,11 +11,10 @@ class Game extends Phaser.State {
         };
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
-        const leftBG = this.game.add.tileSprite(this.game.world.centerX, 0, -this.game.world.centerX, this.game.world.height, 'tile-bg');
-        const rightBG = this.game.add.tileSprite(this.game.world.centerX, 0, this.game.world.centerX, this.game.world.height, 'tile-bg');
-        const bgAlpha = 0.2;
-        leftBG.alpha = bgAlpha;
-        rightBG.alpha = bgAlpha;
+        const leftBG = new Background(this.game, -1);
+        const rightBG = new Background(this.game, 1);
+        this.game.add.existing(leftBG);
+        this.game.add.existing(rightBG);
 
         this.music = this.game.add.audio('music');
         this.music.play();
@@ -45,13 +45,7 @@ class Game extends Phaser.State {
             }
 
             this.player.move(direction);
-            bg.alpha = 0.8;
-
-            let bgFadeTween = this.game.add.tween(bg);
-            bgFadeTween.to({
-                alpha: bgAlpha
-            }, 150);
-            bgFadeTween.start();
+            bg.touched();
         });
 
         this.scoreSignal = new Phaser.Signal();
