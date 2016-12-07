@@ -2,8 +2,8 @@ import FontStyle from '../fontStyle';
 
 class HighScoreText extends Phaser.Text {
 
-    constructor(game, highScore) {
-        super(game, 0, 0, constructText("???", highScore), new FontStyle(game));
+    constructor(game, highScore, y) {
+        super(game, 0, y, constructText("???", highScore), new FontStyle(game));
         this.setTextBounds(0, 32, this.game.world.width, 96);
         this.highScore = highScore;
         game.add.existing(this);
