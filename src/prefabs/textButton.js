@@ -17,6 +17,11 @@ class TextButton extends Phaser.Button {
         this.game.state.start('game');
     }
 
+    update() {
+        const scale = 0.02 * Math.sin(new Date() / 200);
+        this.scale.setTo(1 + scale, 1+ scale);
+    }
+
 }
 
 export default TextButton;
