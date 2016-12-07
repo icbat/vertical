@@ -40,7 +40,7 @@ class Menu extends Phaser.State {
         const randomOffset = Math.random() * 800;
         return this.game.add.tween(object).to({
             y: targetY
-        }, Phaser.Timer.SECOND / 4 + randomOffset, Phaser.Easing.Elastic.Out);
+        }, Phaser.Timer.SECOND / 2 + randomOffset, Phaser.Easing.Elastic.Out);
     }
 }
 
