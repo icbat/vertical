@@ -95,15 +95,20 @@ class Game extends Phaser.State {
     endGame() {
         this.scoreSignal.removeAll();
         this.game.analytics.reportScore(this.game.global.score);
-        let highScore = localStorage.getItem('vertical-highScore') || 0;
+        const highScore = localStorage.getItem('vertical-highScore') || 0;
         localStorage.setItem('vertical-highScore', Math.max(this.game.global.score, highScore));
-        let pause = this.partialPause();
 
-        let timer = this.game.time.create();
-        let event = timer.add(Phaser.Timer.SECOND * 2, () => {
-            this.game.state.start("menu");
-        }, this);
-        timer.start();
+        const pause = this.partialPause();
+        pause.onComplete.add(() => {
+            const crumble = this.crumbleAnimation();
+            crumble.onComplete.add(() => {
+                const timer = this.game.time.create();
+                const event = timer.add(Phaser.Timer.SECOND / 2, () => {
+                    this.game.state.start("menu");
+                }, this);
+                timer.start();
+            });
+        });
     }
 
     partialPause() {
@@ -111,11 +116,30 @@ class Game extends Phaser.State {
         this.game.input.onDown.removeAll();
         this.player.turnOff();
         this.spawner.turnOff();
+
         this.game.sound.play('hit-sound', 0.4);
-        let timer = this.game.time.create();
+
+        const timer = this.game.time.create();
         timer.add(Phaser.Timer.SECOND / 2, () => {});
         timer.start();
         return timer;
+    }
+
+    crumbleAnimation() {
+        this.game.sound.play('crumble-sound', 0.4);
+
+        let playerFadeTween = this.game.add.tween(this.player);
+        playerFadeTween.to({
+            alpha: 0,
+        }, Phaser.Timer.SECOND);
+        playerFadeTween.start();
+        let playerShrinkTween = this.game.add.tween(this.player.scale);
+        playerShrinkTween.to({
+            x: 0,
+            y: 0,
+        }, Phaser.Timer.SECOND);
+        playerShrinkTween.start();
+        return playerFadeTween;
     }
 }
 

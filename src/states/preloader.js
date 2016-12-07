@@ -18,6 +18,7 @@ class Preloader extends Phaser.State {
 
         this.game.load.audio('music', 'assets/EtherDisco.ogg');
         this.game.load.audio('hit-sound', 'assets/hit.ogg');
+        this.game.load.audio('crumble-sound', 'assets/crumble.ogg');
     }
 
     onLoadComplete() {
