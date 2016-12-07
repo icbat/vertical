@@ -1,9 +1,10 @@
 class Background extends Phaser.TileSprite {
 
     constructor(game, direction) {
-        super(game, game.world.centerX, 0, game.world.centerX * direction, game.world.height, 'tile-bg');
+        super(game, game.world.centerX, -16, game.world.centerX * direction, game.world.height + 16, 'tile-bg');
         this.originalAlpha = 0.2;
         this.alpha = this.originalAlpha;
+        game.add.existing(this);
     }
 
     update() {

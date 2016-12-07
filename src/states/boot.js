@@ -1,4 +1,5 @@
 import Analytics from '../analytics';
+import colorscheme from '../colorscheme';
 
 class Boot extends Phaser.State {
 
@@ -8,6 +9,7 @@ class Boot extends Phaser.State {
     }
 
     create() {
+        this.game.stage.backgroundColor = colorscheme.initialBackground;
         this.game.input.maxPointers = 1;
         this.game.scale.pageAlignHorizontally = true;
 

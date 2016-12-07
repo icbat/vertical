@@ -18,6 +18,7 @@ class Player extends Phaser.Sprite {
         this.body.onOverlap = new Phaser.Signal();
         this.body.onOverlap.addOnce(endGameCallback, endGameContext);
         this.speed = 0;
+        game.add.existing(this);
     }
 
     update() {
