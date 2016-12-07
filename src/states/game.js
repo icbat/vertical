@@ -13,8 +13,6 @@ class Game extends Phaser.State {
 
         const leftBG = new Background(this.game, -1);
         const rightBG = new Background(this.game, 1);
-        this.game.add.existing(leftBG);
-        this.game.add.existing(rightBG);
 
         this.music = this.game.add.audio('music');
         this.music.play();
@@ -30,7 +28,6 @@ class Game extends Phaser.State {
         }
 
         this.player = new Player(this.game, this.game.world.centerX, playerY, this.columnXVals, this.endGame, this);
-        this.game.add.existing(this.player);
 
         this.game.input.onDown.add((click) => {
             let direction;
@@ -53,7 +50,6 @@ class Game extends Phaser.State {
         this.setupSpawnTimer(0, this.player);
 
         const scoreText = new ScoreText(this.game, this.game.world.centerX, this.game.world.height * 0.15);
-        this.game.add.existing(scoreText);
         this.scoreSignal.add((points) => {
             scoreText.scoreUp(points);
         });

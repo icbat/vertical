@@ -10,6 +10,7 @@ class TextButton extends Phaser.Button {
         let textBox = this.game.add.text(0, 0, text, new FontStyle(this.game, true));
         textBox.anchor.setTo(0.5, 0.5);
         this.addChild(textBox);
+        game.add.existing(this);
     }
 
     onClick() {

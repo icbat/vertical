@@ -6,6 +6,7 @@ class HighScoreText extends Phaser.Text {
         super(game, 0, 0, constructText("???", highScore), new FontStyle(game));
         this.setTextBounds(0, 32, this.game.world.width, 96);
         this.highScore = highScore;
+        game.add.existing(this);
     }
 
     updateDailyHighScore(dailyGlobal) {

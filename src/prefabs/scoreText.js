@@ -16,6 +16,7 @@ class ScoreText extends Phaser.Text {
                 this.updateTimer.stop(false);
             }
         }, this);
+        game.add.existing(this);
     }
 
     update() {
