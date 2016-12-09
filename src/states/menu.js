@@ -14,12 +14,12 @@ class Menu extends Phaser.State {
         new Background(this.game, 1);
         const titleText = new TitleText(this.game, "Vertiblocks", 16);
 
-        const startButton = new TextButton(this.game, 'Start it!', this.game.world.centerX, -100);
+        const startButton = new TextButton(this.game, 'Start it!', this.game.world.centerX, -200);
 
         const highScore = localStorage.getItem('vertical-highScore');
-        const globalHighText = new HighScoreText(this.game, "Today's Global High:", "???", -100);
-        const highScoreText = new HighScoreText(this.game, "Your Best:", highScore, -100);
-        const lastScoreText = new HighScoreText(this.game, "Last Score:", this.lastScore, -100);
+        const globalHighText = new HighScoreText(this.game, "Today's Global High:", "???", -200);
+        const highScoreText = new HighScoreText(this.game, "Your Best:", highScore, -200);
+        const lastScoreText = new HighScoreText(this.game, "Last Score:", this.lastScore, -200);
         this.game.analytics.getDailyHighScore(globalHighText.updateScore, globalHighText);
 
         let buttonTween = this.addTween(startButton, this.game.world.centerY);
