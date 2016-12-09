@@ -28,7 +28,7 @@ class Preloader extends Phaser.State {
         if (this.game.stage.backgroundColor === colorscheme.background) {
             this.backgroundFadedIn = true;
         } else {
-            this.game.stage.backgroundColor = Phaser.Color.interpolateColor(colorscheme.initialBackground, colorscheme.background, 100, this.fadeStep, 1);
+            this.game.stage.backgroundColor = Phaser.Color.interpolateColor(colorscheme.initialBackground, colorscheme.background, 150, this.fadeStep, 1);
             this.fadeStep += 10;
         }
         if (this.assetsLoaded && this.backgroundFadedIn) {

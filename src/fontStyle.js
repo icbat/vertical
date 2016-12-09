@@ -8,6 +8,8 @@ class FontStyle {
             this.align = "center";
             this.wordWrap = true;
             this.wordWrapWidth = game.world.width;
+            this.font = "Conv_AldotheApache";
+            this.fontSize = 28;
         }
         this.fill = colorscheme.fontColor;
         this.stroke = colorscheme.backgroundColor;

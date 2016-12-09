@@ -8,6 +8,7 @@ class Menu extends Phaser.State {
     init(lastScore) {
         this.lastScore = lastScore;
     }
+
     create() {
         new Background(this.game, -1);
         new Background(this.game, 1);

@@ -1,5 +1,6 @@
 import Analytics from '../analytics';
 import colorscheme from '../colorscheme';
+import FontStyle from '../fontStyle';
 
 class Boot extends Phaser.State {
 
@@ -9,6 +10,7 @@ class Boot extends Phaser.State {
     }
 
     create() {
+        const placeholder = this.game.add.text(0, 0, "", new FontStyle(this.game));
         this.game.stage.backgroundColor = colorscheme.initialBackground;
         this.game.input.maxPointers = 1;
         this.game.scale.pageAlignHorizontally = true;
