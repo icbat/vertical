@@ -1,12 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="io.github.icbat.vertical" version="replaced at build time via cordova-version" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Vertiblocks</name>
-    <description>
-        Dodge!
-    </description>
-    <author email="cobb.evan+vertiblocks@gmail.com" href="http://icbat.github.io">
-        Evan "icbat" Cobb
-    </author>
+    <description>Dodge!</description>
+    <author email="cobb.evan+vertiblocks@gmail.com" href="http://icbat.github.io">Evan "icbat" Cobb</author>
     <content src="index.html"/>
     <preference name="Fullscreen" value="true"/>
     <preference name="Orientation" value="portrait"/>
