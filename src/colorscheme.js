@@ -3,6 +3,7 @@ let colorscheme = {
     background: 0x000000,
     fontColor: "#ffffff",
     player: 0xaa00ff,
+    rateButton: 0xFFFF00,
     obstacleStopAndGo: 0xFFAA01,
     obstacleSpeeder: 0xAAFF02,
     obstacleSwapper: 0xFF00AA,
