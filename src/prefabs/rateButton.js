@@ -6,7 +6,7 @@ class RateButton extends Phaser.Sprite {
         super(game, x, y, 'star');
         this.inputEnabled = true;
         this.events.onInputUp.add(() => {
-            cordova.plugins.market.open('io.github.icbat.vertical');
+            window.open("market://details?id=io.github.icbat.vertical");
         });
         this.scale.setTo(0.1, 0.1);
         this.tint = colorscheme.rateButton;
