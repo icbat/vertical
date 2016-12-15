@@ -32,10 +32,13 @@ class MuteButton {
         }
 
         hidden.visible = false;
-        hidden.inputEnabled = false;
         visible.visible = true;
-        visible.inputEnabled = true;
-        localStorage.setItem('vertical-muted', newState);
+        hidden.inputEnabled = false;
+        const debounce = this.game.time.create();
+        debounce.add(200, () => {
+            visible.inputEnabled = true;
+        }, this);
+        debounce.start();
     }
 
 }
