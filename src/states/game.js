@@ -6,15 +6,15 @@ import Spawner from '../spawner';
 class Game extends Phaser.State {
 
     create() {
-        this.game.global = {
-            score: 0
-        };
+        this.game.global.score = 0;
+
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
         const leftBG = new Background(this.game, -1);
         const rightBG = new Background(this.game, 1);
 
-        this.music = this.game.add.audio('music', 1, true);
+        const trackKey = this.game.rnd.pick(this.game.global.tracks);
+        this.music = this.game.add.audio(trackKey, 1, true);
         this.music.play();
 
         const playerSize = 64;

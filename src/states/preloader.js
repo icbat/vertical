@@ -21,7 +21,12 @@ class Preloader extends Phaser.State {
         this.game.load.image('speaker-on', 'assets/speaker-on.png');
         this.game.load.image('speaker-off', 'assets/speaker-off.png');
 
-        this.game.load.audio('music', 'assets/EtherDisco.ogg');
+        this.game.load.audio('music-1', 'assets/Continue.ogg');
+        this.game.load.audio('music-2', 'assets/mixdown.ogg');
+        this.game.load.audio('music-3', 'assets/Rainbow-oddroom-oga.ogg');
+        this.game.load.audio('music-4', 'assets/S31-Let-the-Games-Begin.ogg');
+        this.game.global.tracks = ['music-1', 'music-2', 'music-3', 'music-4'];
+
         this.game.load.audio('hit-sound', 'assets/hit.ogg');
         this.game.load.audio('crumble-sound', 'assets/crumble.ogg');
     }
