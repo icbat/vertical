@@ -4,7 +4,7 @@ class MuteButton {
         this.game = game;
         this.offSprite = this.makeSprite(x, y, 'speaker-off', false);
         this.onSprite = this.makeSprite(x, y, 'speaker-on', true);
-        this.setMutedState(true);
+        this.setMutedState(this.game.sound.mute);
     }
 
     makeSprite(x, y, key, state) {
