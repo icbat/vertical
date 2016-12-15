@@ -25,6 +25,9 @@ class Boot extends Phaser.State {
             this.game.scale.forceOrientation(true);
         }
 
+        // Object for keeping some more global state. I'm sorry.
+        this.game.global = {};
+
         this.game.state.start('preloader');
     }
 
