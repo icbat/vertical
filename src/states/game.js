@@ -14,7 +14,7 @@ class Game extends Phaser.State {
         const leftBG = new Background(this.game, -1);
         const rightBG = new Background(this.game, 1);
 
-        this.music = this.game.add.audio('music');
+        this.music = this.game.add.audio('music', 1, true);
         this.music.play();
 
         const playerSize = 64;
