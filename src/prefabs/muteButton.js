@@ -4,7 +4,9 @@ class MuteButton {
         this.game = game;
         this.offSprite = this.makeSprite(x, y, 'speaker-off', false);
         this.onSprite = this.makeSprite(x, y, 'speaker-on', true);
-        this.setMutedState(this.game.sound.mute);
+        const muted = localStorage.getItem('vertical-muted') || this.game.sound.mute;
+        this.setMutedState(muted);
+
     }
 
     makeSprite(x, y, key, state) {
@@ -33,6 +35,7 @@ class MuteButton {
         hidden.inputEnabled = false;
         visible.visible = true;
         visible.inputEnabled = true;
+        localStorage.setItem('vertical-muted', newState);
     }
 
 }
