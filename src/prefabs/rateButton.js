@@ -6,7 +6,10 @@ class RateButton extends Phaser.Sprite {
         super(game, x, y, 'star');
         this.inputEnabled = true;
         this.events.onInputUp.add(() => {
-            window.open("market://details?id=io.github.icbat.vertical");
+            const url = "market://details?id=io.github.icbat.vertical";
+            console.log("opening url:", url);
+            window.open(url);
+            this.game.analytics.reportAppStoreLink();
         });
         this.scale.setTo(0.1, 0.1);
         this.tint = colorscheme.rateButton;
