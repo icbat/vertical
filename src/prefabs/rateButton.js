@@ -7,7 +7,7 @@ class RateButton extends Phaser.Sprite {
         this.inputEnabled = true;
         this.events.onInputUp.add(() => {
             const url = "market://details?id=io.github.icbat.vertical";
-            console.log("opening url:", url);
+            console.log("opening url: " + url);
             window.open(url);
             this.game.analytics.reportAppStoreLink();
         });

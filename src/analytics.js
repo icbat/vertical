@@ -44,7 +44,7 @@ class Analytics {
     report(endpoint, object) {
         let payload = object || {};
         payload.uuid = this.uuid;
-        console.log("reporting to ", endpoint, payload);
+        console.log("reporting to " + endpoint + " with payload: " +  payload);
         $.post(this.url + endpoint, JSON.stringify(payload), null, "json");
     }
 
