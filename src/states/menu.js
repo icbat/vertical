@@ -4,6 +4,10 @@ import TextButton from '../prefabs/textButton';
 import HighScoreText from '../prefabs/highScoreText';
 import Background from '../prefabs/background';
 import MuteButton from '../prefabs/muteButton';
+import ObstacleBoring from '../prefabs/obstacleBoring';
+import ObstacleStopAndGo from '../prefabs/obstacleStopAndGo';
+import ObstacleSpeeder from '../prefabs/obstacleSpeeder';
+import ObstacleSwapper from '../prefabs/obstacleSwapper';
 
 class Menu extends Phaser.State {
     init(lastScore) {
@@ -17,6 +21,18 @@ class Menu extends Phaser.State {
 
         const bottomOfTitleText = 64;
         const titleText = new TitleText(this.game, "Vertiblocks", bottomOfTitleText);
+
+        const obstacles = [];
+        obstacles.push(new ObstacleBoring(this.game, this.game.world.width / 5 * 1));
+        obstacles.push(new ObstacleSpeeder(this.game, this.game.world.width / 5 * 2));
+        obstacles.push(new ObstacleStopAndGo(this.game, this.game.world.width / 5 * 3));
+        obstacles.push(new ObstacleSwapper(this.game, this.game.world.width / 5 * 4));
+
+        for (const obstacle of obstacles) {
+            obstacle.y = bottomOfTitleText * 2;
+            this.game.add.existing(obstacle);
+        }
+
         const offscreenY = this.game.world.height + 200;
         const startButton = new TextButton(this.game, 'Start it!', this.game.world.centerX, offscreenY);
 
