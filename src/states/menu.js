@@ -34,15 +34,14 @@ class Menu extends Phaser.State {
         const obstacleStartingHeight = bottomOfTitleText * 2.75;
         for (let i = 0; i < 4; ++i) {
             const obstacle = obstacles[i];
-            const x = this.game.world.width / 5 * (i + 1);
-            obstacle.x = x;
+            obstacle.x = this.game.world.width / 5 * (i + 1);
             obstacle.y = obstacleStartingHeight;
             this.game.add.existing(obstacle);
             obstacle.inputEnabled = true;
             obstacle.events.onInputUp.add(() => {
                 obstacleText.setText(obstacle.name);
             });
-            new ObstacleDeathCount(this.game, x - 32, bottomOfTitleText * 1.5, obstacle);
+            new ObstacleDeathCount(this.game, obstacle);
         }
 
         const offscreenY = this.game.world.height + 200;
