@@ -68,10 +68,12 @@ class Game extends Phaser.State {
     }
 
     setupSpawnTimer(level, player) {
-        let timeToSpawn = Phaser.Timer.SECOND * config.spawner.baseSpawnTimeSeconds * Math.pow(1 / 2, Math.floor(level / 10));
+        const baseTime = Phaser.Timer.SECOND * config.spawner.baseSpawnTimeSeconds;
+        const speedUpCoefficient = Math.floor(level / config.spawner.levelsPerSpeedUp);
+        const timeToSpawn = baseTime * Math.pow(1 / 2, speedUpCoefficient);
 
         this.spawnTimer = this.game.time.create();
-        let event = this.spawnTimer.repeat(timeToSpawn, config.spawner.wavesPerLevel, this.spawn, this, level, player);
+        this.spawnTimer.repeat(timeToSpawn, config.spawner.wavesPerLevel, this.spawn, this, level, player);
         this.spawnTimer.onComplete.addOnce(() => {
             this.setupSpawnTimer(++level, player);
         });
