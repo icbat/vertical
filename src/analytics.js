@@ -21,10 +21,16 @@ class Analytics {
         this.report("gameStart");
     }
 
-    reportScore(score, runDuration) {
+    reportScore(score, runDuration, diedTo) {
+        const formatedObstacle = {};
+        formatedObstacle.x = diedTo.x;
+        formatedObstacle.name = diedTo.name;
+        formatedObstacle.speed = diedTo.speed;
+
         this.report("score", {
             "score": score,
-            "runDuration": runDuration
+            "runDuration": runDuration,
+            "diedTo": formatedObstacle
         });
     }
 

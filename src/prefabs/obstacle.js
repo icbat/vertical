@@ -12,6 +12,7 @@ class Obstacle extends Phaser.Sprite {
         this.player = player;
         this.initialY = this.y;
         this.alive = false;
+        this.name = "UNASSIGNED";
 
         this.tint = color;
     }

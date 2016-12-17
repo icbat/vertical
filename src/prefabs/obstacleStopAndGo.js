@@ -5,6 +5,7 @@ class ObstacleStopAndGo extends Obstacle {
 
     constructor(game, x, player) {
         super(game, x, player, colorscheme.obstacleStopAndGo);
+        this.name = "Stoppy";
     }
 
     specialMove() {
