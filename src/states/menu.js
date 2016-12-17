@@ -15,7 +15,8 @@ class Menu extends Phaser.State {
         new Background(this.game, 1);
         new MuteButton(this.game, 0, 0);
 
-        const titleText = new TitleText(this.game, "Vertiblocks");
+        const bottomOfTitleText = 64;
+        const titleText = new TitleText(this.game, "Vertiblocks", bottomOfTitleText);
         const offscreenY = this.game.world.height + 200;
         const startButton = new TextButton(this.game, 'Start it!', this.game.world.centerX, offscreenY);
 
