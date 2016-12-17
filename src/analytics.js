@@ -21,10 +21,6 @@ class Analytics {
         this.report("gameStart");
     }
 
-    reportAppStoreLink() {
-        this.report("appStoreClicked");
-    }
-
     reportScore(score) {
         this.report("score", {
             "score": score

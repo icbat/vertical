@@ -4,7 +4,6 @@ import TextButton from '../prefabs/textButton';
 import HighScoreText from '../prefabs/highScoreText';
 import Background from '../prefabs/background';
 import MuteButton from '../prefabs/muteButton';
-import RateButton from '../prefabs/rateButton';
 
 class Menu extends Phaser.State {
     init(lastScore) {
@@ -15,7 +14,6 @@ class Menu extends Phaser.State {
         new Background(this.game, -1);
         new Background(this.game, 1);
         new MuteButton(this.game, 0, 0);
-        new RateButton(this.game, this.game.width - 32, 32);
 
         const titleText = new TitleText(this.game, "Vertiblocks", 16);
 
