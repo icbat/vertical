@@ -24,13 +24,15 @@ class Menu extends Phaser.State {
         const titleText = new TitleText(this.game, "Vertiblocks", bottomOfTitleText);
 
         const obstacles = [];
-        obstacles.push(new ObstacleBoring(this.game, this.game.world.width / 5 * 1));
-        obstacles.push(new ObstacleSpeeder(this.game, this.game.world.width / 5 * 2));
-        obstacles.push(new ObstacleStopAndGo(this.game, this.game.world.width / 5 * 3));
-        obstacles.push(new ObstacleSwapper(this.game, this.game.world.width / 5 * 4));
+        obstacles.push(new ObstacleBoring(this.game, 0));
+        obstacles.push(new ObstacleSpeeder(this.game, 0));
+        obstacles.push(new ObstacleStopAndGo(this.game, 0));
+        obstacles.push(new ObstacleSwapper(this.game, 0));
         const obstacleText = new ObstacleName(this.game, bottomOfTitleText * 1.5);
         const obstacleStartingHeight = bottomOfTitleText * 2.75;
-        for (const obstacle of obstacles) {
+        for (let i=0; i < 4; ++i) {
+            const obstacle = obstacles[i];
+            obstacle.x = this.game.world.width / 5 * (i + 1);
             obstacle.y = obstacleStartingHeight;
             this.game.add.existing(obstacle);
             obstacle.inputEnabled = true;
