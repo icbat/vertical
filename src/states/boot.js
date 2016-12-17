@@ -26,7 +26,9 @@ class Boot extends Phaser.State {
         }
 
         // Object for keeping some more global state. I'm sorry.
-        this.game.global = {};
+        this.game.global = {
+            deathCounts: {}
+        };
 
         this.game.state.start('preloader');
     }
