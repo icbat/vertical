@@ -46,8 +46,12 @@ class Spawner {
 
         let indices = columnVals.list.slice(0, numberToSpawn);
 
+        let levelToSpawn = level;
+        if (Math.random() < config.spawner.probabilitySlowLevel) {
+            levelToSpawn = config.spawner.slowLevelSpeed;
+        }
         for (let index of indices) {
-            this.pickObject(index, indices, level);
+            this.pickObject(index, indices, levelToSpawn);
         }
     }
 
