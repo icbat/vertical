@@ -1,6 +1,7 @@
 import colorscheme from '../colorscheme';
 import TitleText from '../prefabs/titleText';
 import TextButton from '../prefabs/textButton';
+import ObstacleName from '../prefabs/obstacleName';
 import HighScoreText from '../prefabs/highScoreText';
 import Background from '../prefabs/background';
 import MuteButton from '../prefabs/muteButton';
@@ -27,10 +28,15 @@ class Menu extends Phaser.State {
         obstacles.push(new ObstacleSpeeder(this.game, this.game.world.width / 5 * 2));
         obstacles.push(new ObstacleStopAndGo(this.game, this.game.world.width / 5 * 3));
         obstacles.push(new ObstacleSwapper(this.game, this.game.world.width / 5 * 4));
-
+        const obstacleText = new ObstacleName(this.game, bottomOfTitleText * 1.5);
+        const obstacleStartingHeight = bottomOfTitleText * 2.75;
         for (const obstacle of obstacles) {
-            obstacle.y = bottomOfTitleText * 2;
+            obstacle.y = obstacleStartingHeight;
             this.game.add.existing(obstacle);
+            obstacle.inputEnabled = true;
+            obstacle.events.onInputUp.add(() => {
+                obstacleText.setText(obstacle.name);
+            });
         }
 
         const offscreenY = this.game.world.height + 200;
