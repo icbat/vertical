@@ -2,6 +2,7 @@ import ObstacleBoring from './prefabs/obstacleBoring';
 import ObstacleStopAndGo from './prefabs/obstacleStopAndGo';
 import ObstacleSpeeder from './prefabs/obstacleSpeeder';
 import ObstacleSwapper from './prefabs/obstacleSwapper';
+import config from './config';
 
 class Spawner {
 
@@ -12,7 +13,6 @@ class Spawner {
         this.spawnPool = [];
         this.spriteBatch = game.add.spriteBatch();
 
-        this.genericObstacleProbability = 0.7;
         this.genericSpawnPool = this.poolByType(ObstacleBoring, columns, game, player);
 
         this.spawnPool.push(this.poolByType(ObstacleStopAndGo, columns, game, player));
@@ -46,14 +46,18 @@ class Spawner {
 
         let indices = columnVals.list.slice(0, numberToSpawn);
 
+        let levelToSpawn = level;
+        if (Math.random() < config.spawner.probabilitySlowLevel) {
+            levelToSpawn = config.spawner.slowLevelSpeed;
+        }
         for (let index of indices) {
-            this.pickObject(index, indices, level);
+            this.pickObject(index, indices, levelToSpawn);
         }
     }
 
     pickObject(index, indices, level) {
         let obstaclePool;
-        if (Math.random() < this.genericObstacleProbability) {
+        if (Math.random() < config.spawner.probabilityBoringObstacle) {
             obstaclePool = this.genericSpawnPool;
         } else {
             obstaclePool = this.game.rnd.pick(this.spawnPool);

@@ -19,6 +19,7 @@ class Obstacle extends Phaser.Sprite {
 
     // unused params are only used by children, they're here for documentation
     activate(level, index, indices, columns) {
+        this.level = level;
         this.initialSpeed = this.baseSpeed + level;
         this.speed = this.initialSpeed;
         this.update = this.onUpdate;
