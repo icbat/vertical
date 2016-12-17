@@ -83,7 +83,7 @@ class Game extends Phaser.State {
     spawn(level, player) {
         this.game.camera.shake(0.005, 100);
         let numberToSpawn = this.game.rnd.integerInRange(1, this.columnXVals.length - 1);
-        this.spawner.spawn(level, numberToSpawn, player);
+        this.spawner.spawn(level % config.spawner.levelsPerSpeedUp, numberToSpawn, player);
     }
 
     endGame(player, diedTo) {
