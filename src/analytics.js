@@ -26,6 +26,7 @@ class Analytics {
         formatedObstacle.x = diedTo.x;
         formatedObstacle.name = diedTo.name;
         formatedObstacle.speed = diedTo.speed;
+        formatedObstacle.level = diedTo.level;
 
         this.report("score", {
             "score": score,
