@@ -30,7 +30,7 @@ class Menu extends Phaser.State {
         obstacles.push(new ObstacleStopAndGo(this.game, 0));
         obstacles.push(new ObstacleSwapper(this.game, 0));
 
-        const obstacleText = new ObstacleName(this.game, bottomOfTitleText * 1);
+        const obstacleText = new ObstacleName(this.game, bottomOfTitleText * 1.25);
         const obstacleStartingHeight = bottomOfTitleText * 2.75;
         for (let i = 0; i < 4; ++i) {
             const obstacle = obstacles[i];
