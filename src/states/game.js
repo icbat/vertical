@@ -88,8 +88,13 @@ class Game extends Phaser.State {
 
     endGame(player, diedTo) {
         this.scoreSignal.removeAll();
+        let deathCount = this.game.global.deathCounts[diedTo.name] || 0;
+        this.game.global.deathCounts[diedTo.name] = ++deathCount;
+        localStorage.setItem('vertical-deathCount', JSON.stringify(this.game.global.deathCounts));
+
         const runFinished = new Date();
         this.game.analytics.reportScore(this.game.global.score, runFinished - this.runStarted, diedTo);
+
         const highScore = localStorage.getItem('vertical-highScore') || 0;
         localStorage.setItem('vertical-highScore', Math.max(this.game.global.score, highScore));
 
