@@ -7,7 +7,7 @@ class TitleText extends Phaser.Text {
         const style = new FontStyle(game);
         style.fontSize = 48;
         super(game, 0, 0, text, style);
-        this.setTextBounds(0, 32, this.game.world.width, 96);
+        this.setTextBounds(0, 0, this.game.world.width, 64);
         game.add.existing(this);
     }
 
