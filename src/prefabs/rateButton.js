@@ -1,4 +1,6 @@
 import colorscheme from '../colorscheme';
+import AppRate from 'plugins/cordova-plugin-apprate/www/'
+
 
 class RateButton extends Phaser.Sprite {
 
