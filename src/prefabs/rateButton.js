@@ -8,7 +8,16 @@ class RateButton extends Phaser.Sprite {
         this.events.onInputUp.add(() => {
             const url = "market://details?id=io.github.icbat.vertical";
             console.log("opening url: " + url);
-            window.open(url);
+            // window.open(url);
+            AppRate.preferences.storeAppURL = {
+                // ios: '<my_app_id>',
+                android: 'market://details?id=io.github.icbat.vertical',
+                // windows: 'ms-windows-store://pdp/?ProductId=<the apps Store ID>',
+                // blackberry: 'appworld://content/[App Id]/',
+                // windows8: 'ms-windows-store:Review?name=<the Package Family Name of the application>'
+            };
+
+            AppRate.promptForRating();
             this.game.analytics.reportAppStoreLink();
         });
         this.scale.setTo(0.1, 0.1);
