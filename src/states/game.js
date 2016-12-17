@@ -2,6 +2,7 @@ import Player from '../prefabs/player';
 import ScoreText from '../prefabs/scoreText';
 import Background from '../prefabs/background';
 import Spawner from '../spawner';
+import config from '../config';
 
 class Game extends Phaser.State {
 
@@ -67,10 +68,10 @@ class Game extends Phaser.State {
     }
 
     setupSpawnTimer(level, player) {
-        let timeToSpawn = Phaser.Timer.SECOND * 2 * Math.pow(1 / 2, Math.floor(level / 10));
+        let timeToSpawn = Phaser.Timer.SECOND * config.spawner.baseSpawnTimeSeconds * Math.pow(1 / 2, Math.floor(level / 10));
 
         this.spawnTimer = this.game.time.create();
-        let event = this.spawnTimer.repeat(timeToSpawn, 10, this.spawn, this, level, player);
+        let event = this.spawnTimer.repeat(timeToSpawn, config.spawner.wavesPerLevel, this.spawn, this, level, player);
         this.spawnTimer.onComplete.addOnce(() => {
             this.setupSpawnTimer(++level, player);
         });
