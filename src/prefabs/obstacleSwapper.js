@@ -7,6 +7,8 @@ class ObstacleSwapper extends Obstacle {
         super(game, x, player, colorscheme.obstacleBoring);
         this.originalTint = this.tint;
         this.originalX = x;
+
+        this.name = "Shifty";
     }
 
     activate(level, index, indices, columns) {

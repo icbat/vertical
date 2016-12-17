@@ -7,6 +7,7 @@ class Game extends Phaser.State {
 
     create() {
         this.game.global.score = 0;
+        this.runStarted = new Date();
 
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -82,9 +83,10 @@ class Game extends Phaser.State {
         this.spawner.spawn(level, numberToSpawn, player);
     }
 
-    endGame() {
+    endGame(player, diedTo) {
         this.scoreSignal.removeAll();
-        this.game.analytics.reportScore(this.game.global.score);
+        const runFinished = new Date();
+        this.game.analytics.reportScore(this.game.global.score, runFinished - this.runStarted, diedTo);
         const highScore = localStorage.getItem('vertical-highScore') || 0;
         localStorage.setItem('vertical-highScore', Math.max(this.game.global.score, highScore));
 

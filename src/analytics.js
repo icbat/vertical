@@ -21,9 +21,16 @@ class Analytics {
         this.report("gameStart");
     }
 
-    reportScore(score) {
+    reportScore(score, runDuration, diedTo) {
+        const formatedObstacle = {};
+        formatedObstacle.x = diedTo.x;
+        formatedObstacle.name = diedTo.name;
+        formatedObstacle.speed = diedTo.speed;
+
         this.report("score", {
-            "score": score
+            "score": score,
+            "runDuration": runDuration,
+            "diedTo": formatedObstacle
         });
     }
 
@@ -40,7 +47,7 @@ class Analytics {
     report(endpoint, object) {
         let payload = object || {};
         payload.uuid = this.uuid;
-        console.log("reporting to " + endpoint + " with payload: " +  payload);
+        console.log("reporting to " + endpoint + " with payload: ",  payload);
         $.post(this.url + endpoint, JSON.stringify(payload), null, "json");
     }
 
