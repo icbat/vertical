@@ -21,9 +21,10 @@ class Analytics {
         this.report("gameStart");
     }
 
-    reportScore(score) {
+    reportScore(score, runDuration) {
         this.report("score", {
-            "score": score
+            "score": score,
+            "runDuration": runDuration
         });
     }
 
