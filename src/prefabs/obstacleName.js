@@ -11,6 +11,11 @@ class ObstacleName extends Phaser.Text {
 
   setText(newText){
       this.text = newText;
+      this.x = 50;
+      const tween = this.game.add.tween(this).to({
+         x: 0
+     }, 100);
+     tween.start();
   }
 
 }
