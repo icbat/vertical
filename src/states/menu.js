@@ -28,7 +28,9 @@ class Menu extends Phaser.State {
         obstacles.push(new ObstacleBoring(this.game, 0));
         obstacles.push(new ObstacleSpeeder(this.game, 0));
         obstacles.push(new ObstacleStopAndGo(this.game, 0));
-        obstacles.push(new ObstacleSwapper(this.game, 0));
+        const swapper = new ObstacleSwapper(this.game, 0);
+        swapper.tint = colorscheme.obstacleSwapper;
+        obstacles.push(swapper);
 
         const obstacleText = new ObstacleName(this.game, bottomOfTitleText * 1.25);
         const obstacleStartingHeight = bottomOfTitleText * 2.75;
