@@ -43,20 +43,23 @@ class Menu extends Phaser.State {
             obstacle.inputEnabled = true;
             const shiftTween = Phaser.Timer.SECOND * 3/ 5 ;
             const shiftEase = Phaser.Easing.Exponential.Out;
-            obstacle.shiftRightTween = this.game.add.tween(obstacle).to({
-                x: obstacle.originalX + 10
-            }, shiftTween, shiftEase);
-            obstacle.shiftRightTween.to({x: obstacle.originalX - 10},shiftTween, shiftEase, false, 50, -1, true);
-            obstacle.shiftRightTween.repeatAll(-1);
+
             obstacle.resetTween = this.game.add.tween(obstacle).to({x: obstacle.originalX},shiftTween, shiftEase);
             obstacle.events.onInputUp.add(() => {
                 obstacleText.setText(obstacle.name);
                 for (const obstacle of obstacles) {
-                    obstacle.shiftRightTween.stop();
+                    if (!!obstacle.shiftRightTween) {
+                        obstacle.shiftRightTween.stop(true);
+                    }
+                    obstacle.shiftRightTween = null;
                     obstacle.resetTween.start();
                 }
+                obstacle.shiftRightTween = this.game.add.tween(obstacle).to({
+                    x: obstacle.originalX + 10
+                }, shiftTween, shiftEase);
+                obstacle.shiftRightTween.to({x: obstacle.originalX - 10},shiftTween, shiftEase, false, 50, -1, true);
+                obstacle.shiftRightTween.repeatAll(-1);
                 obstacle.shiftRightTween.start();
-
             });
             new ObstacleDeathCount(this.game, obstacle);
         }
