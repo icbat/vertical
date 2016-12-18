@@ -53,6 +53,7 @@ class Menu extends Phaser.State {
                     }
                     obstacle.shiftRightTween = null;
                     obstacle.resetTween.start();
+                    obstacle.inputEnabled = true;
                 }
                 obstacle.shiftRightTween = this.game.add.tween(obstacle).to({
                     x: obstacle.originalX + 10
@@ -60,6 +61,7 @@ class Menu extends Phaser.State {
                 obstacle.shiftRightTween.to({x: obstacle.originalX - 10},shiftTween, shiftEase, false, 50, -1, true);
                 obstacle.shiftRightTween.repeatAll(-1);
                 obstacle.shiftRightTween.start();
+                obstacle.inputEnabled = false;
             });
             new ObstacleDeathCount(this.game, obstacle);
         }
