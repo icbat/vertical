@@ -1,11 +1,10 @@
 import colorscheme from '../colorscheme';
 import Obstacle from './obstacle';
-import HorizontalMovement from '../components/horizontalMovement';
 
 class ObstacleSwapper extends Obstacle {
 
     constructor(game, x, player) {
-        super(game, x, player, colorscheme.obstacleBoring, "Shifty", null, new HorizontalMovement());
+        super(game, x, player, colorscheme.obstacleBoring, "Shifty", null);
     }
 
     activate(level, indices) {

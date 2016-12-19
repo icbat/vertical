@@ -1,17 +1,18 @@
 import colorscheme from '../colorscheme';
+import HorizontalMovement from '../components/horizontalMovement';
 import VerticalMovement from '../components/verticalMovement';
 import SpecialMove from '../components/specialMove';
 import Component from '../components/component';
 
 class Obstacle extends Phaser.Sprite {
 
-    constructor(game, x, player, color, name, specialMove, horizontalMovement) {
+    constructor(game, x, player, color, name, specialMove) {
         const y = -36;
         super(game, x, y, 'pixel');
         this.anchor.setTo(0.5, 0.5);
         this.specialMoveTrigger = this.game.world.height * 0.3;
 
-        this.horizontalMovement = horizontalMovement || new Component();
+        this.horizontalMovement = new HorizontalMovement();
         this.verticalMovement = new VerticalMovement();
         this.specialMove = new SpecialMove(specialMove);
 
