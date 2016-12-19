@@ -43,8 +43,8 @@ class ObstacleSwapper extends Obstacle {
         return null;
     }
 
-    reset() {
-        super.reset();
+    dead() {
+        super.dead();
         this.specialMove = () => {};
     }
 }

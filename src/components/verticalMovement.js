@@ -5,7 +5,7 @@ class VerticalMovement extends Component {
 
     update(entity, game) {
         if (entity.y - entity.height > game.world.height) {
-            entity.reset();
+            entity.dead();
             return;
         }
 
