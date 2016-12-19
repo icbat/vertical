@@ -9,8 +9,11 @@ let config = {
         probabilityBoringObstacle: 0.7
     },
     physics: {
-        baseObstacleSpeed: 5,
         delta: 15
+    },
+    game: {
+        baseObstacleSpeed: 5,
+        specialMoveHeight: 0.3
     }
 };
 

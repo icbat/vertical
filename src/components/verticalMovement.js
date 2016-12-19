@@ -12,7 +12,7 @@ class VerticalMovement extends Component {
         entity.y += this.speed * game.time.elapsed / config.physics.delta;
     }
     activate(level) {
-        this.initialSpeed = config.physics.baseObstacleSpeed + level;
+        this.initialSpeed = config.game.baseObstacleSpeed + level;
         this.speed = this.initialSpeed;
     }
 
