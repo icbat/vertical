@@ -20,7 +20,7 @@ class Obstacle extends Phaser.Sprite {
         this.alive = false;
 
         this.originalX = x;
-        this.initialY = y;
+        this.originalY = y;
         this.originalTint = this.tint;
 
         game.physics.enable(this, Phaser.Physics.ARCADE);
@@ -49,7 +49,7 @@ class Obstacle extends Phaser.Sprite {
 
     reset() {
         this.destroyed.dispatch();
-        this.y = this.initialY;
+        this.y = this.originalY;
         this.tint = this.originalTint;
         this.x = this.originalX;
         this.alive = false;

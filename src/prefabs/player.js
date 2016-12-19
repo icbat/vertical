@@ -4,7 +4,7 @@ class Player extends Phaser.Sprite {
 
     constructor(game, x, y, columnXVals, endGameCallback, endGameContext) {
         super(game, x, y, 'pixel');
-        this.initialY = y;
+        this.originalY = y;
         // assumes it's a square
         this.playerSize = this.width;
         this.anchor.setTo(0.5, 0.5);
@@ -39,7 +39,7 @@ class Player extends Phaser.Sprite {
 
         let squishPercent = this.speed;
         this.height = this.playerSize * (1 - (squishPercent / 200));
-        this.y = this.initialY + this.playerSize * (1 + (squishPercent / 200)) - this.playerSize;
+        this.y = this.originalY + this.playerSize * (1 + (squishPercent / 200)) - this.playerSize;
         this.width = this.playerSize * (1 + (squishPercent / 100));
     }
 
