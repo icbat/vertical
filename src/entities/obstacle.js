@@ -5,7 +5,7 @@ import Component from '../components/component';
 
 class Obstacle extends Phaser.Sprite {
 
-    constructor(game, x, player, color, name, horizontalMovement) {
+    constructor(game, x, player, color, name, specialMove, horizontalMovement) {
         const y = -36;
         super(game, x, y, 'pixel');
         this.anchor.setTo(0.5, 0.5);
@@ -13,7 +13,7 @@ class Obstacle extends Phaser.Sprite {
 
         this.horizontalMovement = horizontalMovement || new Component();
         this.verticalMovement = new VerticalMovement();
-        this.specialMoveComponent = new SpecialMove();
+        this.specialMove = new SpecialMove(specialMove);
 
         this.player = player;
         this.tint = color;
@@ -33,7 +33,7 @@ class Obstacle extends Phaser.Sprite {
         this.reset(this.originalX, this.originalY);
         this.horizontalMovement.activate(level);
         this.verticalMovement.activate(level);
-        this.specialMoveComponent.activate(level);
+        this.specialMove.activate(level);
         this.update = this.onUpdate;
         this.lastY = this.y;
     }
@@ -41,7 +41,7 @@ class Obstacle extends Phaser.Sprite {
     onUpdate() {
         this.horizontalMovement.update(this, this.game);
         this.verticalMovement.update(this, this.game);
-        this.specialMoveComponent.update(this, this.game);
+        this.specialMove.update(this, this.game);
         this.lastY = this.y;
         this.game.physics.arcade.overlap(this.player, this);
     }
@@ -51,9 +51,6 @@ class Obstacle extends Phaser.Sprite {
         this.kill();
         this.update = () => {};
     }
-
-    // None here, override this in children
-    specialMove() {}
 
     turnOff() {
         this.timer.stop();
