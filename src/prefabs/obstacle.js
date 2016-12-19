@@ -1,5 +1,6 @@
 import colorscheme from '../colorscheme';
 import VerticalMovement from '../components/verticalMovement';
+import SpecialMove from '../components/specialMove';
 import Component from '../components/component';
 
 class Obstacle extends Phaser.Sprite {
@@ -12,6 +13,7 @@ class Obstacle extends Phaser.Sprite {
 
         this.horizontalMovement = horizontalMovement || new Component();
         this.verticalMovement = new VerticalMovement();
+        this.specialMoveComponent = new SpecialMove();
 
         this.player = player;
         this.tint = color;
@@ -31,6 +33,7 @@ class Obstacle extends Phaser.Sprite {
         this.reset(this.originalX, this.originalY);
         this.horizontalMovement.activate(level);
         this.verticalMovement.activate(level);
+        this.specialMoveComponent.activate(level);
         this.update = this.onUpdate;
         this.lastY = this.y;
     }
@@ -38,10 +41,7 @@ class Obstacle extends Phaser.Sprite {
     onUpdate() {
         this.horizontalMovement.update(this, this.game);
         this.verticalMovement.update(this, this.game);
-
-        if (this.specialMoveTrigger <= this.y && this.specialMoveTrigger > this.lastY) {
-            this.specialMove();
-        }
+        this.specialMoveComponent.update(this, this.game);
         this.lastY = this.y;
         this.game.physics.arcade.overlap(this.player, this);
     }
