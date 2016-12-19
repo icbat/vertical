@@ -8,12 +8,9 @@ class HorizontalMovement extends Component {
             entity.x += (this.targetX - entity.x) * 0.1 * game.time.elapsed / config.physics.delta;
         }
     }
+
     activate(level) {
         this.targetX = null;
-    }
-
-    setTarget(targetX) {
-        this.targetX = targetX;
     }
 
 }

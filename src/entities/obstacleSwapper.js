@@ -16,7 +16,7 @@ class ObstacleSwapper extends Obstacle {
         const targetIndex = this.findOpenNeighborLane(columns, indices, neighboringLanes);
         if (targetIndex !== null) {
             this.specialMove.callback = () => {
-                this.horizontalMovement.setTarget(columns[targetIndex]);
+                this.horizontalMovement.targetX = columns[targetIndex];
             };
             this.tint = colorscheme.obstacleSwapper;
         } else {
