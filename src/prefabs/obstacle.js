@@ -17,6 +17,7 @@ class Obstacle extends Phaser.Sprite {
         this.tint = color;
         this.name = name;
         this.visible = false;
+        this.timer = this.game.time.create();
 
         this.originalX = x;
         this.originalY = y;
@@ -55,6 +56,7 @@ class Obstacle extends Phaser.Sprite {
     specialMove() {}
 
     turnOff() {
+        this.timer.stop();
         this.update = () => {};
     }
 }
