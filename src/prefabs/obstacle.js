@@ -8,7 +8,6 @@ class Obstacle extends Phaser.Sprite {
         const y = -36;
         super(game, x, y, 'pixel');
         this.anchor.setTo(0.5, 0.5);
-        this.destroyed = new Phaser.Signal();
         this.specialMoveTrigger = this.game.world.height * 0.3;
 
         this.horizontalMovement = horizontalMovement || new Component();
@@ -47,8 +46,6 @@ class Obstacle extends Phaser.Sprite {
     }
 
     dead() {
-        // TODO can use the onKilled signal
-        this.destroyed.dispatch();
         this.tint = this.originalTint;
         this.kill();
         this.update = () => {};

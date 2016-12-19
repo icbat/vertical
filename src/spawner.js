@@ -26,7 +26,7 @@ class Spawner {
             let obstacle = new Type(game, column, player);
             pool.push(obstacle);
             this.spriteBatch.addChild(obstacle);
-            obstacle.destroyed.add(() => {
+            obstacle.events.onKilled.add(() => {
                 this.scoreSignal.dispatch(1);
                 this.game.global.score += 1;
             });
