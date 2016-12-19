@@ -16,6 +16,8 @@ class ObstacleSwapper extends Obstacle {
                 this.horizontalMovement.setTarget(columns[targetIndex]);
             };
             this.tint = colorscheme.obstacleSwapper;
+        } else {
+            this.specialMove = () => {};
         }
     }
 
@@ -43,10 +45,6 @@ class ObstacleSwapper extends Obstacle {
         return null;
     }
 
-    dead() {
-        super.dead();
-        this.specialMove = () => {};
-    }
 }
 
 export default ObstacleSwapper;
