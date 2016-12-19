@@ -27,7 +27,7 @@ class Obstacle extends Phaser.Sprite {
     }
 
     // unused params are only used by children, they're here for documentation
-    activate(level, index, indices, columns) {
+    activate(level, indices, columns) {
         this.reset(this.originalX, this.originalY);
         this.horizontalMovement.activate(level);
         this.verticalMovement.activate(level);

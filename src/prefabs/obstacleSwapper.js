@@ -8,9 +8,10 @@ class ObstacleSwapper extends Obstacle {
         super(game, x, player, colorscheme.obstacleBoring, "Shifty", new HorizontalMovement());
     }
 
-    activate(level, index, indices, columns) {
-        super.activate(level, index, indices, columns);
-        let targetIndex = this.findOpenNeighborLane(columns, indices, index);
+    activate(level, indices, columns) {
+        super.activate(level, indices, columns);
+        const index = this.findIndex(columns, this.originalX);
+        const targetIndex = this.findOpenNeighborLane(columns, indices, index);
         if (targetIndex !== null) {
             this.specialMove = () => {
                 this.horizontalMovement.setTarget(columns[targetIndex]);
@@ -19,6 +20,15 @@ class ObstacleSwapper extends Obstacle {
         } else {
             this.specialMove = () => {};
         }
+    }
+
+    findIndex(columns, x) {
+        for (let index = 0; index < columns.length; ++index) {
+            if (columns[index] === x) {
+                return index;
+            }
+        }
+        return -1;
     }
 
     findOpenNeighborLane(columns, myWaveIndices, myIndex) {
