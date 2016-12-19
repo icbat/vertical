@@ -46,7 +46,7 @@ class Obstacle extends Phaser.Sprite {
         this.game.physics.arcade.overlap(this.player, this);
     }
 
-    dead() {
+    offscreen() {
         this.tint = this.originalTint;
         this.kill();
         this.update = () => {};
