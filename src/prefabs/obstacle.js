@@ -1,4 +1,5 @@
 import colorscheme from '../colorscheme';
+import VerticalMovement from '../components/verticalMovement';
 
 class Obstacle extends Phaser.Sprite {
 
@@ -8,11 +9,12 @@ class Obstacle extends Phaser.Sprite {
         this.destroyed = new Phaser.Signal();
         game.physics.enable(this, Phaser.Physics.ARCADE);
         this.specialMoveTrigger = this.game.world.height * 0.3;
-        this.baseSpeed = 5;
         this.player = player;
         this.initialY = this.y;
         this.alive = false;
         this.name = "UNASSIGNED";
+
+        this.verticalMovement = new VerticalMovement();
 
         this.tint = color;
     }
@@ -20,28 +22,25 @@ class Obstacle extends Phaser.Sprite {
     // unused params are only used by children, they're here for documentation
     activate(level, index, indices, columns) {
         this.level = level;
-        this.initialSpeed = this.baseSpeed + level;
-        this.speed = this.initialSpeed;
+        this.verticalMovement.activate(level);
         this.update = this.onUpdate;
         this.alive = true;
         this.visible = true;
+        this.lastY = this.y;
     }
 
     onUpdate() {
-        if (this.y - this.height > this.game.world.height) {
-            this.reset();
-            return;
-        }
-        this.y += this.speed * this.game.time.elapsed / 15;
-        if (this.specialMoveTrigger <= this.y && this.specialMoveTrigger > this.y - this.speed * this.game.time.elapsed / 15) {
+        this.verticalMovement.update(this, this.game);
+
+        if (this.specialMoveTrigger <= this.y && this.specialMoveTrigger > this.lastY) {
             this.specialMove();
         }
+        this.lastY = this.y;
         this.game.physics.arcade.overlap(this.player, this);
     }
 
     reset() {
         this.destroyed.dispatch();
-        this.speed = 0;
         this.y = this.initialY;
         this.alive = false;
         this.visible = false;

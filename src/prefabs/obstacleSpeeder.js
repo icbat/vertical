@@ -9,7 +9,7 @@ class ObstacleSpeeder extends Obstacle {
     }
 
     specialMove() {
-        this.speed = this.initialSpeed / 2;
+        this.verticalMovement.multiplySpeed(1/2);
     }
 }
 

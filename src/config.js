@@ -7,6 +7,10 @@ let config = {
         slowLevelSpeed: 0,
         probabilitySlowLevel: 0.1,
         probabilityBoringObstacle: 0.7
+    },
+    physics: {
+        baseObstacleSpeed: 5,
+        delta: 15
     }
 };
 
