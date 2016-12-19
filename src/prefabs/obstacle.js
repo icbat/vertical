@@ -1,15 +1,17 @@
 import colorscheme from '../colorscheme';
 import VerticalMovement from '../components/verticalMovement';
+import Component from '../components/component';
 
 class Obstacle extends Phaser.Sprite {
 
-    constructor(game, x, player, color, name) {
+    constructor(game, x, player, color, name, horizontalMovement) {
         const y = -36;
         super(game, x, y, 'pixel');
         this.anchor.setTo(0.5, 0.5);
         this.destroyed = new Phaser.Signal();
         this.specialMoveTrigger = this.game.world.height * 0.3;
 
+        this.horizontalMovement = horizontalMovement || new Component();
         this.verticalMovement = new VerticalMovement();
 
         this.player = player;
@@ -26,6 +28,7 @@ class Obstacle extends Phaser.Sprite {
 
     // unused params are only used by children, they're here for documentation
     activate(level, index, indices, columns) {
+        this.horizontalMovement.activate(level);
         this.verticalMovement.activate(level);
         this.update = this.onUpdate;
         this.alive = true;
@@ -34,6 +37,7 @@ class Obstacle extends Phaser.Sprite {
     }
 
     onUpdate() {
+        this.horizontalMovement.update(this, this.game);
         this.verticalMovement.update(this, this.game);
 
         if (this.specialMoveTrigger <= this.y && this.specialMoveTrigger > this.lastY) {

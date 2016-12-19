@@ -5,13 +5,11 @@ import HorizontalMovement from '../components/horizontalMovement';
 class ObstacleSwapper extends Obstacle {
 
     constructor(game, x, player) {
-        super(game, x, player, colorscheme.obstacleBoring, "Shifty");
-        this.horizontalMovement = new HorizontalMovement();
+        super(game, x, player, colorscheme.obstacleBoring, "Shifty", new HorizontalMovement());
     }
 
     activate(level, index, indices, columns) {
         super.activate(level, index, indices, columns);
-        this.horizontalMovement.activate(level);
         let targetIndex = this.findOpenNeighborLane(columns, indices, index);
         if (targetIndex !== null) {
             this.specialMove = () => {
@@ -19,11 +17,6 @@ class ObstacleSwapper extends Obstacle {
             };
             this.tint = colorscheme.obstacleSwapper;
         }
-    }
-
-    onUpdate() {
-        this.horizontalMovement.update(this, this.game);
-        super.onUpdate();
     }
 
     findOpenNeighborLane(columns, myWaveIndices, myIndex) {
