@@ -56,7 +56,7 @@ class Obstacle extends Phaser.Sprite {
         this.update = () => {};
     }
 
-    turnOff() {
+    freeze() {
         this.timer.stop();
         this.update = () => {};
     }

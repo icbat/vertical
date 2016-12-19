@@ -54,7 +54,7 @@ class Player extends Phaser.Sprite {
         }
     }
 
-    turnOff() {
+    freeze() {
         this.update = () => {};
     }
 

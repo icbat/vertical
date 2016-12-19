@@ -69,14 +69,14 @@ class Spawner {
         }
     }
 
-    turnOff() {
+    freeze() {
         for (let pool of this.spawnPool) {
             for (let obstacle of pool) {
-                obstacle.turnOff();
+                obstacle.freeze();
             }
         }
         for (let obstacle of this.genericSpawnPool) {
-            obstacle.turnOff();
+            obstacle.freeze();
         }
     }
 

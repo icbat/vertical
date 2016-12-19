@@ -114,8 +114,8 @@ class Game extends Phaser.State {
     partialPause() {
         this.spawnTimer.stop();
         this.game.input.onDown.removeAll();
-        this.player.turnOff();
-        this.spawner.turnOff();
+        this.player.freeze();
+        this.spawner.freeze();
 
         this.game.sound.play('hit-sound', 0.4);
 
