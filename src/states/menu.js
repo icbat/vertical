@@ -39,6 +39,7 @@ class Menu extends Phaser.State {
             obstacle.x = this.game.world.width / 5 * (i + 1);
             obstacle.originalX = obstacle.x;
             obstacle.y = obstacleStartingHeight;
+            obstacle.visible = true;
             this.game.add.existing(obstacle);
             obstacle.inputEnabled = true;
             const shiftTween = Phaser.Timer.SECOND * 3/ 5 ;

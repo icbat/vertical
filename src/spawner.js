@@ -63,7 +63,7 @@ class Spawner {
             obstaclePool = this.game.rnd.pick(this.spawnPool);
         }
         let obstacle = obstaclePool[index];
-        if (!obstacle.alive) {
+        if (!obstacle.visible) {
             obstacle.activate(level, index, indices, this.columns);
         } else {
             this.pickObject(index, indices, level);

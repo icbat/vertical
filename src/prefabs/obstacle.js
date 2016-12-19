@@ -17,7 +17,7 @@ class Obstacle extends Phaser.Sprite {
         this.player = player;
         this.tint = color;
         this.name = name;
-        this.alive = false;
+        this.visible = false;
 
         this.originalX = x;
         this.originalY = y;
@@ -28,11 +28,10 @@ class Obstacle extends Phaser.Sprite {
 
     // unused params are only used by children, they're here for documentation
     activate(level, index, indices, columns) {
+        this.reset(this.originalX, this.originalY);
         this.horizontalMovement.activate(level);
         this.verticalMovement.activate(level);
         this.update = this.onUpdate;
-        this.alive = true;
-        this.visible = true;
         this.lastY = this.y;
     }
 
@@ -48,12 +47,10 @@ class Obstacle extends Phaser.Sprite {
     }
 
     dead() {
+        // TODO can use the onKilled signal
         this.destroyed.dispatch();
-        this.y = this.originalY;
         this.tint = this.originalTint;
-        this.x = this.originalX;
-        this.alive = false;
-        this.visible = false;
+        this.kill();
         this.update = () => {};
     }
 
