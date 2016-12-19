@@ -11,7 +11,8 @@ class ObstacleSwapper extends Obstacle {
     activate(level, indices, columns) {
         super.activate(level, indices, columns);
         const index = this.findIndex(columns, this.originalX);
-        const targetIndex = this.findOpenNeighborLane(columns, indices, index);
+        const neighboringLanes = this.getNeighboringLanes(index);
+        const targetIndex = this.findOpenNeighborLane(columns, indices, neighboringLanes);
         if (targetIndex !== null) {
             this.specialMove = () => {
                 this.horizontalMovement.setTarget(columns[targetIndex]);
@@ -31,7 +32,7 @@ class ObstacleSwapper extends Obstacle {
         return -1;
     }
 
-    findOpenNeighborLane(columns, myWaveIndices, myIndex) {
+    getNeighboringLanes(myIndex) {
         let possibleSwaps = [];
         if (myIndex > 0) {
             possibleSwaps.push(myIndex - 1);
@@ -41,6 +42,10 @@ class ObstacleSwapper extends Obstacle {
         }
 
         possibleSwaps = Phaser.ArrayUtils.shuffle(possibleSwaps);
+        return possibleSwaps;
+    }
+
+    findOpenNeighborLane(columns, myWaveIndices, possibleSwaps) {
 
         let possiblePosition;
         let existsInWave = (waveIndex) => {
