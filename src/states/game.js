@@ -1,4 +1,4 @@
-import Player from '../prefabs/player';
+import Player from '../entities/player';
 import ScoreText from '../prefabs/scoreText';
 import Background from '../prefabs/background';
 import Spawner from '../spawner';

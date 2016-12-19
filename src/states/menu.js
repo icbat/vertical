@@ -6,10 +6,10 @@ import ObstacleDeathCount from '../prefabs/obstacleDeathCount';
 import HighScoreText from '../prefabs/highScoreText';
 import Background from '../prefabs/background';
 import MuteButton from '../prefabs/muteButton';
-import ObstacleBoring from '../prefabs/obstacleBoring';
-import ObstacleStopAndGo from '../prefabs/obstacleStopAndGo';
-import ObstacleSpeeder from '../prefabs/obstacleSpeeder';
-import ObstacleSwapper from '../prefabs/obstacleSwapper';
+import ObstacleBoring from '../entities/obstacleBoring';
+import ObstacleStopAndGo from '../entities/obstacleStopAndGo';
+import ObstacleSpeeder from '../entities/obstacleSpeeder';
+import ObstacleSwapper from '../entities/obstacleSwapper';
 
 class Menu extends Phaser.State {
     init(lastScore) {

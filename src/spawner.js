@@ -1,7 +1,7 @@
-import ObstacleBoring from './prefabs/obstacleBoring';
-import ObstacleStopAndGo from './prefabs/obstacleStopAndGo';
-import ObstacleSpeeder from './prefabs/obstacleSpeeder';
-import ObstacleSwapper from './prefabs/obstacleSwapper';
+import ObstacleBoring from './entities/obstacleBoring';
+import ObstacleStopAndGo from './entities/obstacleStopAndGo';
+import ObstacleSpeeder from './entities/obstacleSpeeder';
+import ObstacleSwapper from './entities/obstacleSwapper';
 import config from './config';
 
 class Spawner {
