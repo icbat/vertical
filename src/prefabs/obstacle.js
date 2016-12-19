@@ -4,19 +4,24 @@ import VerticalMovement from '../components/verticalMovement';
 class Obstacle extends Phaser.Sprite {
 
     constructor(game, x, player, color, name) {
-        super(game, x, -36, 'pixel');
+        const y = -36;
+        super(game, x, y, 'pixel');
         this.anchor.setTo(0.5, 0.5);
         this.destroyed = new Phaser.Signal();
-        game.physics.enable(this, Phaser.Physics.ARCADE);
         this.specialMoveTrigger = this.game.world.height * 0.3;
-        this.initialY = this.y;
-        this.alive = false;
 
         this.verticalMovement = new VerticalMovement();
 
         this.player = player;
         this.tint = color;
         this.name = name;
+        this.alive = false;
+
+        this.originalX = x;
+        this.initialY = y;
+        this.originalTint = this.tint;
+
+        game.physics.enable(this, Phaser.Physics.ARCADE);
     }
 
     // unused params are only used by children, they're here for documentation
@@ -41,6 +46,8 @@ class Obstacle extends Phaser.Sprite {
     reset() {
         this.destroyed.dispatch();
         this.y = this.initialY;
+        this.tint = this.originalTint;
+        this.x = this.originalX;
         this.alive = false;
         this.visible = false;
         this.update = () => {};

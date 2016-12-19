@@ -6,8 +6,6 @@ class ObstacleSwapper extends Obstacle {
 
     constructor(game, x, player) {
         super(game, x, player, colorscheme.obstacleBoring, "Shifty");
-        this.originalTint = this.tint;
-        this.originalX = x;
         this.horizontalMovement = new HorizontalMovement();
     }
 
@@ -54,9 +52,7 @@ class ObstacleSwapper extends Obstacle {
 
     reset() {
         super.reset();
-        this.tint = this.originalTint;
         this.specialMove = () => {};
-        this.x = this.originalX;
     }
 }
 
