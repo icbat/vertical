@@ -2,7 +2,7 @@ import colorscheme from '../colorscheme';
 
 class Player extends Phaser.Sprite {
 
-    constructor(game, x, y, columnXVals, endGameCallback, endGameContext) {
+    constructor(game, x, y, endGameCallback, endGameContext) {
         super(game, x, y, 'pixel');
         this.originalY = y;
         // assumes it's a square
@@ -12,7 +12,6 @@ class Player extends Phaser.Sprite {
         game.physics.enable(this, Phaser.Physics.ARCADE);
         this.oldPositions = Array(10).fill(this.x);
 
-        this.columnXVals = columnXVals;
         this.col = 2;
 
         this.body.onOverlap = new Phaser.Signal();
@@ -22,7 +21,7 @@ class Player extends Phaser.Sprite {
     }
 
     update() {
-        let targetX = this.columnXVals[this.col];
+        let targetX = this.game.global.columns[this.col];
         const acceleration = 5;
         if (targetX !== this.x) {
             this.speed += acceleration;
@@ -48,8 +47,8 @@ class Player extends Phaser.Sprite {
 
         if (result < 0) {
             this.col = 0;
-        } else if (result >= this.columnXVals.length) {
-            this.col = this.columnXVals.length - 1;
+        } else if (result >= this.game.global.columns.length) {
+            this.col = this.game.global.columns.length - 1;
         } else {
             this.col = result;
         }

@@ -6,23 +6,22 @@ import config from './config';
 
 class Spawner {
 
-    constructor(game, columns, player, scoreSignal) {
+    constructor(game, player, scoreSignal) {
         this.game = game;
-        this.columns = columns;
         this.scoreSignal = scoreSignal;
         this.spawnPool = [];
         this.spriteBatch = game.add.spriteBatch();
 
-        this.genericSpawnPool = this.poolByType(ObstacleBoring, columns, game, player);
+        this.genericSpawnPool = this.poolByType(ObstacleBoring, game, player);
 
-        this.spawnPool.push(this.poolByType(ObstacleStopAndGo, columns, game, player));
-        this.spawnPool.push(this.poolByType(ObstacleSpeeder, columns, game, player));
-        this.spawnPool.push(this.poolByType(ObstacleSwapper, columns, game, player));
+        this.spawnPool.push(this.poolByType(ObstacleStopAndGo, game, player));
+        this.spawnPool.push(this.poolByType(ObstacleSpeeder, game, player));
+        this.spawnPool.push(this.poolByType(ObstacleSwapper, game, player));
     }
 
-    poolByType(Type, columns, game, player) {
+    poolByType(Type, game, player) {
         let pool = [];
-        for (let column of columns) {
+        for (let column of this.game.global.columns) {
             let obstacle = new Type(game, column, player);
             pool.push(obstacle);
             this.spriteBatch.addChild(obstacle);
@@ -35,7 +34,7 @@ class Spawner {
     }
 
     spawn(level, numberToSpawn, player) {
-        let shuffledOriginals = Phaser.ArrayUtils.shuffle(Phaser.ArrayUtils.numberArray(0, this.columns.length - 1));
+        let shuffledOriginals = Phaser.ArrayUtils.shuffle(Phaser.ArrayUtils.numberArray(0, this.game.global.columns.length - 1));
         let columnVals = new Phaser.ArraySet();
 
         columnVals.add(player.col);
@@ -64,7 +63,7 @@ class Spawner {
         }
         let obstacle = obstaclePool[index];
         if (!obstacle.visible) {
-            obstacle.activate(level, indices, this.columns);
+            obstacle.activate(level, indices);
         } else {
             this.pickObject(index, indices, level);
         }

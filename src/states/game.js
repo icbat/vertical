@@ -7,8 +7,12 @@ import config from '../config';
 class Game extends Phaser.State {
 
     create() {
-        this.game.global.score = 0;
         this.runStarted = new Date();
+
+        const playerSize = 64;
+        const playerY = this.game.world.height * 0.85;
+        this.game.global.columns = [0 + playerSize / 2, this.game.world.centerX / 2 + playerSize / 4, this.game.world.centerX, this.game.world.centerX * 3 / 2 - playerSize / 4, this.game.world.width - playerSize / 2];
+        this.game.global.score = 0;
 
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -17,19 +21,14 @@ class Game extends Phaser.State {
 
         const trackKey = this.game.rnd.pick(this.game.global.tracks);
         this.music = this.game.add.audio(trackKey, 1, true);
-        this.music.play();
 
-        const playerSize = 64;
-        const playerY = this.game.world.height * 0.85;
-        this.columnXVals = [0 + playerSize / 2, this.game.world.centerX / 2 + playerSize / 4, this.game.world.centerX, this.game.world.centerX * 3 / 2 - playerSize / 4, this.game.world.width - playerSize / 2];
-
-        for (let colX of this.columnXVals) {
+        for (let colX of this.game.global.columns) {
             let colSprite = this.game.add.sprite(colX, playerY + playerSize, 'col-shadow');
             colSprite.alpha = 0.5;
             colSprite.anchor.setTo(0.5, 0.5);
         }
 
-        this.player = new Player(this.game, this.game.world.centerX, playerY, this.columnXVals, this.endGame, this);
+        this.player = new Player(this.game, this.game.world.centerX, playerY, this.endGame, this);
 
         this.game.input.onDown.add((click) => {
             let direction;
@@ -48,7 +47,7 @@ class Game extends Phaser.State {
         });
 
         this.scoreSignal = new Phaser.Signal();
-        this.spawner = new Spawner(this.game, this.columnXVals, this.player, this.scoreSignal);
+        this.spawner = new Spawner(this.game, this.player, this.scoreSignal);
         this.setupSpawnTimer(0, this.player);
 
         const scoreText = new ScoreText(this.game, this.game.world.centerX, this.game.world.height * 0.15);
@@ -57,6 +56,7 @@ class Game extends Phaser.State {
         });
 
         this.game.analytics.reportGameStart();
+        this.music.play();
     }
 
     update() {}
@@ -82,7 +82,7 @@ class Game extends Phaser.State {
 
     spawn(level, player) {
         this.game.camera.shake(0.005, 100);
-        let numberToSpawn = this.game.rnd.integerInRange(1, this.columnXVals.length - 1);
+        let numberToSpawn = this.game.rnd.integerInRange(1, this.game.global.columns.length - 1);
         this.spawner.spawn(level % config.spawner.levelsPerSpeedUp, numberToSpawn, player);
     }
 

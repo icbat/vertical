@@ -8,8 +8,9 @@ class ObstacleSwapper extends Obstacle {
         super(game, x, player, colorscheme.obstacleBoring, "Shifty", new HorizontalMovement());
     }
 
-    activate(level, indices, columns) {
-        super.activate(level, indices, columns);
+    activate(level, indices) {
+        super.activate(level, indices);
+        const columns = this.game.global.columns;
         const index = this.findIndex(columns, this.originalX);
         const neighboringLanes = this.getNeighboringLanes(columns, index);
         const targetIndex = this.findOpenNeighborLane(columns, indices, neighboringLanes);
