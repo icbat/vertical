@@ -2,13 +2,29 @@ import Component from "./component";
 
 class NeighborAware extends Component {
 
+    constructor(columns, openLaneCallback, closedLaneCallback) {
+        super();
+        this.columns = columns;
+        this.openLaneCallback = openLaneCallback;
+        this.closedLaneCallback = closedLaneCallback;
+    }
+
     update(entity, game) {}
 
-    activate(entity, level, waveIndicies) {}
+    activate(entity, level, waveIndicies) {
+        const index = this.findIndex(entity);
+        const neighboringLanes = this.getNeighboringLanes(index);
+        const openLaneIndex = this.findOpenNeighborLane(neighboringLanes, waveIndicies);
+        if (openLaneIndex !== null) {
+            this.openLaneCallback(this.columns[openLaneIndex]);
+        } else {
+            this.closedLaneCallback();
+        }
+    }
 
     findIndex(entity) {
-        for (let index = 0; index < this.game.global.columns.length; ++index) {
-            if (this.game.global.columns[index] === entity.x) {
+        for (let index = 0; index < this.columns.length; ++index) {
+            if (this.columns[index] === entity.x) {
                 return index;
             }
         }
@@ -20,16 +36,14 @@ class NeighborAware extends Component {
         if (myIndex > 0) {
             possibleSwaps.push(myIndex - 1);
         }
-        if (myIndex < this.game.global.columns.length - 1) {
+        if (myIndex < this.columns.length - 1) {
             possibleSwaps.push(myIndex + 1);
         }
 
         return Phaser.ArrayUtils.shuffle(possibleSwaps);
     }
 
-    findOpenNeighborLane(entity, indices) {
-        const index = this.neighborAware.findIndex(entity);
-        const neighboringLanes = this.neighborAware.getNeighboringLanes(index);
+    findOpenNeighborLane(neighboringLanes, myWaveIndices) {
         let possiblePosition;
         const existsInWave = (waveIndex) => {
             return waveIndex === possiblePosition;

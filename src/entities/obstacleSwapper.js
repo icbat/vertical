@@ -5,24 +5,17 @@ import NeighborAware from '../components/neighborAware';
 class ObstacleSwapper extends Obstacle {
 
     constructor(game, x, player) {
-        super(game, x, player, colorscheme.obstacleBoring, "Shifty", null);
-        this.neighborAware = new NeighborAware();
-    }
-
-    activate(level, indices) {
-        super.activate(level, indices);
-        const targetIndex = this.neighborAware.findOpenNeighborLane(entity, indices);
-        if (targetIndex !== null) {
+        const openLaneCallback = (openLaneX) => {
             this.specialMove.callback = () => {
-                this.horizontalMovement.targetX = columns[targetIndex];
+                this.horizontalMovement.targetX = openLaneX;
             };
             this.tint = colorscheme.obstacleSwapper;
-        } else {
+        };
+        const closedLaneCallback = () => {
             this.specialMove.callback = () => {};
-        }
+        };
+        super(game, x, player, colorscheme.obstacleBoring, "Shifty", null, new NeighborAware(game.global.columns, openLaneCallback, closedLaneCallback));
     }
-
-
 
 }
 
