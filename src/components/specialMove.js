@@ -15,7 +15,7 @@ class SpecialMove extends Component {
         }
     }
 
-    activate(level) {}
+    activate(entity, level, waveIndicies) {}
 
 }
 

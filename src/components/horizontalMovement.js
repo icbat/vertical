@@ -9,7 +9,7 @@ class HorizontalMovement extends Component {
         }
     }
 
-    activate(level) {
+    activate(entity, level, waveIndicies) {
         this.targetX = null;
     }
 

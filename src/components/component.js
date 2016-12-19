@@ -1,6 +1,6 @@
 class Component {
     update(entity, game) {}
-    activate(level) {}
+    activate(entity, level, waveIndicies) {}
 }
 
 export default Component;

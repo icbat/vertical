@@ -30,11 +30,11 @@ class Obstacle extends Phaser.Sprite {
     }
 
     // unused params are only used by children, they're here for documentation
-    activate(level, indices) {
+    activate(level, waveIndicies) {
         this.reset(this.originalX, this.originalY);
-        this.horizontalMovement.activate(level);
-        this.verticalMovement.activate(level);
-        this.specialMove.activate(level);
+        this.horizontalMovement.activate(this, level, waveIndicies);
+        this.verticalMovement.activate(this, level, waveIndicies);
+        this.specialMove.activate(this, level, waveIndicies);
         this.update = this.onUpdate;
         this.lastY = this.y;
     }
