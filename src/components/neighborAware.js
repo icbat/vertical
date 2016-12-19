@@ -2,11 +2,10 @@ import Component from "./component";
 
 class NeighborAware extends Component {
 
-    constructor(columns, openLaneCallback, closedLaneCallback) {
+    constructor(columns, callback) {
         super();
         this.columns = columns;
-        this.openLaneCallback = openLaneCallback;
-        this.closedLaneCallback = closedLaneCallback;
+        this.callback = callback;
     }
 
     update(entity, game) {}
@@ -15,11 +14,7 @@ class NeighborAware extends Component {
         const index = this.findIndex(entity);
         const neighboringLanes = this.getNeighboringLanes(index);
         const openLaneIndex = this.findOpenNeighborLane(neighboringLanes, waveIndicies);
-        if (openLaneIndex !== null) {
-            this.openLaneCallback(this.columns[openLaneIndex]);
-        } else {
-            this.closedLaneCallback();
-        }
+        this.callback(this.columns[openLaneIndex]);
     }
 
     findIndex(entity) {
