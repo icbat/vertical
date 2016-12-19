@@ -4,8 +4,7 @@ import Obstacle from './obstacle';
 class ObstacleSpeeder extends Obstacle {
 
     constructor(game, x, player) {
-        super(game, x, player, colorscheme.obstacleSpeeder);
-        this.name = "Speedy";
+        super(game, x, player, colorscheme.obstacleSpeeder, "Speedy");
     }
 
     specialMove() {

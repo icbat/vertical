@@ -4,8 +4,7 @@ import Obstacle from './obstacle';
 class ObstacleStopAndGo extends Obstacle {
 
     constructor(game, x, player) {
-        super(game, x, player, colorscheme.obstacleStopAndGo);
-        this.name = "Stoppy";
+        super(game, x, player, colorscheme.obstacleStopAndGo, "Stoppy");
     }
 
     specialMove() {

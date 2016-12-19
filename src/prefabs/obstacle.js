@@ -3,20 +3,20 @@ import VerticalMovement from '../components/verticalMovement';
 
 class Obstacle extends Phaser.Sprite {
 
-    constructor(game, x, player, color) {
+    constructor(game, x, player, color, name) {
         super(game, x, -36, 'pixel');
         this.anchor.setTo(0.5, 0.5);
         this.destroyed = new Phaser.Signal();
         game.physics.enable(this, Phaser.Physics.ARCADE);
         this.specialMoveTrigger = this.game.world.height * 0.3;
-        this.player = player;
         this.initialY = this.y;
         this.alive = false;
-        this.name = "UNASSIGNED";
 
         this.verticalMovement = new VerticalMovement();
 
+        this.player = player;
         this.tint = color;
+        this.name = name;
     }
 
     // unused params are only used by children, they're here for documentation

@@ -4,11 +4,9 @@ import Obstacle from './obstacle';
 class ObstacleSwapper extends Obstacle {
 
     constructor(game, x, player) {
-        super(game, x, player, colorscheme.obstacleBoring);
+        super(game, x, player, colorscheme.obstacleBoring, "Shifty");
         this.originalTint = this.tint;
         this.originalX = x;
-
-        this.name = "Shifty";
     }
 
     activate(level, index, indices, columns) {
