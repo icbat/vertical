@@ -1,5 +1,6 @@
 import colorscheme from '../colorscheme';
 import Obstacle from './obstacle';
+import HorizontalMovement from '../components/horizontalMovement';
 
 class ObstacleSwapper extends Obstacle {
 
@@ -7,23 +8,23 @@ class ObstacleSwapper extends Obstacle {
         super(game, x, player, colorscheme.obstacleBoring, "Shifty");
         this.originalTint = this.tint;
         this.originalX = x;
+        this.horizontalMovement = new HorizontalMovement();
     }
 
     activate(level, index, indices, columns) {
         super.activate(level, index, indices, columns);
+        this.horizontalMovement.activate(level);
         let targetIndex = this.findOpenNeighborLane(columns, indices, index);
         if (targetIndex !== null) {
             this.specialMove = () => {
-                this.targetX = columns[targetIndex];
+                this.horizontalMovement.setTarget(columns[targetIndex]);
             };
             this.tint = colorscheme.obstacleSwapper;
         }
     }
 
     onUpdate() {
-        if (!!this.targetX && this.targetX != this.x) {
-            this.x += (this.targetX - this.x) * 0.1 * this.game.time.physicsElapsed * this.game.time.desiredFps;
-        }
+        this.horizontalMovement.update(this, this.game);
         super.onUpdate();
     }
 
@@ -55,7 +56,6 @@ class ObstacleSwapper extends Obstacle {
         super.reset();
         this.tint = this.originalTint;
         this.specialMove = () => {};
-        this.targetX = null;
         this.x = this.originalX;
     }
 }
