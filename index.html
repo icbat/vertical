@@ -1,37 +1,139 @@
-<!doctype html>
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <title>vertical</title>
-
-    <!-- build:css main.min.css -->
-    <link rel="stylesheet" href="main.css">
-    <!-- /build -->
-    <!-- build:remove -->
-    <link rel="stylesheet" href="local.css">
-    <!-- /build -->
+    <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
+    <!-- <link rel="icon" type="image/png" href="favicon.png" /> -->
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.min.js"></script>
 </head>
 
 <body>
-
-    <div id="vertical-game" class="game"></div>
-
-    <!-- build:remove -->
-    <script src="http://localhost:35729/livereload.js"></script>
-    <!-- /build -->
-
-    <!-- build:js phaser.min.js -->
-    <script src="node_modules/phaser/build/phaser.min.js"></script>
-    <!-- /build -->
-    <!-- build:js zepto.min.js -->
-    <script src="node_modules/zepto/dist/zepto.min.js"></script>
-    <!-- /build -->
-
-    <!-- build:js bundle.min.js -->
-    <script src="bundle.js"></script>
-    <!-- /build -->
-
+    <div class="metric" id="launches">
+        <h2>App Launches</h2>
+        <div class="data"></div>
+    </div>
+    <div class="metric" id="gamesStarted">
+        <h2>Games Played</h2>
+        <div class="data"></div>
+    </div>
+    <div class="metric" id="uniqueInstallsThatHaveBeenStarted">
+        <h2>Installations</h2>
+        <div class="explanation">Unique installations that have actually been started at least once.</div>
+        <div class="data"></div>
+    </div>
+    <div class="metric" id="usersHaveStartedGames">
+        <h2>Beat the tutorial</h2>
+        <div class="explanation">Percentage of unique users who have both launch the app and also managed to figure out how to play.</div>
+        <div class="data"></div>
+    </div>
+    <div class="metric" id="avgScore">
+        <h2>Average Score</h2>
+        <div class="explanation">(without zero's)</div>
+        <div class="data"></div>
+    </div>
+    <div class="metric" id="highestScore">
+        <h2>Highest Score</h2>
+        <div class="data"></div>
+    </div>
+    <div class="graph" id="dailyPlays" width="400" height="400">
+        <canvas id="dailyPlays-graph" ></canvas>
+    </div>
+    <div class="metric" id="deathsPerObstacle"></div>
 </body>
+
+<script>
+    var baseUrl = "https://vertical-game-stats.herokuapp.com/";
+    $.ajax(baseUrl + 'launch', {
+        dataType: "json",
+        method: "GET",
+        success: function(response) {
+            $('#launches .data').text(response.total);
+        }
+    });
+
+    $.ajax(baseUrl + 'gameStart', {
+        dataType: "json",
+        method: "GET",
+        success: function(response) {
+            $('#gamesStarted .data').text(response.total);
+        }
+    });
+
+    $.ajax(baseUrl + 'launch/distinct', {
+        dataType: "json",
+        method: "GET",
+        success: function(response) {
+            $('#uniqueInstallsThatHaveBeenStarted .data').text(response.total);
+        }
+    });
+
+    $.ajax(baseUrl + 'launch/distinct', {
+        dataType: "json",
+        method: "GET",
+        success: function(launchResponse) {
+
+            $.ajax(baseUrl + 'gameStart/distinct', {
+                dataType: "json",
+                method: "GET",
+                success: function(gameStartResponse) {
+                    var percentage = gameStartResponse.total / launchResponse.total * 100;
+                    $('#usersHaveStartedGames .data').text(percentage + "%");
+                }
+            });
+        }
+    });
+
+    $.ajax(baseUrl + 'score', {
+        dataType: "json",
+        method: "GET",
+        success: function(response) {
+            var max = 0;
+            for (var i = 0; i < response.data.length; i++) {
+                max = Math.max(response.data[i].score, max);
+            }
+            $('#highestScore .data').text(max);
+        }
+    });
+
+    $.ajax(baseUrl + 'score', {
+        dataType: "json",
+        method: "GET",
+        success: function(response) {
+            var total = 0;
+            var count = 0;
+            for (var i = 0; i < response.data.length; i++) {
+                if (response.data[i].score > 0) {
+                    total += response.data[i].score;
+                    count++;
+                }
+            }
+            $('#avgScore .data').text(total / count);
+        }
+    });
+
+    $.ajax(baseUrl + 'gameStart/daily_totals', {
+        dataType: "json",
+        method: "GET",
+        success: function(response) {
+            var ctx = $("#dailyPlays-graph");
+            var labels = response.labels.map(function(x) {return moment.unix(x).format("Do MMM YYYY")});
+            var datasets = {
+                labels: labels,
+                datasets: [{
+                    label: "Daily games played",
+                    borderWidth: 1,
+                    data: response.data,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)'
+                }],
+            };
+            var myBarChart = new Chart(ctx, {
+                type: 'bar',
+                data: datasets,
+            });
+        }
+    });
+</script>
 
 </html>
