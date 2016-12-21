@@ -17,16 +17,6 @@
         <h2>Games Played</h2>
         <div class="data"></div>
     </div>
-    <div class="metric" id="uniqueInstallsThatHaveBeenStarted">
-        <h2>Installations</h2>
-        <div class="explanation">Unique installations that have actually been started at least once.</div>
-        <div class="data"></div>
-    </div>
-    <div class="metric" id="usersHaveStartedGames">
-        <h2>Beat the tutorial</h2>
-        <div class="explanation">Percentage of unique users who have both launch the app and also managed to figure out how to play.</div>
-        <div class="data"></div>
-    </div>
     <div class="metric" id="avgScore">
         <h2>Average Score</h2>
         <div class="explanation">(without zero's)</div>
@@ -65,22 +55,6 @@
         method: "GET",
         success: function(response) {
             $('#uniqueInstallsThatHaveBeenStarted .data').text(response.total);
-        }
-    });
-
-    $.ajax(baseUrl + 'launch/distinct', {
-        dataType: "json",
-        method: "GET",
-        success: function(launchResponse) {
-
-            $.ajax(baseUrl + 'gameStart/distinct', {
-                dataType: "json",
-                method: "GET",
-                success: function(gameStartResponse) {
-                    var percentage = gameStartResponse.total / launchResponse.total * 100;
-                    $('#usersHaveStartedGames .data').text(percentage + "%");
-                }
-            });
         }
     });
 
